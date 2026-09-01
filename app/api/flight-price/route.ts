@@ -1,6 +1,22 @@
 import { chromium } from "playwright"
+import { NextRequest } from "next/server"
 
-export async function GET(request) {
+interface Flight {
+  price: number | null
+  duration: string | null
+  stops: number | null
+  isDirect: boolean
+  airline: string | null
+  text?: string
+}
+
+interface FlightData {
+  prices: number[]
+  flights: Flight[]
+  pageLength: number
+}
+
+export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url)
   const origin = searchParams.get("origin")
   const destination = searchParams.get("destination")
@@ -15,7 +31,7 @@ export async function GET(request) {
     const url = `https://flight.naver.com/flights/international/${origin}:city-${destination}:airport-${date}?adult=1&isDirect=false&fareType=Y`
 
     browser = await chromium.launch({
-      headless: false, // Use non-headless mode for better compatibility
+      headless: false,
       args: ["--disable-dev-shm-usage", "--no-sandbox"],
     })
 
@@ -25,17 +41,14 @@ export async function GET(request) {
     })
     const page = await context.newPage()
 
-    // Navigate and wait long enough for everything to load
     console.log(`Navigating to: ${url}`)
     await page.goto(url, { waitUntil: "load", timeout: 40000 })
 
-    // Wait for 최저가 (lowest price) element to appear
     await page.waitForFunction(
       () => document.body.innerText.includes("최저가"),
       { timeout: 30000 }
     )
 
-    // Get page info
     const pageInfo = await page.evaluate(() => ({
       title: document.title,
       url: window.location.href,
@@ -49,45 +62,30 @@ export async function GET(request) {
       bodyLength: pageInfo.bodyLength,
     })
 
-    // Extract flight data including prices and transfer info
-    const flightData = await page.evaluate((destination) => {
-      const flights = []
-
-      // Find all flight result containers - look for elements with price + time + transfer info
+    const flightData: FlightData = await page.evaluate((dest: string) => {
+      const flights: Flight[] = []
       const allDivs = Array.from(document.querySelectorAll("div, li"))
 
       allDivs.forEach((element) => {
         const text = element.textContent || ""
-
-        // Skip if element doesn't have flight-like info
         if (!(text.includes("시간") || text.includes("분"))) return
         if (!(text.includes("직항") || text.includes("경유"))) return
-
-        // Skip if too large (probably a container, not a result)
         if (text.length > 2000) return
 
-        // For airport results, try to match destination airport code if provided
-        // Look for destination airport code or city name in the element
-        if (destination && destination.length > 0) {
-          // Check if this element contains the destination airport/city
-          const hasDestination = text.includes(destination.toUpperCase()) || text.includes(destination)
+        if (dest && dest.length > 0) {
+          const hasDestination = text.includes(dest.toUpperCase()) || text.includes(dest)
           if (!hasDestination) return
         }
 
-        // Check if this element has "최저가" (lowest price) badge
         const hasLowestPrice = text.includes("최저가")
         if (!hasLowestPrice) return
 
-        // Extract ALL prices from this element and get the LAST/HIGHEST valid one
-        // (The most relevant price is typically at the end)
         const priceMatches = text.match(/(\d{1,3}(?:,\d{3})+|\d{5,})/g) || []
-        let price = null
+        let price: number | null = null
 
-        // Get the last valid price (usually the main price)
         for (let i = priceMatches.length - 1; i >= 0; i--) {
-          const priceStr = priceMatches[i].replace(/,/g, "")
+          const priceStr = priceMatches[i]!.replace(/,/g, "")
           const priceNum = parseInt(priceStr)
-          // Get the last valid price found
           if (priceNum >= 100000 && priceNum <= 9999999) {
             price = priceNum
             break
@@ -96,13 +94,9 @@ export async function GET(request) {
 
         if (!price) return
 
-        // Extract airline - look for common airline names
-        let airline = null
-
-        // Split text into lines and look for airline info
+        let airline: string | null = null
         const lines = text.split('\n').map(l => l.trim())
 
-        // Common airline patterns to search for
         const airlinePatterns = [
           /아시아나항공/i,
           /대한항공/i,
@@ -120,10 +114,9 @@ export async function GET(request) {
           /싱가포르|Singapore/i,
           /KE|Korean Air/i,
           /OZ|Asiana/i,
-          /([가-힣]+항공)/,  // Any Korean airline with 항공
+          /([가-힣]+항공)/,
         ]
 
-        // Search each line for airline keywords
         for (const line of lines) {
           for (const pattern of airlinePatterns) {
             const match = line.match(pattern)
@@ -135,43 +128,37 @@ export async function GET(request) {
           if (airline) break
         }
 
-        // Extract duration
         const durationMatch = text.match(/(\d+)\s*시간\s*(\d+)\s*분/)
         const duration = durationMatch ? `${durationMatch[1]}시간 ${durationMatch[2]}분` : null
 
-        // Extract stops/direct - try multiple patterns
-        let stops = null
+        let stops: number | null = null
         let isDirect = false
 
-        // Try various patterns for transfer info
         const stopsPatterns = [
-          /(\d+)\s*회\s*경유/,           // "2회 경유" or "2 회 경유"
-          /(\d+)회경유/,                  // "2회경유" (no space)
-          /경유\s*(\d+)\s*회/,            // "경유 2회"
-          /경유\s*(\d+)/,                 // "경유 2"
-          /(\d+)\s*경유/,                 // "2 경유"
+          /(\d+)\s*회\s*경유/,
+          /(\d+)회경유/,
+          /경유\s*(\d+)\s*회/,
+          /경유\s*(\d+)/,
+          /(\d+)\s*경유/,
         ]
 
         for (const pattern of stopsPatterns) {
           const match = text.match(pattern)
           if (match) {
-            stops = parseInt(match[1])
+            stops = parseInt(match[1]!)
             break
           }
         }
 
-        // If no stops found but "경유" is mentioned, assume 1 stop
         if (stops === null && text.includes("경유")) {
           stops = 1
         }
 
-        // Check for direct flight
         if (text.includes("직항")) {
           isDirect = true
           stops = 0
         }
 
-        // Add valid flight (with or without complete duration)
         if (price) {
           flights.push({
             price,
@@ -184,12 +171,11 @@ export async function GET(request) {
         }
       })
 
-      // Sort by price - return cheapest first
-      flights.sort((a, b) => a.price - b.price)
+      flights.sort((a, b) => a.price! - b.price!)
       const bestFlights = flights.slice(0, 10)
 
       console.log("Flight data extracted:", {
-        destination: destination,
+        destination: dest,
         totalFlights: flights.length,
         allFlights: flights.map((f) => ({ price: f.price, airline: f.airline, duration: f.duration, stops: f.stops })),
         bestFlights: bestFlights.map((f) => ({ price: f.price, airline: f.airline, duration: f.duration, stops: f.stops })),
@@ -197,7 +183,7 @@ export async function GET(request) {
       })
 
       return {
-        prices: bestFlights.map((f) => f.price),
+        prices: bestFlights.map((f) => f.price).filter((p): p is number => p !== null),
         flights: bestFlights,
         pageLength: document.body.innerText.length,
       }
@@ -205,12 +191,11 @@ export async function GET(request) {
 
     await browser.close()
 
-    // Ensure we return a price if flights were found
-    let mainPrice = null
+    let mainPrice: number | null = null
     if (flightData.flights && flightData.flights.length > 0) {
       mainPrice = flightData.flights[0].price
     } else if (flightData.prices && flightData.prices.length > 0) {
-      mainPrice = flightData.prices[0]
+      mainPrice = flightData.prices[0]!
     }
 
     return Response.json({
@@ -229,11 +214,12 @@ export async function GET(request) {
         await browser.close()
       } catch {}
     }
-    console.error("Error scraping:", error.message)
+    const message = error instanceof Error ? error.message : String(error)
+    console.error("Error scraping:", message)
     return Response.json(
       {
         success: false,
-        error: error.message,
+        error: message,
         message:
           "Naver Flight appears to be blocking automated access. Manual API key signup or alternative flight data source required.",
       },

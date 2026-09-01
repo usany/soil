@@ -2,20 +2,93 @@
 
 import React, { Suspense, useEffect, useRef, useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
+import type { Map as LeafletMap, TileLayer, CircleMarker, Marker, Polyline } from "leaflet"
 import universities from "../universities.json"
 
-const esc = (s) =>
+// ── Type definitions ──────────────────────────────────────────────
+
+interface Airport {
+  name: string
+  city: string
+  iata: string
+  icao: string
+  lat: number
+  lon: number
+  distanceKm: number
+}
+
+interface UniversityProperties {
+  [key: string]: string | undefined
+}
+
+interface UniversityRow {
+  id: string
+  title: string
+  url: string
+  lat: number
+  lon: number
+  geocode: string
+  properties: UniversityProperties
+  content: unknown[]
+  nearestAirport: Airport
+}
+
+interface UniversityCategory {
+  label: string
+  generatedAt: string
+  rows: UniversityRow[]
+}
+
+interface UniversitiesData {
+  exchange: UniversityCategory
+  study: UniversityCategory
+}
+
+interface FlightInfo {
+  price: number | null
+  duration: string | null
+  stops: number | null
+  isDirect: boolean
+  airline: string | null
+}
+
+interface FlightPriceResponse {
+  success?: boolean
+  price?: number
+  prices?: number[]
+  flights?: FlightInfo[]
+  error?: string
+  origin?: string
+  destination?: string
+  date?: string
+  url?: string
+}
+
+interface MarkerData {
+  name: string
+  marker: CircleMarker
+  airport: Airport | null
+  language: string
+  departments: string
+  country: string
+}
+
+// ── Helpers ───────────────────────────────────────────────────────
+
+const universitiesData = universities as UniversitiesData
+
+const esc = (s: unknown): string =>
   String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;")
 
 const DEPARTURE = "SEL"
 
-function popupHtml(row, lang) {
+function popupHtml(row: UniversityRow, lang: string): string {
   const p = row.properties || {}
-  const parts = [`<b style="font-size:15px">${esc(row.title)}</b>`]
+  const parts: string[] = [`<b style="font-size:15px">${esc(row.title)}</b>`]
   const a = row.nearestAirport
   if (a) {
     const code = a.iata || a.icao || ""
-    const today = new Date().toISOString().split("T")[0]
+    const today = new Date().toISOString().split("T")[0]!
     const suffix = `${code || a.lat}-${a.lon}`
     parts.push(
       `<div style="margin-top:4px;font-size:12px;color:#0f766e">✈ ${esc(a.name)}` +
@@ -27,7 +100,7 @@ function popupHtml(row, lang) {
       `</form>`
     )
   }
-  const add = (k, label) => {
+  const add = (k: string, label: string) => {
     const v = p[k]
     if (v && String(v).trim()) parts.push(`<div style="margin-top:4px"><b>${label}:</b> ${esc(v)}</div>`)
   }
@@ -40,21 +113,23 @@ function popupHtml(row, lang) {
   add("Application Due", "Application due")
   add("Nomination due", "Nomination due")
   add("Semester dates", "Semester dates")
-  const links = []
+  const links: string[] = []
   if (p.Website) links.push(`<a href="${esc(p.Website)}" target="_blank" rel="noreferrer">Website</a>`)
   if (p.Factsheet) links.push(`<a href="${esc(p.Factsheet)}" target="_blank" rel="noreferrer">Factsheet</a>`)
   if (links.length) parts.push(`<div style="margin-top:6px">${links.join(" &middot; ")}</div>`)
   return parts.join("")
 }
 
+// ── Home Content Component ────────────────────────────────────────
+
 function HomeContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const mapRef = useRef(null)
-  const mapInstanceRef = useRef(null)
-  const markersRef = useRef([])
-  const shownAirportsRef = useRef(new Map())
-  const tileLayerRef = useRef(null)
+  const mapRef = useRef<HTMLDivElement>(null)
+  const mapInstanceRef = useRef<LeafletMap | null>(null)
+  const markersRef = useRef<MarkerData[]>([])
+  const shownAirportsRef = useRef<Map<string, unknown>>(new Map())
+  const tileLayerRef = useRef<TileLayer | null>(null)
   const [searchType, setSearchType] = useState(() => searchParams.get("type") || "name")
   const [searchText, setSearchText] = useState(() => searchParams.get("search") || "")
   const [dark, setDark] = useState(() => {
@@ -69,29 +144,31 @@ function HomeContent() {
     langRef.current = lang
   }, [lang])
 
-  const t = (ko, en) => (lang === "ko" ? ko : en)
-  const searchLabels = {
+  const t = (ko: string, en: string) => (lang === "ko" ? ko : en)
+  const searchLabels: Record<string, string> = {
     name: t("이름으로 검색", "Search by Name"),
     language: t("언어로 검색", "Search by Language"),
     country: t("국가로 검색", "Search by Country"),
     departments: t("학과로 검색", "Search by Departments"),
   }
-  const searchPlaceholders = {
+  const searchPlaceholders: Record<string, string> = {
     name: t("대학교 이름 검색...", "Search university name..."),
     language: t("언어 검색...", "Search language..."),
     departments: t("학과 검색...", "Search departments..."),
     country: t("국가 검색...", "Search country..."),
   }
 
-  const updateUrl = (newText, newType) => {
+  const updateUrl = (newText: string, newType: string) => {
     const params = new URLSearchParams()
     if (newText) params.set("search", newText)
     if (newType !== "name") params.set("type", newType)
-    router.push(`?${params.toString()}`, { shallow: false })
+    router.push(`?${params.toString()}`)
   }
 
-  const filterMarkers = (text, type) => {
+  const filterMarkers = (text: string, type: string) => {
     const searchTerm = text.toLowerCase()
+    const map = mapInstanceRef.current
+    if (!map) return
     markersRef.current.forEach((markerData) => {
       let matches = false
 
@@ -109,22 +186,22 @@ function HomeContent() {
       }
 
       if (matches || searchTerm === "") {
-        markerData.marker.addTo(mapInstanceRef.current)
+        markerData.marker.addTo(map)
       } else {
-        mapInstanceRef.current.removeLayer(markerData.marker)
-        // Hide associated airport marker when location marker is hidden
+        map.removeLayer(markerData.marker)
         if (markerData.airport) {
           const airportKey = markerData.airport.iata || markerData.airport.icao || `${markerData.airport.lat},${markerData.airport.lon}`
           if (shownAirportsRef.current && shownAirportsRef.current.has(airportKey)) {
             const airportMarker = shownAirportsRef.current.get(airportKey)
-            mapInstanceRef.current.removeLayer(airportMarker)
+            if (airportMarker) {
+              map.removeLayer(airportMarker as Marker)
+            }
             shownAirportsRef.current.delete(airportKey)
 
-            // Reset button state
             const formId = `show-airport-form-${airportKey}`
             const form = document.getElementById(formId)
             if (form) {
-              const btn = form.querySelector("button[type='submit']")
+              const btn = form.querySelector("button[type='submit']") as HTMLButtonElement | null
               if (btn) {
                 btn.textContent = "Search ticket"
                 btn.style.background = "#0f766e"
@@ -158,47 +235,45 @@ function HomeContent() {
   useEffect(() => {
     if (mapInstanceRef.current || !mapRef.current) return
 
-    import("leaflet").then(({ default: L }) => {
+    let L: typeof import("leaflet")
+    let cleanup = false
+
+    import("leaflet").then((leaflet) => {
+      if (cleanup) return
+      L = leaflet.default
       import("leaflet/dist/leaflet.css")
 
-      // Choose a default zoom so the world map fills the screen width.
-      // World width at zoom z is 256 * 2^z px, so require that >= screen width.
       const screenWidth = typeof window !== "undefined" ? window.innerWidth : 1024
       const defaultZoom = Math.max(2, Math.ceil(Math.log2(screenWidth / 256)))
 
-      const map = L.map(mapRef.current).setView([20, 0], 2)
-      // const map = L.map(mapRef.current, {
-      //   maxBounds: [[-85, -180], [85, 180]],
-      //   maxBoundsViscosity: 1.0,
-      //   worldCopyJump: false,
-      // }).setView([20, 0], defaultZoom)
+      const map = L.map(mapRef.current!).setView([20, 0], 2)
 
       tileLayerRef.current = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 19,
-        // noWrap: true,
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       }).addTo(map)
 
       const seoulLat = 37.46
       const seoulLon = 126.4
 
-      const drawArc = (map, fromLat, fromLon, toLat, toLon) => {
+      const drawArc = (fromLat: number, fromLon: number, toLat: number, toLon: number) => {
         return L.polyline([[fromLat, fromLon], [toLat, toLon]], { color: "#f59e0b", weight: 2.5, opacity: 0.8, dashArray: "5, 5" }).addTo(map)
       }
 
-      const toggleAirportMarker = (airport, button, dateStr = null, departure = DEPARTURE) => {
+      const toggleAirportMarker = (airport: Airport, button: HTMLButtonElement, dateStr: string | null = null, departure: string = DEPARTURE) => {
         const code = airport.iata || airport.icao
         const key = code || `${airport.lat},${airport.lon}`
 
         if (shownAirportsRef.current.has(key)) {
           const marker = shownAirportsRef.current.get(key)
-          map.removeLayer(marker)
+          if (marker) map.removeLayer(marker as Marker)
           shownAirportsRef.current.delete(key)
 
-          const arc = shownAirportsRef.current.get(`${key}-arc`)
+          const arcKey = `${key}-arc`
+          const arc = shownAirportsRef.current.get(arcKey)
           if (arc) {
-            map.removeLayer(arc)
-            shownAirportsRef.current.delete(`${key}-arc`)
+            map.removeLayer(arc as Polyline)
+            shownAirportsRef.current.delete(arcKey)
           }
 
           button.textContent = "Search ticket"
@@ -221,12 +296,12 @@ function HomeContent() {
           )
           .addTo(map)
 
-        const arc = drawArc(map, seoulLat, seoulLon, airport.lat, airport.lon)
+        const arc = drawArc(seoulLat, seoulLon, airport.lat, airport.lon)
 
         shownAirportsRef.current.set(key, marker)
-        shownAirportsRef.current.set(`${key}-date`, dateStr)
-        shownAirportsRef.current.set(`${key}-departure`, departure)
-        shownAirportsRef.current.set(`${key}-arc`, arc)
+        shownAirportsRef.current.set(`${key}-date`, dateStr as unknown as Marker)
+        shownAirportsRef.current.set(`${key}-departure`, departure as unknown as Marker)
+        shownAirportsRef.current.set(`${key}-arc`, arc as unknown as Marker)
         button.textContent = "Hide from map"
         button.style.background = "#d97706"
 
@@ -235,30 +310,28 @@ function HomeContent() {
           const priceDiv = document.getElementById(`flight-price-${code}`)
           if (!priceDiv) return
 
-          const loadPrice = async (origin) => {
+          const loadPrice = async (origin: string) => {
             priceDiv.innerHTML = `<div style="color:#999">${langRef.current === "ko" ? "가격 불러오는 중..." : "Loading prices..."}</div>`
             let finalDateStr = dateStr
             if (!finalDateStr) {
               const today = new Date()
               const futureDate = new Date(today.getTime() + 9 * 24 * 60 * 60 * 1000)
-              finalDateStr = futureDate.toISOString().split("T")[0].replace(/-/g, "")
+              finalDateStr = futureDate.toISOString().split("T")[0]!.replace(/-/g, "")
             }
 
-            const flightData = await getFlightPrice(origin, code, finalDateStr)
+            const flightData: FlightPriceResponse = await getFlightPrice(origin, code, finalDateStr)
             console.log("Flight response for", code, ":", flightData)
 
             let html = ""
             let priceFound = false
 
-            // Try to get price from flights array first
             if (flightData && flightData.flights && flightData.flights.length > 0) {
-              const flight = flightData.flights[0]
+              const flight = flightData.flights[0]!
               if (flight.price) {
                 const priceStr = flight.price.toLocaleString()
                 html = `<div style="margin-top:4px;font-size:12px;color:#059669"><b>₩${priceStr}</b></div>`
                 priceFound = true
 
-                // Show airline if available
                 if (flight.airline) {
                   html += `<div style="margin-top:2px;font-size:11px;color:#555">${flight.airline}</div>`
                 }
@@ -283,14 +356,12 @@ function HomeContent() {
               }
             }
 
-            // Fallback to main price from API if flights extraction failed
             if (!priceFound && flightData && flightData.price) {
               const priceStr = flightData.price.toLocaleString()
               html = `<div style="margin-top:4px;font-size:12px;color:#059669"><b>₩${priceStr}</b></div>`
               priceFound = true
             }
 
-            // Show unavailable if no price found
             if (!priceFound) {
               html = `<div style="margin-top:4px;font-size:11px;color:#999">${t("가격을 확인할 수 없습니다. 다른 출발 날짜나 공항을 시도해 보세요.", "Price unavailable. Try a different departure date or airport.")}</div>`
             }
@@ -301,24 +372,23 @@ function HomeContent() {
         })
 
         marker.on("popupclose", () => {
-          // Hide airport marker when its popup is closed
           const markerKey = code || `${airport.lat},${airport.lon}`
           if (shownAirportsRef.current.has(markerKey)) {
             const airportMarker = shownAirportsRef.current.get(markerKey)
-            map.removeLayer(airportMarker)
+            if (airportMarker) map.removeLayer(airportMarker as Marker)
             shownAirportsRef.current.delete(markerKey)
 
-            const arc = shownAirportsRef.current.get(`${markerKey}-arc`)
+            const arcKey = `${markerKey}-arc`
+            const arc = shownAirportsRef.current.get(arcKey)
             if (arc) {
-              map.removeLayer(arc)
-              shownAirportsRef.current.delete(`${markerKey}-arc`)
+              map.removeLayer(arc as Polyline)
+              shownAirportsRef.current.delete(arcKey)
             }
 
-            // Update button state in location marker popup
             const formId = `show-airport-form-${markerKey}`
             const form = document.getElementById(formId)
             if (form) {
-              const btn = form.querySelector("button[type='submit']")
+              const btn = form.querySelector("button[type='submit']") as HTMLButtonElement | null
               if (btn) {
                 btn.textContent = "Search ticket"
                 btn.style.background = "#0f766e"
@@ -330,21 +400,21 @@ function HomeContent() {
         marker.openPopup()
       }
 
-      const getFlightPrice = async (origin, destination, date) => {
+      const getFlightPrice = async (origin: string, destination: string, date: string): Promise<FlightPriceResponse> => {
         try {
           const url = `/api/flight-price?origin=${origin}&destination=${destination}&date=${date}`
           console.log("Fetching flight prices from:", url)
           const response = await fetch(url)
           const data = await response.json()
           console.log("Flight price response:", data)
-          return data
+          return data as FlightPriceResponse
         } catch (error) {
           console.error("Error fetching flight price:", error)
-          return { error: error.message }
+          return { error: error instanceof Error ? error.message : String(error) }
         }
       }
 
-      const addMarkers = (rows, color) => {
+      const addMarkers = (rows: UniversityRow[], color: string) => {
         rows.forEach((row) => {
           if (row.lat == null || row.lon == null) return
           const marker = L.circleMarker([row.lat, row.lon], {
@@ -357,11 +427,10 @@ function HomeContent() {
             .bindPopup(popupHtml(row, langRef.current))
             .addTo(map)
 
-          // Track marker for filtering
           const properties = row.properties || {}
           markersRef.current.push({
             name: row.title,
-            marker: marker,
+            marker,
             airport: row.nearestAirport,
             language: properties["Language(수학언어)"] || properties.Language || "",
             departments: properties.Departments || "",
@@ -379,10 +448,12 @@ function HomeContent() {
                 form.dataset.attached = "true"
                 form.addEventListener("submit", (e) => {
                   e.preventDefault()
-                  const dateInput = document.getElementById(dateId)
-                  const selectedDate = dateInput.value.replace(/-/g, "")
-                  const submitBtn = form.querySelector("button[type='submit']")
-                  toggleAirportMarker(row.nearestAirport, submitBtn, selectedDate)
+                  const dateInput = document.getElementById(dateId) as HTMLInputElement | null
+                  const selectedDate = dateInput ? dateInput.value.replace(/-/g, "") : ""
+                  const submitBtn = form.querySelector("button[type='submit']") as HTMLButtonElement | null
+                  if (submitBtn) {
+                    toggleAirportMarker(row.nearestAirport, submitBtn, selectedDate)
+                  }
                 })
               }
             }
@@ -390,18 +461,18 @@ function HomeContent() {
         })
       }
 
-      addMarkers(universities.exchange.rows, "#3b82f6")
-      addMarkers(universities.study.rows, "#10b981")
+      addMarkers(universitiesData.exchange.rows, "#3b82f6")
+      addMarkers(universitiesData.study.rows, "#10b981")
 
       mapInstanceRef.current = map
 
-      // Ensure the map fills the container width once it's laid out
       requestAnimationFrame(() => {
         map.invalidateSize()
       })
     })
 
     return () => {
+      cleanup = true
       if (mapInstanceRef.current) {
         mapInstanceRef.current.remove()
         mapInstanceRef.current = null

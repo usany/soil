@@ -19,5 +19,11 @@
     "playwright": "^1.62.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/leaflet": "^1.9.22",
+    "@types/node": "^26.4.0",
+    "@types/react": "^19.2.18",
+    "typescript": "^6.0.3"
   }
 }
