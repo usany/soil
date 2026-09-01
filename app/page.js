@@ -19,12 +19,12 @@ function popupHtml(row, lang) {
     const suffix = `${code || a.lat}-${a.lon}`
     parts.push(
       `<div style="margin-top:4px;font-size:12px;color:#0f766e">✈ ${esc(a.name)}` +
-        (code ? ` (${esc(code)})` : "") +
-        ` &middot; ${a.distanceKm} km</div>` +
-        `<form id="show-airport-form-${suffix}" style="margin-top:6px;display:flex;gap:6px;align-items:center">` +
-        `<input type="date" id="airport-date-${suffix}" value="${today}" style="padding:4px 6px;font-size:12px;border:1px solid #ccc;border-radius:3px">` +
-        `<button type="submit" style="padding:4px 8px;background:#0f766e;color:white;border:none;border-radius:3px;cursor:pointer;font-size:12px">${lang === "ko" ? "티켓 검색" : "Search ticket"}</button>` +
-        `</form>`
+      (code ? ` (${esc(code)})` : "") +
+      ` &middot; ${a.distanceKm} km</div>` +
+      `<form id="show-airport-form-${suffix}" style="margin-top:6px;display:flex;gap:6px;align-items:center">` +
+      `<input type="date" id="airport-date-${suffix}" value="${today}" style="padding:4px 6px;font-size:12px;border:1px solid #ccc;border-radius:3px">` +
+      `<button type="submit" style="padding:4px 8px;background:#0f766e;color:white;border:none;border-radius:3px;cursor:pointer;font-size:12px">${lang === "ko" ? "티켓 검색" : "Search ticket"}</button>` +
+      `</form>`
     )
   }
   const add = (k, label) => {
@@ -166,15 +166,16 @@ function HomeContent() {
       const screenWidth = typeof window !== "undefined" ? window.innerWidth : 1024
       const defaultZoom = Math.max(2, Math.ceil(Math.log2(screenWidth / 256)))
 
-      const map = L.map(mapRef.current, {
-        maxBounds: [[-85, -180], [85, 180]],
-        maxBoundsViscosity: 1.0,
-        worldCopyJump: false,
-      }).setView([20, 0], defaultZoom)
+      const map = L.map(mapRef.current).setView([20, 0], 2)
+      // const map = L.map(mapRef.current, {
+      //   maxBounds: [[-85, -180], [85, 180]],
+      //   maxBoundsViscosity: 1.0,
+      //   worldCopyJump: false,
+      // }).setView([20, 0], defaultZoom)
 
       tileLayerRef.current = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 19,
-        noWrap: true,
+        // noWrap: true,
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       }).addTo(map)
 
@@ -215,8 +216,8 @@ function HomeContent() {
         })
           .bindPopup(
             `<b style="font-size:14px">✈ ${esc(airport.name)}</b>` +
-              `<div style="margin-top:2px;color:#555">${esc(airport.city)}${code ? " &middot; " + esc(code) : ""}</div>` +
-              `<div id="flight-price-${code}" style="margin-top:8px;font-size:12px;color:#666"></div>`
+            `<div style="margin-top:2px;color:#555">${esc(airport.city)}${code ? " &middot; " + esc(code) : ""}</div>` +
+            `<div id="flight-price-${code}" style="margin-top:8px;font-size:12px;color:#666"></div>`
           )
           .addTo(map)
 
@@ -249,52 +250,52 @@ function HomeContent() {
             let html = ""
             let priceFound = false
 
-          // Try to get price from flights array first
-          if (flightData && flightData.flights && flightData.flights.length > 0) {
-            const flight = flightData.flights[0]
-            if (flight.price) {
-              const priceStr = flight.price.toLocaleString()
-              html = `<div style="margin-top:4px;font-size:12px;color:#059669"><b>₩${priceStr}</b></div>`
-              priceFound = true
+            // Try to get price from flights array first
+            if (flightData && flightData.flights && flightData.flights.length > 0) {
+              const flight = flightData.flights[0]
+              if (flight.price) {
+                const priceStr = flight.price.toLocaleString()
+                html = `<div style="margin-top:4px;font-size:12px;color:#059669"><b>₩${priceStr}</b></div>`
+                priceFound = true
 
-              // Show airline if available
-              if (flight.airline) {
-                html += `<div style="margin-top:2px;font-size:11px;color:#555">${flight.airline}</div>`
-              }
-
-              if (flight.duration || flight.stops !== null || flight.isDirect) {
-                html += `<div style="margin-top:3px;font-size:10px;color:#666">`
-
-                if (flight.isDirect) {
-                  html += `직항`
-                } else if (flight.stops !== null && flight.stops > 0) {
-                  html += `${flight.stops}회 경유`
+                // Show airline if available
+                if (flight.airline) {
+                  html += `<div style="margin-top:2px;font-size:11px;color:#555">${flight.airline}</div>`
                 }
 
-                if (flight.duration) {
-                  const hasPreviousInfo = flight.isDirect || (flight.stops !== null && flight.stops > 0)
-                  html += hasPreviousInfo ? ` · ` : ``
-                  html += flight.duration
-                }
+                if (flight.duration || flight.stops !== null || flight.isDirect) {
+                  html += `<div style="margin-top:3px;font-size:10px;color:#666">`
 
-                html += `</div>`
+                  if (flight.isDirect) {
+                    html += `직항`
+                  } else if (flight.stops !== null && flight.stops > 0) {
+                    html += `${flight.stops}회 경유`
+                  }
+
+                  if (flight.duration) {
+                    const hasPreviousInfo = flight.isDirect || (flight.stops !== null && flight.stops > 0)
+                    html += hasPreviousInfo ? ` · ` : ``
+                    html += flight.duration
+                  }
+
+                  html += `</div>`
+                }
               }
             }
-          }
 
-          // Fallback to main price from API if flights extraction failed
-          if (!priceFound && flightData && flightData.price) {
-            const priceStr = flightData.price.toLocaleString()
-            html = `<div style="margin-top:4px;font-size:12px;color:#059669"><b>₩${priceStr}</b></div>`
-            priceFound = true
-          }
+            // Fallback to main price from API if flights extraction failed
+            if (!priceFound && flightData && flightData.price) {
+              const priceStr = flightData.price.toLocaleString()
+              html = `<div style="margin-top:4px;font-size:12px;color:#059669"><b>₩${priceStr}</b></div>`
+              priceFound = true
+            }
 
-          // Show unavailable if no price found
-          if (!priceFound) {
-            html = `<div style="margin-top:4px;font-size:11px;color:#999">${t("가격을 확인할 수 없습니다. 다른 출발 날짜나 공항을 시도해 보세요.", "Price unavailable. Try a different departure date or airport.")}</div>`
-          }
+            // Show unavailable if no price found
+            if (!priceFound) {
+              html = `<div style="margin-top:4px;font-size:11px;color:#999">${t("가격을 확인할 수 없습니다. 다른 출발 날짜나 공항을 시도해 보세요.", "Price unavailable. Try a different departure date or airport.")}</div>`
+            }
 
-          priceDiv.innerHTML = html
+            priceDiv.innerHTML = html
           }
           loadPrice(departure)
         })
