@@ -7,6 +7,7 @@ media/
 node_modules/
 .next/
 .env
+*.tsbuildinfo
 restaurants/management/commands/downloads/
 *.png
 !staticfiles/*.png
