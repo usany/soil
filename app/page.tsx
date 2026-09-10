@@ -62,10 +62,25 @@ const esc = (s: unknown): string =>
 
 const DEPARTURE = "SEL"
 
-function naverFlightUrl(origin: string, destination: string, date: string): string {
-  // date may arrive as YYYY-MM-DD from the input; Naver expects YYYYMMDD.
-  const d = (date || "").replace(/-/g, "")
-  return `https://flight.naver.com/flights/international/${origin}:city-${destination}:airport-${d}?adult=1&isDirect=false&fareType=Y`
+async function searchFlights(origin: string, destination: string, date: string, onResults?: (data: unknown) => void): Promise<void> {
+  try {
+    const response = await fetch("/api/search-flights", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ origin, destination, date }),
+    })
+    if (response.ok) {
+      const data = await response.json()
+      console.log("Flight search results:", data)
+      if (onResults) {
+        onResults(data)
+      }
+    } else {
+      console.error("Flight search failed")
+    }
+  } catch (err) {
+    console.error("Error searching flights:", err)
+  }
 }
 
 function popupHtml(row: UniversityRow, lang: string): string {
@@ -125,6 +140,7 @@ function HomeContent() {
     return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
   })
   const [lang, setLang] = useState(() => (typeof window !== "undefined" ? localStorage.getItem("lang") || "en" : "en"))
+  const [flightResults, setFlightResults] = useState<unknown>(null)
   const langRef = useRef(lang)
   useEffect(() => {
     langRef.current = lang
@@ -254,9 +270,11 @@ function HomeContent() {
                 form.addEventListener("submit", (e) => {
                   e.preventDefault()
                   const dateInput = document.getElementById(dateId) as HTMLInputElement | null
-                  const selectedDate = dateInput ? dateInput.value.replace(/-/g, "") : ""
+                  const selectedDate = dateInput ? dateInput.value : ""
                   if (code) {
-                    window.open(naverFlightUrl(DEPARTURE, code, selectedDate), "_blank", "noopener,noreferrer")
+                    searchFlights(DEPARTURE, code, selectedDate, (results) => {
+                      setFlightResults(results)
+                    })
                   }
                 })
               }
@@ -381,7 +399,112 @@ function HomeContent() {
           {t("KO", "EN")}
         </button>
       </div>
-      <div ref={mapRef} style={{ flex: 1, width: "100%", height: "100%", minHeight: 0 }} />
+      <div style={{ display: "flex", flex: 1, width: "100%", minHeight: 0 }}>
+        <div ref={mapRef} style={{ flex: 1, width: "100%", height: "100%" }} />
+        {flightResults && (
+          <div
+            style={{
+              width: "400px",
+              borderLeft: `1px solid ${dark ? "#333" : "#ddd"}`,
+              overflowY: "auto",
+              padding: "16px",
+              background: dark ? "#111" : "#fafafa",
+              boxSizing: "border-box",
+              zIndex: 999,
+            }}
+          >
+            <div style={{ marginBottom: "12px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <h3 style={{ margin: 0, fontSize: "16px", fontWeight: "600" }}>✈ Flight Results</h3>
+              <button
+                onClick={() => setFlightResults(null)}
+                style={{
+                  padding: "4px 8px",
+                  fontSize: "12px",
+                  background: "#0f766e",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "4px",
+                  cursor: "pointer",
+                }}
+              >
+                ✕
+              </button>
+            </div>
+            <div style={{ fontSize: "12px", color: "#666", marginBottom: "12px" }}>
+              {typeof flightResults === "object" && flightResults !== null && "query" in flightResults
+                ? (flightResults as Record<string, unknown>).query
+                : "Flight search results"}
+            </div>
+            <div style={{ maxHeight: "calc(100vh - 200px)", overflowY: "auto" }}>
+              {typeof flightResults === "object" &&
+              flightResults !== null &&
+              "results" in flightResults &&
+              Array.isArray((flightResults as Record<string, unknown>).results) ? (
+                ((flightResults as Record<string, unknown>).results as unknown[]).length > 0 ? (
+                  (flightResults as Record<string, unknown>).results.map((result: unknown, idx: number) => {
+                    const r = result as Record<string, unknown>
+                    return (
+                      <div
+                        key={idx}
+                        style={{
+                          padding: "12px",
+                          marginBottom: "8px",
+                          background: dark ? "#222" : "#fff",
+                          border: `1px solid ${dark ? "#333" : "#ddd"}`,
+                          borderRadius: "6px",
+                          fontSize: "13px",
+                        }}
+                      >
+                        <a
+                          href={String(r.url || "")}
+                          target="_blank"
+                          rel="noreferrer"
+                          style={{
+                            fontWeight: "600",
+                            marginBottom: "6px",
+                            display: "block",
+                            color: "#0f766e",
+                            textDecoration: "none",
+                          }}
+                        >
+                          {r.title}
+                        </a>
+                        <div
+                          style={{
+                            fontSize: "12px",
+                            color: dark ? "#aaa" : "#666",
+                            marginBottom: "6px",
+                            lineHeight: "1.4",
+                          }}
+                        >
+                          {r.description}
+                        </div>
+                        <div style={{ fontSize: "11px", color: "#999" }}>{r.url}</div>
+                      </div>
+                    )
+                  })
+                ) : (
+                  <div style={{ padding: "12px", textAlign: "center", color: "#999" }}>No results found</div>
+                )
+              ) : (
+                <pre
+                  style={{
+                    fontSize: "11px",
+                    background: dark ? "#0a0a0a" : "#f5f5f5",
+                    padding: "8px",
+                    borderRadius: "4px",
+                    overflow: "auto",
+                    maxHeight: "300px",
+                    color: dark ? "#e0e0e0" : "#333",
+                  }}
+                >
+                  {JSON.stringify(flightResults, null, 2)}
+                </pre>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   )
 }
