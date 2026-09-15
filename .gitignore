@@ -3,8 +3,3 @@
 node_modules/
 .next/
 .env
-restaurants/management/commands/downloads/
-*.png
-!staticfiles/*.png
-!**/static/*.png
-!./khukiestructures.png
