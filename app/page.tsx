@@ -298,11 +298,14 @@ function HomeContent() {
     localStorage.setItem("theme", dark ? "dark" : "light");
     const tile = tileLayerRef.current;
     if (tile) {
-      tile.setUrl(
-        dark
-          ? "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-          : "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-      );
+      const element = (tile as any)._container;
+      if (element) {
+        if (dark) {
+          element.style.filter = "invert(0.93) hue-rotate(180deg)";
+        } else {
+          element.style.filter = "none";
+        }
+      }
     }
   }, [dark]);
 
