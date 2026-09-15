@@ -13,7 +13,7 @@ const esc = (s: unknown): string =>
 
 const DEPARTURE = "SEL";
 
-function getBigMacComparison(row: any, bigMacData: any, lang: string): string {
+function getBigMacComparison(row: any, bigMacData: any, lang: string, isDark: boolean = false): string {
   if (!bigMacData || !bigMacData.countries) return "";
 
   // Map regional names to Big Mac Index country names
@@ -78,22 +78,38 @@ function getBigMacComparison(row: any, bigMacData: any, lang: string): string {
   const percentSign = percentDiff > 0 ? "+" : "";
   const percentColor = percentDiff > 0 ? "#ef4444" : "#059669";
 
-  return `<div style="margin-top:8px;padding:10px;background:#f9fafb;border-radius:6px;border:1px solid #e5e7eb">
-    <div style="font-size:13px;font-weight:700;color:#1f2937;margin-bottom:8px">🍔 Big Mac Index</div>
-    <div style="display:flex;gap:16px;font-size:12px;color:#4b5563;align-items:flex-end">
+  const colors = isDark ? {
+    bg: "#1f2937",
+    border: "#374151",
+    text: "#f3f4f6",
+    textSecondary: "#d1d5db",
+    label: "#e5e7eb",
+    barBg: "#374151",
+  } : {
+    bg: "#f9fafb",
+    border: "#e5e7eb",
+    text: "#1f2937",
+    textSecondary: "#4b5563",
+    label: "#666",
+    barBg: "#e5e7eb",
+  };
+
+  return `<div style="margin-top:8px;padding:10px;background:${colors.bg};border-radius:6px;border:1px solid ${colors.border}">
+    <div style="font-size:13px;font-weight:700;color:${colors.text};margin-bottom:8px">🍔 Big Mac Index</div>
+    <div style="display:flex;gap:16px;font-size:12px;color:${colors.textSecondary};align-items:flex-end;justify-content:center">
       <div style="display:flex;flex-direction:column;align-items:center">
-        <div style="margin-bottom:4px;font-weight:600;color:#666">Korea</div>
-        <div style="width:20px;height:100px;background:#e5e7eb;border-radius:4px;overflow:hidden;margin-bottom:2px;display:flex;align-items:flex-end;justify-content:center">
+        <div style="margin-bottom:4px;font-weight:600;color:${colors.label}">Korea</div>
+        <div style="width:20px;height:100px;background:${colors.barBg};border-radius:4px;overflow:hidden;margin-bottom:2px;display:flex;align-items:flex-end;justify-content:center">
           <div style="width:100%;height:${Math.min(koreaBarWidth, 100)}%;background:#3b82f6;transition:height 0.3s"></div>
         </div>
-        <div style="font-size:11px;color:#6b7280">$${koreaPrice?.toFixed(2) || "N/A"}</div>
+        <div style="font-size:11px;color:${colors.textSecondary}">$${koreaPrice?.toFixed(2) || "N/A"}</div>
       </div>
       <div style="display:flex;flex-direction:column;align-items:center">
-        <div style="margin-bottom:4px;font-weight:600;color:#666">${esc(country.name)}</div>
-        <div style="width:20px;height:100px;background:#e5e7eb;border-radius:4px;overflow:hidden;margin-bottom:2px;display:flex;align-items:flex-end;justify-content:center">
+        <div style="margin-bottom:4px;font-weight:600;color:${colors.label}">${esc(country.name)}</div>
+        <div style="width:20px;height:100px;background:${colors.barBg};border-radius:4px;overflow:hidden;margin-bottom:2px;display:flex;align-items:flex-end;justify-content:center">
           <div style="width:100%;height:${Math.min(selectedBarWidth, 100)}%;background:#10b981;transition:height 0.3s"></div>
         </div>
-        <div style="font-size:11px;color:#6b7280">$${selectedPrice?.toFixed(2) || "N/A"}</div>
+        <div style="font-size:11px;color:${colors.textSecondary}">$${selectedPrice?.toFixed(2) || "N/A"}</div>
       </div>
       <div style="display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:2px">
         <div style="font-size:12px;font-weight:600;color:${percentColor}">${percentSign}${percentDiff.toFixed(1)}%</div>
@@ -102,7 +118,7 @@ function getBigMacComparison(row: any, bigMacData: any, lang: string): string {
   </div>`;
 }
 
-function popupHtml(row: any, lang: string, bigMacData?: any): string {
+function popupHtml(row: any, lang: string, bigMacData?: any, isDark: boolean = false): string {
   const p = row.properties || {};
   const parts = [`<b style="font-size:15px">${esc(row.title)}</b>`];
   const a = row.nearestAirport;
@@ -121,7 +137,7 @@ function popupHtml(row: any, lang: string, bigMacData?: any): string {
 
     // Add Big Mac Index right after search ticket button
     if (bigMacData) {
-      const bigMacHtml = getBigMacComparison(row, bigMacData, lang);
+      const bigMacHtml = getBigMacComparison(row, bigMacData, lang, isDark);
       if (bigMacHtml) airportHtml += bigMacHtml;
     }
 
@@ -189,6 +205,10 @@ function HomeContent() {
   useEffect(() => {
     langRef.current = lang;
   }, [lang]);
+  const darkRef = useRef(dark);
+  useEffect(() => {
+    darkRef.current = dark;
+  }, [dark]);
   const [bigMacData, setBigMacData] = useState(null);
   const bigMacDataRef = useRef(null);
 
@@ -321,11 +341,11 @@ function HomeContent() {
     console.log("Updating markers with Big Mac data");
     markersRef.current.forEach((markerData) => {
       if (markerData.marker && markerData.row) {
-        const html = popupHtml(markerData.row, langRef.current, bigMacData);
+        const html = popupHtml(markerData.row, langRef.current, bigMacData, dark);
         markerData.marker.setPopupContent(html);
       }
     });
-  }, [bigMacData]);
+  }, [bigMacData, dark]);
 
   useEffect(() => {
     if (mapInstanceRef.current || !mapRef.current) return;
@@ -625,7 +645,7 @@ function HomeContent() {
           marker.on("popupopen", () => {
             // Update popup content with current Big Mac data when opened
             marker.setPopupContent(
-              popupHtml(row, langRef.current, bigMacDataRef.current),
+              popupHtml(row, langRef.current, bigMacDataRef.current, darkRef.current),
             );
 
             if (row.nearestAirport) {
