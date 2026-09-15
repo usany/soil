@@ -54,15 +54,15 @@ function getBigMacComparison(row: any, bigMacData: any, lang: string): string {
 
   return `<div style="margin-top:8px;padding:10px;background:#f9fafb;border-radius:6px;border:1px solid #e5e7eb">
     <div style="font-size:13px;font-weight:700;color:#1f2937;margin-bottom:8px">🍔 Big Mac Index</div>
-    <div style="display:flex;gap:12px;font-size:12px;color:#4b5563">
-      <div style="flex:1">
+    <div style="display:flex;flex-direction:column;gap:12px;font-size:12px;color:#4b5563">
+      <div>
         <div style="margin-bottom:4px;font-weight:600;color:#666">Korea</div>
         <div style="height:20px;background:#e5e7eb;border-radius:4px;overflow:hidden;margin-bottom:2px">
           <div style="height:100%;width:${Math.min(koreaBarWidth, 100)}%;background:#3b82f6;transition:width 0.3s"></div>
         </div>
         <div style="font-size:11px;color:#6b7280">$${koreaPrice?.toFixed(2) || "N/A"}</div>
       </div>
-      <div style="flex:1">
+      <div>
         <div style="margin-bottom:4px;font-weight:600;color:#666">${esc(country.name)}</div>
         <div style="height:20px;background:#e5e7eb;border-radius:4px;overflow:hidden;margin-bottom:2px">
           <div style="height:100%;width:${Math.min(selectedBarWidth, 100)}%;background:#10b981;transition:width 0.3s"></div>
