@@ -22,6 +22,8 @@ function getBigMacComparison(row: any, bigMacData: any, lang: string): string {
     scotland: "Britain",
     wales: "Britain",
     "northern ireland": "Britain",
+    germany: "Euro area",
+    deutschland: "Euro area",
   };
 
   // Try to find country by coordinates or name
