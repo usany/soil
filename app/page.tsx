@@ -22,8 +22,27 @@ function getBigMacComparison(row: any, bigMacData: any, lang: string): string {
     scotland: "Britain",
     wales: "Britain",
     "northern ireland": "Britain",
+    // Eurozone countries (use Euro area as proxy since individual data not available)
     germany: "Euro area",
     deutschland: "Euro area",
+    austria: "Euro area",
+    belgium: "Euro area",
+    cyprus: "Euro area",
+    estonia: "Euro area",
+    finland: "Euro area",
+    france: "Euro area",
+    greece: "Euro area",
+    ireland: "Euro area",
+    italy: "Euro area",
+    latvia: "Euro area",
+    lithuania: "Euro area",
+    luxembourg: "Euro area",
+    malta: "Euro area",
+    netherlands: "Euro area",
+    portugal: "Euro area",
+    slovakia: "Euro area",
+    slovenia: "Euro area",
+    spain: "Euro area",
   };
 
   // Try to find country by coordinates or name
