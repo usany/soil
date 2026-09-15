@@ -52,6 +52,11 @@ function getBigMacComparison(row: any, bigMacData: any, lang: string): string {
   const koreaBarWidth = koreaPrice * barScale;
   const selectedBarWidth = selectedPrice * barScale;
 
+  // Calculate percentage difference compared to Korea
+  const percentDiff = koreaPrice ? ((selectedPrice - koreaPrice) / koreaPrice) * 100 : 0;
+  const percentSign = percentDiff > 0 ? "+" : "";
+  const percentColor = percentDiff > 0 ? "#ef4444" : "#059669";
+
   return `<div style="margin-top:8px;padding:10px;background:#f9fafb;border-radius:6px;border:1px solid #e5e7eb">
     <div style="font-size:13px;font-weight:700;color:#1f2937;margin-bottom:8px">🍔 Big Mac Index</div>
     <div style="display:flex;gap:16px;font-size:12px;color:#4b5563;align-items:flex-end">
@@ -68,6 +73,9 @@ function getBigMacComparison(row: any, bigMacData: any, lang: string): string {
           <div style="width:100%;height:${Math.min(selectedBarWidth, 100)}%;background:#10b981;transition:height 0.3s"></div>
         </div>
         <div style="font-size:11px;color:#6b7280">$${selectedPrice?.toFixed(2) || "N/A"}</div>
+      </div>
+      <div style="display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:2px">
+        <div style="font-size:12px;font-weight:600;color:${percentColor}">${percentSign}${percentDiff.toFixed(1)}%</div>
       </div>
     </div>
   </div>`;
