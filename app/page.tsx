@@ -22,8 +22,6 @@ function getBigMacComparison(row: any, bigMacData: any, lang: string): string {
     scotland: "Britain",
     wales: "Britain",
     "northern ireland": "Britain",
-    germany: "Germany",
-    deutschland: "Germany",
   };
 
   // Try to find country by coordinates or name
@@ -34,15 +32,11 @@ function getBigMacComparison(row: any, bigMacData: any, lang: string): string {
 
   const country = bigMacData.countries.find((c: any) => {
     const bigMacCountryName = c.name.toLowerCase();
-    const countryCode = c.code?.toUpperCase() || c.iso2?.toUpperCase() || "";
-
     return (
       regionName.includes(bigMacCountryName) ||
       bigMacCountryName.includes(regionName) ||
       regionName === bigMacCountryName ||
-      (regionName.includes("korea") && countryCode === "KOR") ||
-      (regionName === "germany" && countryCode === "DEU") ||
-      (regionName === "germany" && bigMacCountryName === "germany")
+      (regionName.includes("korea") && c.iso2 === "KOR")
     );
   });
 
