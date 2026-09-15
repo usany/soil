@@ -43,6 +43,7 @@ function getBigMacComparison(row: any, bigMacData: any, lang: string, isDark: bo
     slovakia: "Euro area",
     slovenia: "Euro area",
     spain: "Euro area",
+    turkiye: "Turkey",
   };
 
   // Try to find country by coordinates or name
