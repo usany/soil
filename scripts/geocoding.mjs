@@ -1,20 +1,41 @@
 import fs from "node:fs"
 
 const FILE = "scripts/universities.json"
+const SAVE_EVERY = 10
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
 
 const data = JSON.parse(fs.readFileSync(FILE, "utf8"))
 
-async function geocode(query) {
+// Region names used in the Notion list that Nominatim does not understand as-is
+const REGION_ALIAS = {
+  England: "United Kingdom",
+  Czech: "Czech Republic",
+  Turkiye: "Türkiye",
+  "Mainland China": "China",
+}
+const normalizeRegion = (region) => REGION_ALIAS[region] || region
+
+async function geocode(query, attempt = 0) {
   const url =
     "https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&accept-language=en&q=" +
     encodeURIComponent(query)
-  const res = await fetch(url, {
-    headers: { "user-agent": "khu-university-list-geocoder/1.0 (outbound.mobility@khu.ac.kr)" },
-  })
-  if (res.status === 429) {
-    await sleep(5000)
-    return geocode(query)
+  let res
+  try {
+    res = await fetch(url, {
+      headers: { "user-agent": "khu-university-list-geocoder/1.0 (outbound.mobility@khu.ac.kr)" },
+      signal: AbortSignal.timeout(20000),
+    })
+  } catch (e) {
+    if (attempt >= 3) throw e
+    console.log(`  network error (${e.message}), retrying...`)
+    await sleep(3000 * (attempt + 1))
+    return geocode(query, attempt + 1)
+  }
+  if (res.status === 429 || res.status >= 500) {
+    if (attempt >= 5) throw new Error("geocode " + res.status + " for " + query)
+    console.log(`  HTTP ${res.status}, backing off...`)
+    await sleep(5000 * (attempt + 1))
+    return geocode(query, attempt + 1)
   }
   if (!res.ok) throw new Error("geocode " + res.status + " for " + query)
   const j = await res.json()
@@ -26,7 +47,7 @@ function buildQuery(row) {
   const p = row.properties || {}
   const campus = (p.Campus || "").trim()
   const isSinglePlace = campus && campus !== "All campuses" && !campus.includes(",") && !campus.includes(";") && campus.length < 40
-  const region = (p.Region || "").trim()
+  const region = normalizeRegion((p.Region || "").trim())
   let q = row.title
   if (isSinglePlace) q = `${q}, ${campus}`
   if (region) q = `${q}, ${region}`
@@ -35,7 +56,7 @@ function buildQuery(row) {
 
 function cleanTitle(title) {
   return title
-    .replace(/[\uAC00-\uD7A3]/g, " ")
+    .replace(/[가-힣]/g, " ")
     .replace(/\s*Study Abroad Program\s*/g, " ")
     .replace(/\s*\([^)]*\)\s*/g, " ")
     .replace(/[|].*$/g, "")
@@ -47,7 +68,7 @@ function cleanTitle(title) {
 }
 
 function buildQueries(row) {
-  const region = (row.properties && row.properties.Region || "").trim()
+  const region = normalizeRegion(((row.properties && row.properties.Region) || "").trim())
   const primary = buildQuery(row)
   const cleaned = cleanTitle(row.title)
   const queries = []
@@ -60,6 +81,9 @@ function buildQueries(row) {
   push(cleaned.split(",")[0] + (region ? `, ${region}` : ""))
   const kw = cleaned.match(/^(.{3,}?)\s+(University|Université|Univeristy|Universitat|Hochschule|Institute|Institut|School|College|Polytechnic|Technical|Academy|University of Applied Sciences|대학|유니버시티)/i)
   if (kw && kw[1]) push(kw[1] + (region ? `, ${region}` : ""))
+  // last resort: name only, without region (region in the list is sometimes wrong)
+  push(cleaned)
+  push(cleaned.split(",")[0])
   return queries
 }
 
@@ -76,39 +100,44 @@ const MANUAL = {
   "OST Eastern Switzerland University of Applied Sciences": "Ostschweizer Fachhochschule Campus Rapperswil Jona, Switzerland",
 }
 
-const rows = [...data.lists.exchange.rows, ...data.lists.study.rows]
+const rows = Object.values(data.lists).flatMap((list) => list.rows)
 const done = rows.filter((r) => r.lat != null && r.lon != null)
-console.log(`rows total: ${rows.length}, already geocoded: ${done.length}`)
+const todo = rows.filter((r) => r.lat == null || r.lon == null)
+console.log(`rows total: ${rows.length}, already geocoded: ${done.length}, to do: ${todo.length}`)
+
+const save = () => fs.writeFileSync(FILE, JSON.stringify(data, null, 2))
 
 let ok = 0
 let fail = 0
 let idx = 0
-for (const row of rows) {
-  if (row.lat != null && row.lon != null) continue
-  const queries = buildQueries(row)
-  if (MANUAL[row.title]) queries.push(MANUAL[row.title])
-  let result = null
-  for (const query of queries) {
-    result = await geocode(query)
-    if (result) break
+try {
+  for (const row of todo) {
+    const queries = buildQueries(row)
+    if (MANUAL[row.title]) queries.unshift(MANUAL[row.title])
+    let result = null
+    for (const query of queries) {
+      result = await geocode(query)
+      if (result) break
+      await sleep(1100)
+    }
+    idx++
+    if (result) {
+      row.lat = result.lat
+      row.lon = result.lon
+      row.geocode = result.display
+      ok++
+      console.log(`[${idx}/${todo.length}] ${row.title} -> ${result.display}`)
+    } else {
+      row.lat = null
+      row.lon = null
+      fail++
+      console.log(`[${idx}/${todo.length}] NO RESULT: ${row.title}`)
+    }
+    if (idx % SAVE_EVERY === 0) save()
     await sleep(1100)
   }
-  if (result) {
-    row.lat = result.lat
-    row.lon = result.lon
-    row.geocode = result.display
-    ok++
-  } else {
-    row.lat = null
-    row.lon = null
-    fail++
-    console.log("NO RESULT:", row.title)
-  }
-  idx++
-  if (idx % 10 === 0) console.log(`progress: ${idx}/${rows.length} ok=${ok} fail=${fail}`)
-  await sleep(1100)
+} finally {
+  save()
+  console.log(`DONE. ok=${ok} fail=${fail}`)
+  console.log("saved", FILE)
 }
-
-fs.writeFileSync(FILE, JSON.stringify(data, null, 2))
-console.log(`DONE. ok=${ok} fail=${fail}`)
-console.log("saved", FILE)
