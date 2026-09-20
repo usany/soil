@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
-import { popupHtml } from "../popupHtml";
-import { getFlightPrice } from "../flights";
-import { esc } from "../helpers";
+import { popupHtml } from "../lib/popupHtml";
+import { getFlightPrice } from "../lib/flights";
+import { esc } from "../lib/helpers";
 
 const DEPARTURE = "SEL";
 

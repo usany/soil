@@ -2,8 +2,8 @@
 
 import React, { Suspense, useEffect, useRef, useState } from "react";
 import universities from "../scripts/universities.json";
-import { useSearch } from "./lib/hooks/useSearch";
-import { useMapInitialization } from "./lib/hooks/useMapInitialization";
+import { useSearch } from "./hooks/useSearch";
+import { useMapInitialization } from "./hooks/useMapInitialization";
 import { SearchControls } from "./components/SearchControls";
 
 function HomeContent() {
