@@ -6,7 +6,29 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const DATA_FILE = path.join(__dirname, "..", "universities.json")
 const AIRPORTS_FILE = path.join(__dirname, "airports.dat")
 
-const COUNTRY_MAP = {
+interface Airport {
+  name: string
+  city: string
+  iata: string
+  icao: string
+  lat: number
+  lon: number
+}
+
+interface Row {
+  title: string
+  properties?: Record<string, string>
+  lat?: number | null
+  lon?: number | null
+  nearestAirport?: Airport & { distanceKm: number }
+}
+
+interface Data {
+  exchange: { rows: Row[] }
+  study: { rows: Row[] }
+}
+
+const COUNTRY_MAP: Record<string, string> = {
   "Italy": "Italy",
   "Russia": "Russia",
   "Australia": "Australia",
@@ -48,8 +70,8 @@ const COUNTRY_MAP = {
   "Vietnam": "Vietnam",
 }
 
-function parseCsv(line) {
-  const out = []
+function parseCsv(line: string): string[] {
+  const out: string[] = []
   let cur = ""
   let inQ = false
   for (let k = 0; k < line.length; k++) {
@@ -66,9 +88,9 @@ function parseCsv(line) {
   return out
 }
 
-function loadAirports() {
+function loadAirports(): Map<string, Airport[]> {
   const raw = fs.readFileSync(AIRPORTS_FILE, "utf8")
-  const index = new Map()
+  const index = new Map<string, Airport[]>()
   for (const line of raw.split(/\r?\n/)) {
     if (!line.trim()) continue
     const c = parseCsv(line)
@@ -80,7 +102,7 @@ function loadAirports() {
     const lon = Number(c[7])
     if (!Number.isFinite(lat) || !Number.isFinite(lon)) continue
     const country = c[3]
-    const airport = {
+    const airport: Airport = {
       name: c[1],
       city: c[2],
       iata: c[4],
@@ -89,14 +111,14 @@ function loadAirports() {
       lon,
     }
     if (!index.has(country)) index.set(country, [])
-    index.get(country).push(airport)
+    index.get(country)!.push(airport)
   }
   return index
 }
 
-function haversine(lat1, lon1, lat2, lon2) {
+function haversine(lat1: number, lon1: number, lat2: number, lon2: number): number {
   const R = 6371
-  const toRad = (d) => (d * Math.PI) / 180
+  const toRad = (d: number) => (d * Math.PI) / 180
   const dLat = toRad(lat2 - lat1)
   const dLon = toRad(lon2 - lon1)
   const a =
@@ -105,8 +127,8 @@ function haversine(lat1, lon1, lat2, lon2) {
   return 2 * R * Math.asin(Math.sqrt(a))
 }
 
-function nearestAirport(airports, lat, lon) {
-  let best = null
+function nearestAirport(airports: Airport[], lat: number, lon: number): Airport & { distanceKm: number } {
+  let best: Airport = airports[0]
   let bestDist = Infinity
   for (const a of airports) {
     const d = haversine(lat, lon, a.lat, a.lon)
@@ -121,8 +143,8 @@ function nearestAirport(airports, lat, lon) {
 const airportsByCountry = loadAirports()
 console.log(`loaded ${airportsByCountry.size} countries from airports.dat`)
 
-const data = JSON.parse(fs.readFileSync(DATA_FILE, "utf8"))
-const rows = [...data.exchange.rows, ...data.study.rows]
+const data: Data = JSON.parse(fs.readFileSync(DATA_FILE, "utf8"))
+const rows: Row[] = [...data.exchange.rows, ...data.study.rows]
 let ok = 0
 let noRegion = 0
 let noAirport = 0
