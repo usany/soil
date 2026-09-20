@@ -13,7 +13,7 @@ interface Row {
 }
 
 interface Data {
-  lists: Record<string, { rows: Row[] }>;
+  exchange: { rows: Row[] };
 }
 
 interface GeocodeResult {
@@ -214,7 +214,7 @@ const MANUAL: Record<string, string> = {
     "Ostschweizer Fachhochschule Campus Rapperswil Jona, Switzerland",
 };
 
-const rows = Object.values(data.lists).flatMap((list) => list.rows);
+const rows = data.exchange.rows;
 const done = rows.filter((r) => r.lat != null && r.lon != null);
 const todo = rows.filter((r) => r.lat == null || r.lon == null);
 console.log(

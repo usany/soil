@@ -30,10 +30,7 @@ interface Row {
 }
 
 interface Data {
-  lists: {
-    exchange: { rows: Row[] };
-    study: { rows: Row[] };
-  };
+  exchange: { rows: Row[] };
 }
 
 // Region label used in universities.json -> ISO 3166-1 alpha-2 (OurAirports iso_country)
@@ -186,7 +183,7 @@ console.log(
 );
 
 const data: Data = JSON.parse(fs.readFileSync(DATA_FILE, "utf8"));
-const rows: Row[] = [...data.lists.exchange.rows, ...data.lists.study.rows];
+const rows: Row[] = data.exchange.rows;
 let ok = 0;
 let noRegion = 0;
 let noAirport = 0;

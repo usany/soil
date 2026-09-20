@@ -4,12 +4,7 @@ import { chromium, type Page } from "playwright"
 const LIST_URL = "https://dust-driver-b9b.notion.site/2026-Fall-Exchange-Program-Host-University-List-299195d34d6d81ad8d62f3b191e63222"
 const OUT = "scripts/universities.json"
 
-type ListKey = "exchange" | "study"
-
-const LISTS: Record<ListKey, { label: string; match: RegExp }> = {
-  exchange: { label: "2026 Fall Exchange Program University List", match: /Exchange/i },
-  study: { label: "2026 Fall Study Abroad Program University List", match: /Study Abroad/i },
-}
+const EXCHANGE = { label: "2026 Fall Exchange Program University List", match: /Exchange/i }
 
 interface RowLink {
   url: string
@@ -120,16 +115,13 @@ await page.goto(LIST_URL, { waitUntil: "domcontentloaded", timeout: 120000 })
 await sleep(4000)
 await expandAllRows(page)
 
-const links = await collectRowLinks(page)
+const links = (await collectRowLinks(page)).filter((link) => EXCHANGE.match.test(link.listTitle))
 console.log(`rows found: ${links.length}`)
 
-const lists = Object.fromEntries(
-  (Object.keys(LISTS) as ListKey[]).map((key) => [key, { label: LISTS[key].label, rows: [] as UniversityRow[] }])
-) as Record<ListKey, { label: string; rows: UniversityRow[] }>
+const exchange = { label: EXCHANGE.label, rows: [] as UniversityRow[] }
 
 for (let i = 0; i < links.length; i++) {
   const link = links[i]
-  const key = (Object.keys(LISTS) as ListKey[]).find((k) => LISTS[k].match.test(link.listTitle)) ?? "exchange"
   let detail: Detail | null = null
   for (let attempt = 0; attempt < 3 && !detail; attempt++) {
     try {
@@ -141,7 +133,7 @@ for (let i = 0; i < links.length; i++) {
     }
   }
   if (!detail) continue
-  lists[key].rows.push({
+  exchange.rows.push({
     id: link.url.match(/([0-9a-f]{32})$/)?.[1] ?? link.url,
     title: detail.title || link.title,
     url: link.url,
@@ -155,6 +147,6 @@ for (let i = 0; i < links.length; i++) {
 
 await browser.close()
 
-const out = { generatedAt: new Date().toISOString(), lists }
+const out = { generatedAt: new Date().toISOString(), exchange }
 fs.writeFileSync(OUT, JSON.stringify(out, null, 2))
-console.log(`saved ${OUT}: exchange=${lists.exchange.rows.length}, study=${lists.study.rows.length}`)
+console.log(`saved ${OUT}: exchange=${exchange.rows.length}`)

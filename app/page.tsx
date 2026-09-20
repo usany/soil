@@ -705,8 +705,7 @@ function HomeContent() {
         });
       };
 
-      addMarkers(universities.lists.exchange.rows, "#3b82f6");
-      addMarkers(universities.lists.study.rows, "#10b981");
+      addMarkers(universities.exchange.rows, "#3b82f6");
 
       mapInstanceRef.current = map;
 

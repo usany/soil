@@ -4,10 +4,8 @@ An interactive web application that displays universities on a world map and pro
 
 ## Features
 
-- **Interactive World Map**: Browse exchange and study abroad programs worldwide using an interactive Leaflet-based map
-- **University Markers**: 
-  - Blue markers for exchange programs
-  - Green markers for study programs
+- **Interactive World Map**: Browse exchange programs worldwide using an interactive Leaflet-based map
+- **University Markers**: Blue markers for exchange programs
 - **Airport Information**: Displays nearest airports to each university with distance details
 - **Real-Time Flight Pricing**: Click on airport markers to fetch current flight prices from Naver Flight
 - **Flight Details**: View flight duration, number of stops/transfers, and direct flight availability
