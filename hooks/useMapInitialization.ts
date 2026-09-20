@@ -1,12 +1,12 @@
 import { useEffect, useRef } from "react";
-import { popupHtml } from "../lib/popupHtml";
-import { getFlightPrice } from "../lib/flights";
-import { esc } from "../lib/helpers";
+import { popupHtml } from "@/lib/popupHtml";
+import { getFlightPrice } from "@/lib/flights";
+import { esc } from "@/lib/helpers";
 
 const DEPARTURE = "SEL";
 
 export function useMapInitialization(
-  mapRef: React.RefObject<HTMLDivElement>,
+  mapRef: React.RefObject<HTMLDivElement | null>,
   universities: any,
   dark: boolean,
   lang: string,

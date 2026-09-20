@@ -2,7 +2,7 @@ import fs from "node:fs"
 import { chromium, type Page } from "playwright"
 
 const LIST_URL = "https://dust-driver-b9b.notion.site/2026-Fall-Exchange-Program-Host-University-List-299195d34d6d81ad8d62f3b191e63222"
-const OUT = "scripts/universities.json"
+const OUT = "db/universities.json"
 
 const LABEL = "2026 Fall Exchange Program University List"
 

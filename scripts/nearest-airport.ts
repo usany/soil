@@ -3,9 +3,9 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const DATA_FILE = path.join(__dirname, "..", "scripts/universities.json");
+const DATA_FILE = path.join(__dirname, "..", "db/universities.json");
 // OurAirports open data: https://davidmegginson.github.io/ourairports-data/airports.csv
-const AIRPORTS_FILE = path.join(__dirname, "airports.csv");
+const AIRPORTS_FILE = path.join(__dirname, "..", "db/airports.csv");
 const AIRPORT_TYPES = new Set([
   "large_airport",
   "medium_airport",

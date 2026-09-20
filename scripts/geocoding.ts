@@ -1,6 +1,6 @@
 import fs from "node:fs";
 
-const FILE = "scripts/universities.json";
+const FILE = "db/universities.json";
 const SAVE_EVERY = 10;
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 

@@ -1,10 +1,10 @@
 "use client";
 
 import React, { Suspense, useEffect, useRef, useState } from "react";
-import universities from "../scripts/universities.json";
-import { useSearch } from "./hooks/useSearch";
-import { useMapInitialization } from "./hooks/useMapInitialization";
-import { SearchControls } from "./components/SearchControls";
+import universities from "@/db/universities.json";
+import { useSearch } from "@/hooks/useSearch";
+import { useMapInitialization } from "@/hooks/useMapInitialization";
+import { SearchControls } from "@/components/SearchControls";
 
 function HomeContent() {
   const mapRef = useRef<HTMLDivElement>(null);

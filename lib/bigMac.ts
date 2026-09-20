@@ -1,4 +1,4 @@
-import { esc } from "./helpers";
+import { esc } from "@/lib/helpers";
 
 export function getBigMacComparison(
   row: any,

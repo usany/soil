@@ -1,5 +1,5 @@
-import { esc } from "./helpers";
-import { getBigMacComparison } from "./bigMac";
+import { esc } from "@/lib/helpers";
+import { getBigMacComparison } from "@/lib/bigMac";
 
 export function popupHtml(
   row: any,
