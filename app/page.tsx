@@ -13,7 +13,12 @@ const esc = (s: unknown): string =>
 
 const DEPARTURE = "SEL";
 
-function getBigMacComparison(row: any, bigMacData: any, lang: string, isDark: boolean = false): string {
+function getBigMacComparison(
+  row: any,
+  bigMacData: any,
+  lang: string,
+  isDark: boolean = false,
+): string {
   if (!bigMacData || !bigMacData.countries) return "";
 
   // Map regional names to Big Mac Index country names
@@ -75,25 +80,29 @@ function getBigMacComparison(row: any, bigMacData: any, lang: string, isDark: bo
   const selectedBarWidth = selectedPrice * barScale;
 
   // Calculate percentage difference compared to Korea
-  const percentDiff = koreaPrice ? ((selectedPrice - koreaPrice) / koreaPrice) * 100 : 0;
+  const percentDiff = koreaPrice
+    ? ((selectedPrice - koreaPrice) / koreaPrice) * 100
+    : 0;
   const percentSign = percentDiff > 0 ? "+" : "";
   const percentColor = percentDiff > 0 ? "#ef4444" : "#059669";
 
-  const colors = isDark ? {
-    bg: "#1f2937",
-    border: "#374151",
-    text: "#f3f4f6",
-    textSecondary: "#d1d5db",
-    label: "#e5e7eb",
-    barBg: "#374151",
-  } : {
-    bg: "#f9fafb",
-    border: "#e5e7eb",
-    text: "#1f2937",
-    textSecondary: "#4b5563",
-    label: "#666",
-    barBg: "#e5e7eb",
-  };
+  const colors = isDark
+    ? {
+        bg: "#1f2937",
+        border: "#374151",
+        text: "#f3f4f6",
+        textSecondary: "#d1d5db",
+        label: "#e5e7eb",
+        barBg: "#374151",
+      }
+    : {
+        bg: "#f9fafb",
+        border: "#e5e7eb",
+        text: "#1f2937",
+        textSecondary: "#4b5563",
+        label: "#666",
+        barBg: "#e5e7eb",
+      };
 
   return `<div style="margin-top:8px;padding:10px;background:${colors.bg};border-radius:6px;border:1px solid ${colors.border}">
     <div style="font-size:13px;font-weight:700;color:${colors.text};margin-bottom:8px">🍔 Big Mac Index</div>
@@ -119,7 +128,12 @@ function getBigMacComparison(row: any, bigMacData: any, lang: string, isDark: bo
   </div>`;
 }
 
-function popupHtml(row: any, lang: string, bigMacData?: any, isDark: boolean = false): string {
+function popupHtml(
+  row: any,
+  lang: string,
+  bigMacData?: any,
+  isDark: boolean = false,
+): string {
   const p = row.properties || {};
   const parts = [`<b style="font-size:15px">${esc(row.title)}</b>`];
   const a = row.nearestAirport;
@@ -345,7 +359,12 @@ function HomeContent() {
     console.log("Updating markers with Big Mac data");
     markersRef.current.forEach((markerData) => {
       if (markerData.marker && markerData.row) {
-        const html = popupHtml(markerData.row, langRef.current, bigMacData, dark);
+        const html = popupHtml(
+          markerData.row,
+          langRef.current,
+          bigMacData,
+          dark,
+        );
         markerData.marker.setPopupContent(html);
       }
     });
@@ -649,7 +668,12 @@ function HomeContent() {
           marker.on("popupopen", () => {
             // Update popup content with current Big Mac data when opened
             marker.setPopupContent(
-              popupHtml(row, langRef.current, bigMacDataRef.current, darkRef.current),
+              popupHtml(
+                row,
+                langRef.current,
+                bigMacDataRef.current,
+                darkRef.current,
+              ),
             );
 
             if (row.nearestAirport) {
@@ -681,8 +705,8 @@ function HomeContent() {
         });
       };
 
-      addMarkers(universities.exchange.rows, "#3b82f6");
-      addMarkers(universities.study.rows, "#10b981");
+      addMarkers(universities.lists.exchange.rows, "#3b82f6");
+      addMarkers(universities.lists.study.rows, "#10b981");
 
       mapInstanceRef.current = map;
 
