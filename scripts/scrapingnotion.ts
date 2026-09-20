@@ -4,13 +4,12 @@ import { chromium, type Page } from "playwright"
 const LIST_URL = "https://dust-driver-b9b.notion.site/2026-Fall-Exchange-Program-Host-University-List-299195d34d6d81ad8d62f3b191e63222"
 const OUT = "scripts/universities.json"
 
-const EXCHANGE = { label: "2026 Fall Exchange Program University List", match: /Exchange/i }
+const LABEL = "2026 Fall Exchange Program University List"
 
 interface RowLink {
   url: string
   title: string
   summary: string
-  listTitle: string
 }
 
 interface ContentBlock {
@@ -54,13 +53,7 @@ function collectRowLinks(page: Page): Promise<RowLink[]> {
       if (seen.has(url)) continue
       seen.add(url)
       const lines = text.split("\n").map((s) => s.trim()).filter(Boolean)
-      const block = a.closest<HTMLElement>(".notion-collection_view-block")
-      rows.push({
-        url,
-        title: lines[1] || "",
-        summary: lines.slice(1).join(" | "),
-        listTitle: block ? (block.innerText || "").split("\n")[0].trim() : "",
-      })
+      rows.push({ url, title: lines[1] || "", summary: lines.slice(1).join(" | ") })
     }
     return rows
   })
@@ -115,10 +108,16 @@ await page.goto(LIST_URL, { waitUntil: "domcontentloaded", timeout: 120000 })
 await sleep(4000)
 await expandAllRows(page)
 
-const links = (await collectRowLinks(page)).filter((link) => EXCHANGE.match.test(link.listTitle))
+// Every row on the page (Exchange and Study Abroad lists alike) goes into `exchange`.
+const links = await collectRowLinks(page)
 console.log(`rows found: ${links.length}`)
+if (links.length === 0) {
+  const title = await page.title()
+  await browser.close()
+  throw new Error(`no rows found (page title: "${title}") - not overwriting ${OUT}`)
+}
 
-const exchange = { label: EXCHANGE.label, rows: [] as UniversityRow[] }
+const exchange = { label: LABEL, rows: [] as UniversityRow[] }
 
 for (let i = 0; i < links.length; i++) {
   const link = links[i]
