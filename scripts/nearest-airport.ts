@@ -4,7 +4,9 @@ import { fileURLToPath } from "node:url"
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const DATA_FILE = path.join(__dirname, "..", "universities.json")
-const AIRPORTS_FILE = path.join(__dirname, "airports.dat")
+// OurAirports open data: https://davidmegginson.github.io/ourairports-data/airports.csv
+const AIRPORTS_FILE = path.join(__dirname, "airports.csv")
+const AIRPORT_TYPES = new Set(["large_airport", "medium_airport", "small_airport"])
 
 interface Airport {
   name: string
@@ -28,46 +30,47 @@ interface Data {
   study: { rows: Row[] }
 }
 
+// Region label used in universities.json -> ISO 3166-1 alpha-2 (OurAirports iso_country)
 const COUNTRY_MAP: Record<string, string> = {
-  "Italy": "Italy",
-  "Russia": "Russia",
-  "Australia": "Australia",
-  "Austria": "Austria",
-  "Canada": "Canada",
-  "Finland": "Finland",
-  "France": "France",
-  "Belgium": "Belgium",
-  "Czech": "Czech Republic",
-  "Denmark": "Denmark",
-  "England": "United Kingdom",
-  "Estonia": "Estonia",
-  "Germany": "Germany",
-  "Hong Kong": "Hong Kong",
-  "Indonesia": "Indonesia",
-  "Ireland": "Ireland",
-  "Japan": "Japan",
-  "Kazakhstan": "Kazakhstan",
-  "Lithuania": "Lithuania",
-  "Macau": "Macau",
-  "Mainland China": "China",
-  "Malaysia": "Malaysia",
-  "Mexico": "Mexico",
-  "Morocco": "Morocco",
-  "Netherlands": "Netherlands",
-  "Poland": "Poland",
-  "New Zealand": "New Zealand",
-  "Portugal": "Portugal",
-  "Romania": "Romania",
-  "Singapore": "Singapore",
-  "Spain": "Spain",
-  "Sweden": "Sweden",
-  "Switzerland": "Switzerland",
-  "Taiwan": "Taiwan",
-  "Thailand": "Thailand",
-  "Turkiye": "Turkey",
-  "United States": "United States",
-  "Uruguay": "Uruguay",
-  "Vietnam": "Vietnam",
+  "Italy": "IT",
+  "Russia": "RU",
+  "Australia": "AU",
+  "Austria": "AT",
+  "Canada": "CA",
+  "Finland": "FI",
+  "France": "FR",
+  "Belgium": "BE",
+  "Czech": "CZ",
+  "Denmark": "DK",
+  "England": "GB",
+  "Estonia": "EE",
+  "Germany": "DE",
+  "Hong Kong": "HK",
+  "Indonesia": "ID",
+  "Ireland": "IE",
+  "Japan": "JP",
+  "Kazakhstan": "KZ",
+  "Lithuania": "LT",
+  "Macau": "MO",
+  "Mainland China": "CN",
+  "Malaysia": "MY",
+  "Mexico": "MX",
+  "Morocco": "MA",
+  "Netherlands": "NL",
+  "Poland": "PL",
+  "New Zealand": "NZ",
+  "Portugal": "PT",
+  "Romania": "RO",
+  "Singapore": "SG",
+  "Spain": "ES",
+  "Sweden": "SE",
+  "Switzerland": "CH",
+  "Taiwan": "TW",
+  "Thailand": "TH",
+  "Turkiye": "TR",
+  "United States": "US",
+  "Uruguay": "UY",
+  "Vietnam": "VN",
 }
 
 function parseCsv(line: string): string[] {
@@ -90,23 +93,40 @@ function parseCsv(line: string): string[] {
 
 function loadAirports(): Map<string, Airport[]> {
   const raw = fs.readFileSync(AIRPORTS_FILE, "utf8")
+  const lines = raw.split(/\r?\n/).filter((l) => l.trim())
+  const header = parseCsv(lines[0])
+  const col = (name: string) => {
+    const i = header.indexOf(name)
+    if (i < 0) throw new Error(`airports.csv: missing column ${name}`)
+    return i
+  }
+  const iType = col("type")
+  const iName = col("name")
+  const iLat = col("latitude_deg")
+  const iLon = col("longitude_deg")
+  const iCountry = col("iso_country")
+  const iCity = col("municipality")
+  const iScheduled = col("scheduled_service")
+  const iIcao = col("icao_code")
+  const iIata = col("iata_code")
+
   const index = new Map<string, Airport[]>()
-  for (const line of raw.split(/\r?\n/)) {
-    if (!line.trim()) continue
+  for (const line of lines.slice(1)) {
     const c = parseCsv(line)
-    if (c.length < 14) continue
-    const type = c[12]
-    if (type !== "airport") continue
-    if (c[4] === "\\N") continue
-    const lat = Number(c[6])
-    const lon = Number(c[7])
+    if (c.length <= iIata) continue
+    if (!AIRPORT_TYPES.has(c[iType])) continue
+    // Flight price lookup needs an IATA code and actual scheduled flights
+    if (!c[iIata]) continue
+    if (c[iScheduled] !== "yes") continue
+    const lat = Number(c[iLat])
+    const lon = Number(c[iLon])
     if (!Number.isFinite(lat) || !Number.isFinite(lon)) continue
-    const country = c[3]
+    const country = c[iCountry]
     const airport: Airport = {
-      name: c[1],
-      city: c[2],
-      iata: c[4],
-      icao: c[5],
+      name: c[iName],
+      city: c[iCity],
+      iata: c[iIata],
+      icao: c[iIcao],
       lat,
       lon,
     }
@@ -141,7 +161,7 @@ function nearestAirport(airports: Airport[], lat: number, lon: number): Airport 
 }
 
 const airportsByCountry = loadAirports()
-console.log(`loaded ${airportsByCountry.size} countries from airports.dat`)
+console.log(`loaded ${airportsByCountry.size} countries from airports.csv (OurAirports)`)
 
 const data: Data = JSON.parse(fs.readFileSync(DATA_FILE, "utf8"))
 const rows: Row[] = [...data.exchange.rows, ...data.study.rows]

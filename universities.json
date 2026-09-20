@@ -46,7 +46,7 @@
         ],
         "nearestAirport": {
           "name": "Venice Marco Polo Airport",
-          "city": "Venice",
+          "city": "Venezia (VE)",
           "iata": "VCE",
           "icao": "LIPZ",
           "lat": 45.505299,
@@ -88,12 +88,12 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Bogashevo Airport",
+          "name": "Tomsk Kamov Airport",
           "city": "Tomsk",
           "iata": "TOF",
           "icao": "UNTT",
-          "lat": 56.380298614502,
-          "lon": 85.208297729492,
+          "lat": 56.380299,
+          "lon": 85.208298,
           "distanceKm": 18.1
         }
       },
@@ -133,11 +133,11 @@
         "content": [],
         "nearestAirport": {
           "name": "Sydney Kingsford Smith International Airport",
-          "city": "Sydney",
+          "city": "Sydney (Mascot)",
           "iata": "SYD",
           "icao": "YSSY",
-          "lat": -33.94609832763672,
-          "lon": 151.177001953125,
+          "lat": -33.946098,
+          "lon": 151.177002,
           "distanceKm": 5.9
         }
       },
@@ -193,11 +193,11 @@
         "content": [],
         "nearestAirport": {
           "name": "Sydney Kingsford Smith International Airport",
-          "city": "Sydney",
+          "city": "Sydney (Mascot)",
           "iata": "SYD",
           "icao": "YSSY",
-          "lat": -33.94609832763672,
-          "lon": 151.177001953125,
+          "lat": -33.946098,
+          "lon": 151.177002,
           "distanceKm": 20
         }
       },
@@ -238,9 +238,9 @@
           "city": "Adelaide",
           "iata": "ADL",
           "icao": "YPAD",
-          "lat": -34.945,
-          "lon": 138.531006,
-          "distanceKm": 9.7
+          "lat": -34.947512,
+          "lon": 138.533393,
+          "distanceKm": 9.3
         }
       },
       {
@@ -281,9 +281,9 @@
           "city": "Adelaide",
           "iata": "ADL",
           "icao": "YPAD",
-          "lat": -34.945,
-          "lon": 138.531006,
-          "distanceKm": 9.7
+          "lat": -34.947512,
+          "lon": 138.533393,
+          "distanceKm": 9.3
         }
       },
       {
@@ -325,13 +325,13 @@
           }
         ],
         "nearestAirport": {
-          "name": "Wollongong Airport",
-          "city": "Wollongong",
-          "iata": "WOL",
-          "icao": "YWOL",
-          "lat": -34.561100006103516,
-          "lon": 150.78900146484375,
-          "distanceKm": 19.2
+          "name": "Sydney Kingsford Smith International Airport",
+          "city": "Sydney (Mascot)",
+          "iata": "SYD",
+          "icao": "YSSY",
+          "lat": -33.946098,
+          "lon": 151.177002,
+          "distanceKm": 58
         }
       },
       {
@@ -368,7 +368,7 @@
         "content": [],
         "nearestAirport": {
           "name": "Melbourne Essendon Airport",
-          "city": "Melbourne",
+          "city": "Essendon Fields",
           "iata": "MEB",
           "icao": "YMEN",
           "lat": -37.7281,
@@ -406,7 +406,7 @@
         "content": [],
         "nearestAirport": {
           "name": "Melbourne Essendon Airport",
-          "city": "Melbourne",
+          "city": "Essendon Fields",
           "iata": "MEB",
           "icao": "YMEN",
           "lat": -37.7281,
@@ -443,13 +443,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Toowoomba Airport",
+          "name": "Toowoomba Wellcamp Airport",
           "city": "Toowoomba",
-          "iata": "TWB",
-          "icao": "YTWB",
-          "lat": -27.542801,
-          "lon": 151.916,
-          "distanceKm": 7.2
+          "iata": "WTB",
+          "icao": "YBWW",
+          "lat": -27.558332,
+          "lon": 151.793335,
+          "distanceKm": 14.4
         }
       },
       {
@@ -490,8 +490,8 @@
           "city": "Salzburg",
           "iata": "SZG",
           "icao": "LOWS",
-          "lat": 47.793300628699996,
-          "lon": 13.0043001175,
+          "lat": 47.793301,
+          "lon": 13.0043,
           "distanceKm": 66.4
         }
       },
@@ -589,13 +589,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Hohenems-Dornbirn Airport",
-          "city": "Hohenems",
-          "iata": "HOH",
-          "icao": "LOIH",
-          "lat": 47.3849983215,
-          "lon": 9.69999980927,
-          "distanceKm": 4.1
+          "name": "Innsbruck Airport",
+          "city": "Innsbruck",
+          "iata": "INN",
+          "icao": "LOWI",
+          "lat": 47.260201,
+          "lon": 11.344,
+          "distanceKm": 121.7
         }
       },
       {
@@ -633,7 +633,7 @@
         "content": [],
         "nearestAirport": {
           "name": "Klagenfurt Airport",
-          "city": "Klagenfurt",
+          "city": "Klagenfurt am Wörthersee",
           "iata": "KLU",
           "icao": "LOWK",
           "lat": 46.642502,
@@ -673,13 +673,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Victoria Harbour Seaplane Base",
+          "name": "Victoria International Airport",
           "city": "Victoria",
-          "iata": "YWH",
-          "icao": "CYWH",
-          "lat": 48.4249858939,
-          "lon": -123.388867378,
-          "distanceKm": 6.7
+          "iata": "YYJ",
+          "icao": "CYYJ",
+          "lat": 48.647201,
+          "lon": -123.427792,
+          "distanceKm": 24.4
         }
       },
       {
@@ -716,8 +716,8 @@
           "city": "Vaasa",
           "iata": "VAA",
           "icao": "EFVA",
-          "lat": 63.050701141357,
-          "lon": 21.762199401855,
+          "lat": 63.05023,
+          "lon": 21.762543,
           "distanceKm": 10.6
         }
       },
@@ -754,11 +754,11 @@
         "content": [],
         "nearestAirport": {
           "name": "Rennes-Saint-Jacques Airport",
-          "city": "Rennes",
+          "city": "Saint-Jacques-de-la-Lande, Ille-et-Vilaine",
           "iata": "RNS",
           "icao": "LFRN",
-          "lat": 48.069499969499994,
-          "lon": -1.73478996754,
+          "lat": 48.0695,
+          "lon": -1.73479,
           "distanceKm": 7.2
         }
       },
@@ -795,11 +795,11 @@
         "content": [],
         "nearestAirport": {
           "name": "Graz Airport",
-          "city": "Graz",
+          "city": "Feldkirchen bei Graz",
           "iata": "GRZ",
           "icao": "LOWG",
-          "lat": 46.9911003112793,
-          "lon": 15.439599990844727,
+          "lat": 46.9911,
+          "lon": 15.4396,
           "distanceKm": 9
         }
       },
@@ -833,11 +833,11 @@
         "content": [],
         "nearestAirport": {
           "name": "Graz Airport",
-          "city": "Graz",
+          "city": "Feldkirchen bei Graz",
           "iata": "GRZ",
           "icao": "LOWG",
-          "lat": 46.9911003112793,
-          "lon": 15.439599990844727,
+          "lat": 46.9911,
+          "lon": 15.4396,
           "distanceKm": 7.6
         }
       },
@@ -881,8 +881,8 @@
           "city": "Vienna",
           "iata": "VIE",
           "icao": "LOWW",
-          "lat": 48.110298156738,
-          "lon": 16.569700241089,
+          "lat": 48.110298,
+          "lon": 16.5697,
           "distanceKm": 17.4
         }
       },
@@ -925,11 +925,11 @@
         ],
         "nearestAirport": {
           "name": "Brussels Airport",
-          "city": "Brussels",
+          "city": "Zaventem",
           "iata": "BRU",
           "icao": "EBBR",
-          "lat": 50.901401519800004,
-          "lon": 4.48443984985,
+          "lat": 50.901402,
+          "lon": 4.48444,
           "distanceKm": 12.2
         }
       },
@@ -969,11 +969,11 @@
         "content": [],
         "nearestAirport": {
           "name": "Liège Airport",
-          "city": "Liege",
+          "city": "Grâce-Hollogne",
           "iata": "LGG",
           "icao": "EBLG",
-          "lat": 50.63740158081055,
-          "lon": 5.443220138549805,
+          "lat": 50.638574,
+          "lon": 5.443897,
           "distanceKm": 8.4
         }
       },
@@ -1015,9 +1015,9 @@
           "city": "Charleroi",
           "iata": "CRL",
           "icao": "EBCI",
-          "lat": 50.459202,
-          "lon": 4.45382,
-          "distanceKm": 25.9
+          "lat": 50.461963,
+          "lon": 4.459562,
+          "distanceKm": 25.4
         }
       },
       {
@@ -1054,12 +1054,12 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Thunder Bay Airport",
+          "name": "Thunder Bay International Airport",
           "city": "Thunder Bay",
           "iata": "YQT",
           "icao": "CYQT",
-          "lat": 48.37189865112305,
-          "lon": -89.32389831542969,
+          "lat": 48.371899,
+          "lon": -89.323898,
           "distanceKm": 7
         }
       },
@@ -1101,9 +1101,9 @@
           "city": "Calgary",
           "iata": "YYC",
           "icao": "CYYC",
-          "lat": 51.113899231,
-          "lon": -114.019996643,
-          "distanceKm": 13.8
+          "lat": 51.118822,
+          "lon": -114.009933,
+          "distanceKm": 14.6
         }
       },
       {
@@ -1138,13 +1138,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Victoria Harbour Seaplane Base",
+          "name": "Victoria International Airport",
           "city": "Victoria",
-          "iata": "YWH",
-          "icao": "CYWH",
-          "lat": 48.4249858939,
-          "lon": -123.388867378,
-          "distanceKm": 7
+          "iata": "YYJ",
+          "icao": "CYYJ",
+          "lat": 48.647201,
+          "lon": -123.427792,
+          "distanceKm": 22.3
         }
       },
       {
@@ -1177,13 +1177,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Kamloops Airport",
+          "name": "Kamloops John Moose Fulton Field Regional Airport",
           "city": "Kamloops",
           "iata": "YKA",
           "icao": "CYKA",
-          "lat": 50.7022018433,
-          "lon": -120.444000244,
-          "distanceKm": 6.5
+          "lat": 50.703038,
+          "lon": -120.448641,
+          "distanceKm": 6.9
         }
       },
       {
@@ -1234,12 +1234,12 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Montréal / Saint-Hubert Airport",
-          "city": "Montreal",
+          "name": "Montréal / Saint-Hubert Metropolitan Airport",
+          "city": "Montréal",
           "iata": "YHU",
           "icao": "CYHU",
-          "lat": 45.5175018311,
-          "lon": -73.4169006348,
+          "lat": 45.517502,
+          "lon": -73.416901,
           "distanceKm": 36.9
         }
       },
@@ -1272,13 +1272,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Victoria Harbour Seaplane Base",
+          "name": "Victoria International Airport",
           "city": "Victoria",
-          "iata": "YWH",
-          "icao": "CYWH",
-          "lat": 48.4249858939,
-          "lon": -123.388867378,
-          "distanceKm": 7
+          "iata": "YYJ",
+          "icao": "CYYJ",
+          "lat": 48.647201,
+          "lon": -123.427792,
+          "distanceKm": 22.3
         }
       },
       {
@@ -1316,8 +1316,8 @@
           "city": "Prague",
           "iata": "PRG",
           "icao": "LKPR",
-          "lat": 50.1008,
-          "lon": 14.26,
+          "lat": 50.100874,
+          "lon": 14.259911,
           "distanceKm": 11.2
         }
       },
@@ -1358,9 +1358,9 @@
           "city": "Aarhus",
           "iata": "AAR",
           "icao": "EKAH",
-          "lat": 56.2999992371,
-          "lon": 10.619000434899998,
-          "distanceKm": 29.7
+          "lat": 56.303331,
+          "lon": 10.618286,
+          "distanceKm": 29.8
         }
       },
       {
@@ -1484,13 +1484,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Odense Airport",
+          "name": "Odense Hans Christian Andersen Airport",
           "city": "Odense",
           "iata": "ODE",
           "icao": "EKOD",
-          "lat": 55.47669982910156,
-          "lon": 10.330900192260742,
-          "distanceKm": 13.6
+          "lat": 55.475307,
+          "lon": 10.327206,
+          "distanceKm": 13.5
         }
       },
       {
@@ -1529,12 +1529,12 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Glasgow International Airport",
+          "name": "Glasgow Airport",
           "city": "Glasgow",
           "iata": "GLA",
           "icao": "EGPF",
-          "lat": 55.8718986511,
-          "lon": -4.43306016922,
+          "lat": 55.871899,
+          "lon": -4.43306,
           "distanceKm": 12
         }
       },
@@ -1622,8 +1622,8 @@
           "city": "Liverpool",
           "iata": "LPL",
           "icao": "EGGP",
-          "lat": 53.33359909057617,
-          "lon": -2.849720001220703,
+          "lat": 53.334863,
+          "lon": -2.849637,
           "distanceKm": 12.3
         }
       },
@@ -1664,13 +1664,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Nottingham Airport",
-          "city": "Nottingham",
-          "iata": "NQT",
-          "icao": "EGBN",
-          "lat": 52.91999816894531,
-          "lon": -1.0791699886322021,
-          "distanceKm": 7.3
+          "name": "East Midlands Airport",
+          "city": "Nottingham, Leicestershire",
+          "iata": "EMA",
+          "icao": "EGNX",
+          "lat": 52.8311,
+          "lon": -1.32806,
+          "distanceKm": 13.1
         }
       },
       {
@@ -1702,13 +1702,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Robin Hood Doncaster Sheffield Airport",
-          "city": "Doncaster, Sheffield",
-          "iata": "DSA",
-          "icao": "EGCN",
-          "lat": 53.4805378105,
-          "lon": -1.01065635681,
-          "distanceKm": 34.9
+          "name": "Manchester Airport",
+          "city": "Manchester, Greater Manchester",
+          "iata": "MAN",
+          "icao": "EGCC",
+          "lat": 53.349375,
+          "lon": -2.279521,
+          "distanceKm": 51.4
         }
       },
       {
@@ -1749,13 +1749,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "RAF Linton-On-Ouse",
-          "city": "Linton-on-ouse",
-          "iata": "HRT",
-          "icao": "EGXU",
-          "lat": 54.0489006042,
-          "lon": -1.2527500391,
-          "distanceKm": 13.7
+          "name": "Leeds Bradford Airport",
+          "city": "Leeds, West Yorkshire",
+          "iata": "LBA",
+          "icao": "EGNM",
+          "lat": 53.865898,
+          "lon": -1.66057,
+          "distanceKm": 40.4
         }
       },
       {
@@ -1786,11 +1786,11 @@
         "content": [],
         "nearestAirport": {
           "name": "East Midlands Airport",
-          "city": "East Midlands",
+          "city": "Nottingham, Leicestershire",
           "iata": "EMA",
           "icao": "EGNX",
-          "lat": 52.8311004639,
-          "lon": -1.32806003094,
+          "lat": 52.8311,
+          "lon": -1.32806,
           "distanceKm": 25.7
         }
       },
@@ -1827,11 +1827,11 @@
         "content": [],
         "nearestAirport": {
           "name": "Lennart Meri Tallinn Airport",
-          "city": "Tallinn-ulemiste International",
+          "city": "Tallinn",
           "iata": "TLL",
           "icao": "EETN",
-          "lat": 59.41329956049999,
-          "lon": 24.832799911499997,
+          "lat": 59.413246,
+          "lon": 24.83264,
           "distanceKm": 4.5
         }
       },
@@ -1874,8 +1874,8 @@
           "city": "Turku",
           "iata": "TKU",
           "icao": "EFTU",
-          "lat": 60.514099121094,
-          "lon": 22.262800216675,
+          "lat": 60.514099,
+          "lon": 22.2628,
           "distanceKm": 6.6
         }
       },
@@ -1915,11 +1915,11 @@
         "content": [],
         "nearestAirport": {
           "name": "Tampere-Pirkkala Airport",
-          "city": "Tampere",
+          "city": "Tampere / Pirkkala",
           "iata": "TMP",
           "icao": "EFTP",
-          "lat": 61.414100646973,
-          "lon": 23.604400634766,
+          "lat": 61.414101,
+          "lon": 23.604401,
           "distanceKm": 14.8
         }
       },
@@ -1957,11 +1957,11 @@
         "content": [],
         "nearestAirport": {
           "name": "Tampere-Pirkkala Airport",
-          "city": "Tampere",
+          "city": "Tampere / Pirkkala",
           "iata": "TMP",
           "icao": "EFTP",
-          "lat": 61.414100646973,
-          "lon": 23.604400634766,
+          "lat": 61.414101,
+          "lon": 23.604401,
           "distanceKm": 14.8
         }
       },
@@ -2003,8 +2003,8 @@
           "city": "Vaasa",
           "iata": "VAA",
           "icao": "EFVA",
-          "lat": 63.050701141357,
-          "lon": 21.762199401855,
+          "lat": 63.05023,
+          "lon": 21.762543,
           "distanceKm": 10.6
         }
       },
@@ -2043,13 +2043,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Helsinki Malmi Airport",
-          "city": "Helsinki",
-          "iata": "HEM",
-          "icao": "EFHF",
-          "lat": 60.254600524902344,
-          "lon": 25.042800903320312,
-          "distanceKm": 7.3
+          "name": "Helsinki Vantaa Airport",
+          "city": "Helsinki (Vantaa)",
+          "iata": "HEL",
+          "icao": "EFHK",
+          "lat": 60.318363,
+          "lon": 24.963341,
+          "distanceKm": 13
         }
       },
       {
@@ -2084,13 +2084,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Lahti Vesivehmaa Airport",
-          "city": "Vesivehmaa",
-          "iata": "QLF",
-          "icao": "EFLA",
-          "lat": 61.144199,
-          "lon": 25.693501,
-          "distanceKm": 31.9
+          "name": "Tampere-Pirkkala Airport",
+          "city": "Tampere / Pirkkala",
+          "iata": "TMP",
+          "icao": "EFTP",
+          "lat": 61.414101,
+          "lon": 23.604401,
+          "distanceKm": 83.9
         }
       },
       {
@@ -2127,11 +2127,11 @@
         "content": [],
         "nearestAirport": {
           "name": "Oulu Airport",
-          "city": "Oulu",
+          "city": "Oulu / Oulunsalo",
           "iata": "OUL",
           "icao": "EFOU",
-          "lat": 64.930099487305,
-          "lon": 25.354600906372,
+          "lat": 64.930099,
+          "lon": 25.354601,
           "distanceKm": 15.5
         }
       },
@@ -2170,13 +2170,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Lille-Lesquin Airport",
-          "city": "Lille",
+          "name": "Lille Airport",
+          "city": "Lesquin",
           "iata": "LIL",
           "icao": "LFQQ",
-          "lat": 50.563332,
-          "lon": 3.086886,
-          "distanceKm": 13.4
+          "lat": 50.566564,
+          "lon": 3.102429,
+          "distanceKm": 12.7
         }
       },
       {
@@ -2213,11 +2213,11 @@
         "content": [],
         "nearestAirport": {
           "name": "Rennes-Saint-Jacques Airport",
-          "city": "Rennes",
+          "city": "Saint-Jacques-de-la-Lande, Ille-et-Vilaine",
           "iata": "RNS",
           "icao": "LFRN",
-          "lat": 48.069499969499994,
-          "lon": -1.73478996754,
+          "lat": 48.0695,
+          "lon": -1.73479,
           "distanceKm": 7.2
         }
       },
@@ -2256,12 +2256,12 @@
         "content": [],
         "nearestAirport": {
           "name": "Marseille Provence Airport",
-          "city": "Marseille",
+          "city": "Marignane, Bouches-du-Rhône",
           "iata": "MRS",
           "icao": "LFML",
-          "lat": 43.439271922,
-          "lon": 5.22142410278,
-          "distanceKm": 18.3
+          "lat": 43.438088,
+          "lon": 5.2125,
+          "distanceKm": 19
         }
       },
       {
@@ -2300,13 +2300,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Cherbourg-Maupertus Airport",
-          "city": "Cherbourg",
-          "iata": "CER",
-          "icao": "LFRC",
-          "lat": 49.65010070800781,
-          "lon": -1.4702800512313843,
-          "distanceKm": 312.9
+          "name": "Deauville Normandie airport",
+          "city": "Deauville",
+          "iata": "DOL",
+          "icao": "LFRG",
+          "lat": 49.365237,
+          "lon": 0.154481,
+          "distanceKm": 372.6
         }
       },
       {
@@ -2343,13 +2343,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Villacoublay-Vélizy (BA 107) Air Base",
-          "city": "Villacoublay",
-          "iata": "VIY",
-          "icao": "LFPV",
-          "lat": 48.7741667,
-          "lon": 2.1916667,
-          "distanceKm": 13.9
+          "name": "Paris-Orly Airport",
+          "city": "Paris (Orly, Val-de-Marne)",
+          "iata": "ORY",
+          "icao": "LFPO",
+          "lat": 48.729499,
+          "lon": 2.358963,
+          "distanceKm": 14.4
         }
       },
       {
@@ -2387,11 +2387,11 @@
         "content": [],
         "nearestAirport": {
           "name": "Limoges Airport",
-          "city": "Limoges",
+          "city": "Limoges/Bellegarde",
           "iata": "LIG",
           "icao": "LFBL",
-          "lat": 45.86280059814453,
-          "lon": 1.1794400215148926,
+          "lat": 45.862801,
+          "lon": 1.17944,
           "distanceKm": 7.4
         }
       },
@@ -2429,11 +2429,11 @@
         "content": [],
         "nearestAirport": {
           "name": "Rennes-Saint-Jacques Airport",
-          "city": "Rennes",
+          "city": "Saint-Jacques-de-la-Lande, Ille-et-Vilaine",
           "iata": "RNS",
           "icao": "LFRN",
-          "lat": 48.069499969499994,
-          "lon": -1.73478996754,
+          "lat": 48.0695,
+          "lon": -1.73479,
           "distanceKm": 6.8
         }
       },
@@ -2469,13 +2469,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Orléans-Bricy (BA 123) Air Base",
-          "city": "Orleans",
-          "iata": "ORE",
-          "icao": "LFOJ",
-          "lat": 47.9878005981,
-          "lon": 1.7605600357100002,
-          "distanceKm": 13.2
+          "name": "Paris-Orly Airport",
+          "city": "Paris (Orly, Val-de-Marne)",
+          "iata": "ORY",
+          "icao": "LFPO",
+          "lat": 48.729499,
+          "lon": 2.358963,
+          "distanceKm": 97.8
         }
       },
       {
@@ -2511,13 +2511,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Gustaf III Airport",
-          "city": "Gustavia",
-          "iata": "SBH",
-          "icao": "TFFJ",
-          "lat": 17.904399871826172,
-          "lon": -62.84360122680664,
-          "distanceKm": 2765.2
+          "name": "Ouessant Airport",
+          "city": "Ushant",
+          "iata": "OUI",
+          "icao": "LFEC",
+          "lat": 48.4632,
+          "lon": -5.06358,
+          "distanceKm": 5311.2
         }
       },
       {
@@ -2554,13 +2554,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Valenciennes-Denain Airport",
-          "city": "Valenciennes",
-          "iata": "XVS",
-          "icao": "LFAV",
-          "lat": 50.325801849365234,
-          "lon": 3.4612600803375244,
-          "distanceKm": 6.4
+          "name": "Lille Airport",
+          "city": "Lesquin",
+          "iata": "LIL",
+          "icao": "LFQQ",
+          "lat": 50.566564,
+          "lon": 3.102429,
+          "distanceKm": 37.6
         }
       },
       {
@@ -2593,13 +2593,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Villacoublay-Vélizy (BA 107) Air Base",
-          "city": "Villacoublay",
-          "iata": "VIY",
-          "icao": "LFPV",
-          "lat": 48.7741667,
-          "lon": 2.1916667,
-          "distanceKm": 13.9
+          "name": "Paris-Orly Airport",
+          "city": "Paris (Orly, Val-de-Marne)",
+          "iata": "ORY",
+          "icao": "LFPO",
+          "lat": 48.729499,
+          "lon": 2.358963,
+          "distanceKm": 13.6
         }
       },
       {
@@ -2638,13 +2638,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Villacoublay-Vélizy (BA 107) Air Base",
-          "city": "Villacoublay",
-          "iata": "VIY",
-          "icao": "LFPV",
-          "lat": 48.7741667,
-          "lon": 2.1916667,
-          "distanceKm": 13.9
+          "name": "Paris-Orly Airport",
+          "city": "Paris (Orly, Val-de-Marne)",
+          "iata": "ORY",
+          "icao": "LFPO",
+          "lat": 48.729499,
+          "lon": 2.358963,
+          "distanceKm": 13.1
         }
       },
       {
@@ -2675,13 +2675,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Villacoublay-Vélizy (BA 107) Air Base",
-          "city": "Villacoublay",
-          "iata": "VIY",
-          "icao": "LFPV",
-          "lat": 48.7741667,
-          "lon": 2.1916667,
-          "distanceKm": 12.2
+          "name": "Paris-Orly Airport",
+          "city": "Paris (Orly, Val-de-Marne)",
+          "iata": "ORY",
+          "icao": "LFPO",
+          "lat": 48.729499,
+          "lon": 2.358963,
+          "distanceKm": 16.8
         }
       },
       {
@@ -2713,12 +2713,12 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Bordeaux-Mérignac Airport",
+          "name": "Bordeaux–Mérignac Airport",
           "city": "Bordeaux",
           "iata": "BOD",
           "icao": "LFBD",
-          "lat": 44.828300476100004,
-          "lon": -0.715556025505,
+          "lat": 44.82865,
+          "lon": -0.715356,
           "distanceKm": 9.7
         }
       },
@@ -2752,12 +2752,12 @@
         "content": [],
         "nearestAirport": {
           "name": "Paris-Orly Airport",
-          "city": "Paris",
+          "city": "Paris (Orly, Val-de-Marne)",
           "iata": "ORY",
           "icao": "LFPO",
-          "lat": 48.7233333,
-          "lon": 2.3794444,
-          "distanceKm": 13.8
+          "lat": 48.729499,
+          "lon": 2.358963,
+          "distanceKm": 12.9
         }
       },
       {
@@ -2794,12 +2794,12 @@
         "content": [],
         "nearestAirport": {
           "name": "Münster Osnabrück Airport",
-          "city": "Munster",
+          "city": "Greven",
           "iata": "FMO",
           "icao": "EDDG",
-          "lat": 52.134601593,
-          "lon": 7.68483018875,
-          "distanceKm": 28.3
+          "lat": 52.133816,
+          "lon": 7.688482,
+          "distanceKm": 28.2
         }
       },
       {
@@ -2839,9 +2839,9 @@
           "city": "Bremen",
           "iata": "BRE",
           "icao": "EDDW",
-          "lat": 53.0475006104,
-          "lon": 8.78666973114,
-          "distanceKm": 8.2
+          "lat": 53.046786,
+          "lon": 8.78932,
+          "distanceKm": 8.1
         }
       },
       {
@@ -2878,8 +2878,8 @@
           "city": "Stuttgart",
           "iata": "STR",
           "icao": "EDDS",
-          "lat": 48.689899444599995,
-          "lon": 9.22196006775,
+          "lat": 48.689899,
+          "lon": 9.22196,
           "distanceKm": 20.6
         }
       },
@@ -2915,12 +2915,12 @@
         "content": [],
         "nearestAirport": {
           "name": "Münster Osnabrück Airport",
-          "city": "Munster",
+          "city": "Greven",
           "iata": "FMO",
           "icao": "EDDG",
-          "lat": 52.134601593,
-          "lon": 7.68483018875,
-          "distanceKm": 29
+          "lat": 52.133816,
+          "lon": 7.688482,
+          "distanceKm": 28.9
         }
       },
       {
@@ -2953,12 +2953,12 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Hamburg Airport",
+          "name": "Hamburg Helmut Schmidt Airport",
           "city": "Hamburg",
           "iata": "HAM",
           "icao": "EDDH",
-          "lat": 53.630401611328,
-          "lon": 9.9882297515869,
+          "lat": 53.630402,
+          "lon": 9.98823,
           "distanceKm": 4.5
         }
       },
@@ -2997,11 +2997,11 @@
         "content": [],
         "nearestAirport": {
           "name": "Karlsruhe Baden-Baden Airport",
-          "city": "Karlsruhe/Baden-Baden",
+          "city": "Rheinmünster",
           "iata": "FKB",
           "icao": "EDSB",
-          "lat": 48.7793998718,
-          "lon": 8.08049964905,
+          "lat": 48.7794,
+          "lon": 8.0805,
           "distanceKm": 34.1
         }
       },
@@ -3036,13 +3036,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Berlin-Tempelhof International Airport",
+          "name": "Berlin Brandenburg Airport",
           "city": "Berlin",
-          "iata": "THF",
-          "icao": "EDDI",
-          "lat": 52.472999572753906,
-          "lon": 13.403900146484375,
-          "distanceKm": 8
+          "iata": "BER",
+          "icao": "EDDB",
+          "lat": 52.361738,
+          "lon": 13.502341,
+          "distanceKm": 17.6
         }
       },
       {
@@ -3084,9 +3084,9 @@
           "city": "Bremen",
           "iata": "BRE",
           "icao": "EDDW",
-          "lat": 53.0475006104,
-          "lon": 8.78666973114,
-          "distanceKm": 8.2
+          "lat": 53.046786,
+          "lon": 8.78932,
+          "distanceKm": 8.1
         }
       },
       {
@@ -3122,13 +3122,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Aachen-Merzbrück Airport",
-          "city": "Aachen",
-          "iata": "AAH",
-          "icao": "EDKA",
-          "lat": 50.823055267333984,
-          "lon": 6.186388969421387,
-          "distanceKm": 9.6
+          "name": "Düsseldorf Airport",
+          "city": "Düsseldorf",
+          "iata": "DUS",
+          "icao": "EDDL",
+          "lat": 51.289501,
+          "lon": 6.76678,
+          "distanceKm": 74.8
         }
       },
       {
@@ -3160,13 +3160,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Oberpfaffenhofen Airport",
-          "city": "Oberpfaffenhofen",
-          "iata": "OBF",
-          "icao": "EDMO",
-          "lat": 48.081402,
-          "lon": 11.2831,
-          "distanceKm": 14.2
+          "name": "Munich Airport",
+          "city": "Munich",
+          "iata": "MUC",
+          "icao": "EDDM",
+          "lat": 48.353802,
+          "lon": 11.7861,
+          "distanceKm": 35.8
         }
       },
       {
@@ -3203,13 +3203,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Shun Tak Heliport",
+          "name": "Hong Kong International Airport",
           "city": "Hong Kong",
-          "iata": "HHP",
-          "icao": "VHST",
-          "lat": 22.2893714905,
-          "lon": 114.152153015,
-          "distanceKm": 3.3
+          "iata": "HKG",
+          "icao": "VHHH",
+          "lat": 22.31184,
+          "lon": 113.914862,
+          "distanceKm": 27.3
         }
       },
       {
@@ -3251,13 +3251,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Shun Tak Heliport",
+          "name": "Hong Kong International Airport",
           "city": "Hong Kong",
-          "iata": "HHP",
-          "icao": "VHST",
-          "lat": 22.2893714905,
-          "lon": 114.152153015,
-          "distanceKm": 6.2
+          "iata": "HKG",
+          "icao": "VHHH",
+          "lat": 22.31184,
+          "lon": 113.914862,
+          "distanceKm": 27.7
         }
       },
       {
@@ -3302,9 +3302,9 @@
           "city": "Hong Kong",
           "iata": "HKG",
           "icao": "VHHH",
-          "lat": 22.308901,
-          "lon": 113.915001,
-          "distanceKm": 13.4
+          "lat": 22.31184,
+          "lon": 113.914862,
+          "distanceKm": 13.1
         }
       },
       {
@@ -3344,8 +3344,8 @@
           "city": "Jakarta",
           "iata": "HLP",
           "icao": "WIHH",
-          "lat": -6.266610145568848,
-          "lon": 106.89099884033203,
+          "lat": -6.266989,
+          "lon": 106.890318,
           "distanceKm": 11.2
         }
       },
@@ -3384,13 +3384,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Pondok Cabe Air Base",
+          "name": "Halim Perdanakusuma International Airport",
           "city": "Jakarta",
-          "iata": "PCB",
-          "icao": "WIHP",
-          "lat": -6.3369598388671875,
-          "lon": 106.76499938964844,
-          "distanceKm": 7.3
+          "iata": "HLP",
+          "icao": "WIHH",
+          "lat": -6.266989,
+          "lon": 106.890318,
+          "distanceKm": 12.5
         }
       },
       {
@@ -3426,9 +3426,9 @@
           "city": "Dublin",
           "iata": "DUB",
           "icao": "EIDW",
-          "lat": 53.421299,
-          "lon": -6.27007,
-          "distanceKm": 22.2
+          "lat": 53.428713,
+          "lon": -6.262121,
+          "distanceKm": 22.9
         }
       },
       {
@@ -3465,8 +3465,8 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Crotone Airport",
-          "city": "Crotone",
+          "name": "Crotone Sant'Anna Pythagoras Airport",
+          "city": "Isola di Capo Rizzuto (KR)",
           "iata": "CRV",
           "icao": "LIBC",
           "lat": 38.9972,
@@ -3512,7 +3512,7 @@
         "content": [],
         "nearestAirport": {
           "name": "Venice Marco Polo Airport",
-          "city": "Venice",
+          "city": "Venezia (VE)",
           "iata": "VCE",
           "icao": "LIPZ",
           "lat": 45.505299,
@@ -3564,9 +3564,9 @@
           "city": "Tokyo",
           "iata": "HND",
           "icao": "RJTT",
-          "lat": 35.552299,
-          "lon": 139.779999,
-          "distanceKm": 32
+          "lat": 35.549678,
+          "lon": 139.786958,
+          "distanceKm": 32.3
         }
       },
       {
@@ -3611,9 +3611,9 @@
           "city": "Tokyo",
           "iata": "HND",
           "icao": "RJTT",
-          "lat": 35.552299,
-          "lon": 139.779999,
-          "distanceKm": 32
+          "lat": 35.549678,
+          "lon": 139.786958,
+          "distanceKm": 32.3
         }
       },
       {
@@ -3658,9 +3658,9 @@
           "city": "Tokyo",
           "iata": "HND",
           "icao": "RJTT",
-          "lat": 35.552299,
-          "lon": 139.779999,
-          "distanceKm": 26.5
+          "lat": 35.549678,
+          "lon": 139.786958,
+          "distanceKm": 26
         }
       },
       {
@@ -3698,13 +3698,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Osaka International Airport",
+          "name": "Osaka Itami International Airport",
           "city": "Osaka",
           "iata": "ITM",
           "icao": "RJOO",
-          "lat": 34.785499572753906,
-          "lon": 135.43800354003906,
-          "distanceKm": 6.8
+          "lat": 34.780853,
+          "lon": 135.440829,
+          "distanceKm": 6.4
         }
       },
       {
@@ -3744,13 +3744,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Osaka International Airport",
+          "name": "Osaka Itami International Airport",
           "city": "Osaka",
           "iata": "ITM",
           "icao": "RJOO",
-          "lat": 34.785499572753906,
-          "lon": 135.43800354003906,
-          "distanceKm": 43.2
+          "lat": 34.780853,
+          "lon": 135.440829,
+          "distanceKm": 43.4
         }
       },
       {
@@ -3794,13 +3794,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Yokota Air Base",
-          "city": "Yokota",
-          "iata": "OKO",
-          "icao": "RJTY",
-          "lat": 35.74850082397461,
-          "lon": 139.34800720214844,
-          "distanceKm": 13.1
+          "name": "Tokyo Haneda International Airport",
+          "city": "Tokyo",
+          "iata": "HND",
+          "icao": "RJTT",
+          "lat": 35.549678,
+          "lon": 139.786958,
+          "distanceKm": 36
         }
       },
       {
@@ -3934,13 +3934,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Osaka International Airport",
+          "name": "Osaka Itami International Airport",
           "city": "Osaka",
           "iata": "ITM",
           "icao": "RJOO",
-          "lat": 34.785499572753906,
-          "lon": 135.43800354003906,
-          "distanceKm": 20.4
+          "lat": 34.780853,
+          "lon": 135.440829,
+          "distanceKm": 19.9
         }
       },
       {
@@ -3986,8 +3986,8 @@
           "city": "Kobe",
           "iata": "UKB",
           "icao": "RJBE",
-          "lat": 34.6328010559082,
-          "lon": 135.2239990234375,
+          "lat": 34.632801,
+          "lon": 135.223999,
           "distanceKm": 11.5
         }
       },
@@ -4028,13 +4028,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Yokota Air Base",
-          "city": "Yokota",
-          "iata": "OKO",
-          "icao": "RJTY",
-          "lat": 35.74850082397461,
-          "lon": 139.34800720214844,
-          "distanceKm": 17.6
+          "name": "Tokyo Haneda International Airport",
+          "city": "Tokyo",
+          "iata": "HND",
+          "icao": "RJTT",
+          "lat": 35.549678,
+          "lon": 139.786958,
+          "distanceKm": 27.8
         }
       },
       {
@@ -4080,9 +4080,9 @@
           "city": "Tokyo",
           "iata": "HND",
           "icao": "RJTT",
-          "lat": 35.552299,
-          "lon": 139.779999,
-          "distanceKm": 16.2
+          "lat": 35.549678,
+          "lon": 139.786958,
+          "distanceKm": 16.6
         }
       },
       {
@@ -4123,13 +4123,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Osaka International Airport",
+          "name": "Osaka Itami International Airport",
           "city": "Osaka",
           "iata": "ITM",
           "icao": "RJOO",
-          "lat": 34.785499572753906,
-          "lon": 135.43800354003906,
-          "distanceKm": 38.2
+          "lat": 34.780853,
+          "lon": 135.440829,
+          "distanceKm": 38.4
         }
       },
       {
@@ -4173,9 +4173,9 @@
           "city": "Tokyo",
           "iata": "HND",
           "icao": "RJTT",
-          "lat": 35.552299,
-          "lon": 139.779999,
-          "distanceKm": 16.3
+          "lat": 35.549678,
+          "lon": 139.786958,
+          "distanceKm": 16.6
         }
       },
       {
@@ -4254,9 +4254,9 @@
           "city": "Tokyo",
           "iata": "HND",
           "icao": "RJTT",
-          "lat": 35.552299,
-          "lon": 139.779999,
-          "distanceKm": 16.2
+          "lat": 35.549678,
+          "lon": 139.786958,
+          "distanceKm": 16.5
         }
       },
       {
@@ -4289,7 +4289,7 @@
         "content": [],
         "nearestAirport": {
           "name": "Rishiri Airport",
-          "city": "Rishiri Island",
+          "city": "Rishiri",
           "iata": "RIS",
           "icao": "RJER",
           "lat": 45.2420005798,
@@ -4379,9 +4379,9 @@
           "city": "Tokyo",
           "iata": "HND",
           "icao": "RJTT",
-          "lat": 35.552299,
-          "lon": 139.779999,
-          "distanceKm": 20.5
+          "lat": 35.549678,
+          "lon": 139.786958,
+          "distanceKm": 21
         }
       },
       {
@@ -4422,9 +4422,9 @@
           "city": "Tokyo",
           "iata": "HND",
           "icao": "RJTT",
-          "lat": 35.552299,
-          "lon": 139.779999,
-          "distanceKm": 18.3
+          "lat": 35.549678,
+          "lon": 139.786958,
+          "distanceKm": 18.7
         }
       },
       {
@@ -4459,11 +4459,11 @@
         "content": [],
         "nearestAirport": {
           "name": "Sendai Airport",
-          "city": "Sendai",
+          "city": "Natori",
           "iata": "SDJ",
           "icao": "RJSS",
-          "lat": 38.1397018433,
-          "lon": 140.917007446,
+          "lat": 38.139702,
+          "lon": 140.917007,
           "distanceKm": 14.4
         }
       },
@@ -4503,13 +4503,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Yokota Air Base",
-          "city": "Yokota",
-          "iata": "OKO",
-          "icao": "RJTY",
-          "lat": 35.74850082397461,
-          "lon": 139.34800720214844,
-          "distanceKm": 68.2
+          "name": "Shinshu-Matsumoto Airport",
+          "city": "Matsumoto",
+          "iata": "MMJ",
+          "icao": "RJAF",
+          "lat": 36.166801,
+          "lon": 137.923004,
+          "distanceKm": 83.4
         }
       },
       {
@@ -4543,8 +4543,8 @@
           "city": "Nagasaki",
           "iata": "NGS",
           "icao": "RJFU",
-          "lat": 32.916900634799994,
-          "lon": 129.914001465,
+          "lat": 32.916901,
+          "lon": 129.914001,
           "distanceKm": 15.2
         }
       },
@@ -4584,13 +4584,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Almaty Airport",
-          "city": "Alma-ata",
+          "name": "Almaty International Airport",
+          "city": "Almaty",
           "iata": "ALA",
           "icao": "UAAA",
-          "lat": 43.35210037231445,
-          "lon": 77.04049682617188,
-          "distanceKm": 14.1
+          "lat": 43.354267,
+          "lon": 77.042828,
+          "distanceKm": 14.4
         }
       },
       {
@@ -4679,13 +4679,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Klaipėda Airport",
-          "city": "Klaipeda",
-          "iata": "KLJ",
-          "icao": "EYKL",
-          "lat": 55.7118988037,
-          "lon": 21.242799758900002,
-          "distanceKm": 7.2
+          "name": "Palanga International Airport",
+          "city": "Palanga",
+          "iata": "PLQ",
+          "icao": "EYPA",
+          "lat": 55.973202,
+          "lon": 21.093901,
+          "distanceKm": 27
         }
       },
       {
@@ -4724,13 +4724,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Klaipėda Airport",
-          "city": "Klaipeda",
-          "iata": "KLJ",
-          "icao": "EYKL",
-          "lat": 55.7118988037,
-          "lon": 21.242799758900002,
-          "distanceKm": 7.2
+          "name": "Palanga International Airport",
+          "city": "Palanga",
+          "iata": "PLQ",
+          "icao": "EYPA",
+          "lat": 55.973202,
+          "lon": 21.093901,
+          "distanceKm": 27
         }
       },
       {
@@ -4770,8 +4770,8 @@
           "city": "Kaunas",
           "iata": "KUN",
           "icao": "EYKA",
-          "lat": 54.96390151977539,
-          "lon": 24.084800720214844,
+          "lat": 54.963965,
+          "lon": 24.08582,
           "distanceKm": 15.4
         }
       },
@@ -4845,7 +4845,7 @@
         "content": [],
         "nearestAirport": {
           "name": "Macau International Airport",
-          "city": "Macau",
+          "city": "Nossa Senhora do Carmo",
           "iata": "MFM",
           "icao": "VMMC",
           "lat": 22.149599,
@@ -4893,7 +4893,7 @@
         "content": [],
         "nearestAirport": {
           "name": "Macau International Airport",
-          "city": "Macau",
+          "city": "Nossa Senhora do Carmo",
           "iata": "MFM",
           "icao": "VMMC",
           "lat": 22.149599,
@@ -4938,13 +4938,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Nanjing Lukou Airport",
+          "name": "Nanjing Lukou International Airport",
           "city": "Nanjing",
           "iata": "NKG",
           "icao": "ZSNJ",
-          "lat": 31.742000579833984,
-          "lon": 118.86199951171875,
-          "distanceKm": 36
+          "lat": 31.735032,
+          "lon": 118.865949,
+          "distanceKm": 36.8
         }
       },
       {
@@ -4981,12 +4981,12 @@
         "content": [],
         "nearestAirport": {
           "name": "Shanghai Hongqiao International Airport",
-          "city": "Shanghai",
+          "city": "Shanghai (Minhang)",
           "iata": "SHA",
           "icao": "ZSSS",
-          "lat": 31.197900772094727,
-          "lon": 121.33599853515625,
-          "distanceKm": 7.2
+          "lat": 31.198104,
+          "lon": 121.33426,
+          "distanceKm": 7.3
         }
       },
       {
@@ -5023,12 +5023,12 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Longjia Airport",
+          "name": "Changchun Longjia International Airport",
           "city": "Changchun",
           "iata": "CGQ",
           "icao": "ZYCC",
-          "lat": 43.9962005615,
-          "lon": 125.684997559,
+          "lat": 43.996201,
+          "lon": 125.684998,
           "distanceKm": 32.7
         }
       },
@@ -5071,9 +5071,9 @@
           "city": "Beijing",
           "iata": "PEK",
           "icao": "ZBAA",
-          "lat": 40.080101013183594,
-          "lon": 116.58499908447266,
-          "distanceKm": 22.9
+          "lat": 40.077349,
+          "lon": 116.596702,
+          "distanceKm": 23.7
         }
       },
       {
@@ -5114,9 +5114,9 @@
           "city": "Zhengzhou",
           "iata": "CGO",
           "icao": "ZHCC",
-          "lat": 34.519699096699995,
-          "lon": 113.841003418,
-          "distanceKm": 33.4
+          "lat": 34.526497,
+          "lon": 113.849165,
+          "distanceKm": 32.7
         }
       },
       {
@@ -5152,9 +5152,9 @@
           "city": "Zhengzhou",
           "iata": "CGO",
           "icao": "ZHCC",
-          "lat": 34.519699096699995,
-          "lon": 113.841003418,
-          "distanceKm": 33.4
+          "lat": 34.526497,
+          "lon": 113.849165,
+          "distanceKm": 32.7
         }
       },
       {
@@ -5191,11 +5191,11 @@
         "content": [],
         "nearestAirport": {
           "name": "Guangzhou Baiyun International Airport",
-          "city": "Guangzhou",
+          "city": "Guangzhou (Huadu)",
           "iata": "CAN",
           "icao": "ZGGG",
-          "lat": 23.39240074157715,
-          "lon": 113.29900360107422,
+          "lat": 23.392401,
+          "lon": 113.299004,
           "distanceKm": 26.1
         }
       },
@@ -5238,13 +5238,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Liuting Airport",
-          "city": "Qingdao",
+          "name": "Qingdao Jiaodong International Airport",
+          "city": "Qingdao (Jiaozhou)",
           "iata": "TAO",
           "icao": "ZSQD",
-          "lat": 36.2661018372,
-          "lon": 120.374000549,
-          "distanceKm": 29.2
+          "lat": 36.361953,
+          "lon": 120.088171,
+          "distanceKm": 52.4
         }
       },
       {
@@ -5286,9 +5286,9 @@
           "city": "Chongqing",
           "iata": "CKG",
           "icao": "ZUCK",
-          "lat": 29.719200134277344,
-          "lon": 106.64199829101562,
-          "distanceKm": 24.2
+          "lat": 29.712254,
+          "lon": 106.651895,
+          "distanceKm": 24.4
         }
       },
       {
@@ -5322,13 +5322,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Xi'an Xiguan Airport",
-          "city": "Xi\\'AN",
-          "iata": "SIA",
-          "icao": "ZLSN",
-          "lat": 34.376701,
-          "lon": 109.120003,
-          "distanceKm": 18.7
+          "name": "Xi'an Xianyang International Airport",
+          "city": "Xi'an",
+          "iata": "XIY",
+          "icao": "ZLXY",
+          "lat": 34.442207,
+          "lon": 108.762385,
+          "distanceKm": 29.2
         }
       },
       {
@@ -5362,12 +5362,12 @@
         "content": [],
         "nearestAirport": {
           "name": "Shanghai Hongqiao International Airport",
-          "city": "Shanghai",
+          "city": "Shanghai (Minhang)",
           "iata": "SHA",
           "icao": "ZSSS",
-          "lat": 31.197900772094727,
-          "lon": 121.33599853515625,
-          "distanceKm": 18.1
+          "lat": 31.198104,
+          "lon": 121.33426,
+          "distanceKm": 18.2
         }
       },
       {
@@ -5399,12 +5399,12 @@
         "content": [],
         "nearestAirport": {
           "name": "Wuhan Tianhe International Airport",
-          "city": "Wuhan",
+          "city": "Wuhan (Huangpi)",
           "iata": "WUH",
           "icao": "ZHHH",
-          "lat": 30.7838,
-          "lon": 114.208,
-          "distanceKm": 31.1
+          "lat": 30.774798,
+          "lon": 114.213723,
+          "distanceKm": 29.9
         }
       },
       {
@@ -5439,12 +5439,12 @@
         "content": [],
         "nearestAirport": {
           "name": "Wuhan Tianhe International Airport",
-          "city": "Wuhan",
+          "city": "Wuhan (Huangpi)",
           "iata": "WUH",
           "icao": "ZHHH",
-          "lat": 30.7838,
-          "lon": 114.208,
-          "distanceKm": 31.1
+          "lat": 30.774798,
+          "lon": 114.213723,
+          "distanceKm": 29.9
         }
       },
       {
@@ -5480,9 +5480,9 @@
           "city": "Penang",
           "iata": "PEN",
           "icao": "WMKP",
-          "lat": 5.297140121459961,
-          "lon": 100.2770004272461,
-          "distanceKm": 7.3
+          "lat": 5.296303,
+          "lon": 100.276185,
+          "distanceKm": 7.4
         }
       },
       {
@@ -5518,11 +5518,11 @@
         "content": [],
         "nearestAirport": {
           "name": "Sultan Abdul Aziz Shah International Airport",
-          "city": "Kuala Lumpur",
+          "city": "Subang",
           "iata": "SZB",
           "icao": "WMSA",
-          "lat": 3.130579948425293,
-          "lon": 101.54900360107422,
+          "lat": 3.13058,
+          "lon": 101.549004,
           "distanceKm": 11.8
         }
       },
@@ -5555,11 +5555,11 @@
         "content": [],
         "nearestAirport": {
           "name": "Kuala Lumpur International Airport",
-          "city": "Kuala Lumpur",
+          "city": "Sepang",
           "iata": "KUL",
           "icao": "WMKK",
-          "lat": 2.745579957962,
-          "lon": 101.70999908447,
+          "lat": 2.74558,
+          "lon": 101.709999,
           "distanceKm": 21.4
         }
       },
@@ -5593,11 +5593,11 @@
         "content": [],
         "nearestAirport": {
           "name": "Sultan Abdul Aziz Shah International Airport",
-          "city": "Kuala Lumpur",
+          "city": "Subang",
           "iata": "SZB",
           "icao": "WMSA",
-          "lat": 3.130579948425293,
-          "lon": 101.54900360107422,
+          "lat": 3.13058,
+          "lon": 101.549004,
           "distanceKm": 10.6
         }
       },
@@ -5631,13 +5631,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Don Miguel Hidalgo Y Costilla International Airport",
+          "name": "Guadalajara International Airport",
           "city": "Guadalajara",
           "iata": "GDL",
           "icao": "MMGL",
-          "lat": 20.521799087524414,
-          "lon": -103.31099700927734,
-          "distanceKm": 22.3
+          "lat": 20.523342,
+          "lon": -103.310108,
+          "distanceKm": 22.2
         }
       },
       {
@@ -5678,12 +5678,12 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Licenciado Gustavo Díaz Ordaz International Airport",
+          "name": "Puerto Vallarta International Airport",
           "city": "Puerto Vallarta",
           "iata": "PVR",
           "icao": "MMPR",
-          "lat": 20.680099487304688,
-          "lon": -105.25399780273438,
+          "lat": 20.679913,
+          "lon": -105.254391,
           "distanceKm": 3.2
         }
       },
@@ -5719,13 +5719,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Menara Airport",
-          "city": "Marrakech",
+          "name": "Marrakesh Menara Airport",
+          "city": "Marrakesh",
           "iata": "RAK",
           "icao": "GMMX",
-          "lat": 31.606899261499997,
-          "lon": -8.03629970551,
-          "distanceKm": 68.7
+          "lat": 31.604807,
+          "lon": -8.035788,
+          "distanceKm": 68.9
         }
       },
       {
@@ -5833,13 +5833,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Soesterberg Air Base",
-          "city": "Soesterberg",
-          "iata": "UTC",
-          "icao": "EHSB",
-          "lat": 52.1273002625,
-          "lon": 5.27618980408,
-          "distanceKm": 18.8
+          "name": "Amsterdam Airport Schiphol",
+          "city": "Amsterdam",
+          "iata": "AMS",
+          "icao": "EHAM",
+          "lat": 52.308601,
+          "lon": 4.76389,
+          "distanceKm": 23.3
         }
       },
       {
@@ -5872,13 +5872,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Twente Airport",
-          "city": "Enschede",
-          "iata": "ENS",
-          "icao": "EHTW",
-          "lat": 52.275833,
-          "lon": 6.889167,
-          "distanceKm": 4.5
+          "name": "Groningen Airport Eelde",
+          "city": "Groningen",
+          "iata": "GRQ",
+          "icao": "EHGG",
+          "lat": 53.119107,
+          "lon": 6.577652,
+          "distanceKm": 99.1
         }
       },
       {
@@ -5920,13 +5920,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Soesterberg Air Base",
-          "city": "Soesterberg",
-          "iata": "UTC",
-          "icao": "EHSB",
-          "lat": 52.1273002625,
-          "lon": 5.27618980408,
-          "distanceKm": 12.9
+          "name": "Amsterdam Airport Schiphol",
+          "city": "Amsterdam",
+          "iata": "AMS",
+          "icao": "EHAM",
+          "lat": 52.308601,
+          "lon": 4.76389,
+          "distanceKm": 33.6
         }
       },
       {
@@ -5960,13 +5960,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Eelde Airport",
+          "name": "Groningen Airport Eelde",
           "city": "Groningen",
           "iata": "GRQ",
           "icao": "EHGG",
-          "lat": 53.1197013855,
-          "lon": 6.57944011688,
-          "distanceKm": 11.1
+          "lat": 53.119107,
+          "lon": 6.577652,
+          "distanceKm": 11.2
         }
       },
       {
@@ -6003,13 +6003,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Gilze Rijen Air Base",
-          "city": "Gilze-rijen",
-          "iata": "GLZ",
-          "icao": "EHGR",
-          "lat": 51.56740188598633,
-          "lon": 4.931829929351807,
-          "distanceKm": 10.6
+          "name": "Eindhoven Airport",
+          "city": "Eindhoven",
+          "iata": "EIN",
+          "icao": "EHEH",
+          "lat": 51.4500999451,
+          "lon": 5.37452983856,
+          "distanceKm": 22.7
         }
       },
       {
@@ -6041,13 +6041,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Biała Podlaska Airfield",
-          "city": "Biała Podlaska",
-          "iata": "BXP",
-          "icao": "EPBP",
-          "lat": 52.00078,
-          "lon": 23.1325278,
-          "distanceKm": 942.1
+          "name": "Lublin Airport",
+          "city": "Lublin",
+          "iata": "LUZ",
+          "icao": "EPLB",
+          "lat": 51.240157,
+          "lon": 22.713461,
+          "distanceKm": 962.4
         }
       },
       {
@@ -6079,13 +6079,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Valkenburg Naval Air Base",
-          "city": "Valkenburg",
-          "iata": "LID",
-          "icao": "EHVB",
-          "lat": 52.166099548300004,
-          "lon": 4.41794013977,
-          "distanceKm": 2.9
+          "name": "Rotterdam The Hague Airport",
+          "city": "Rotterdam",
+          "iata": "RTM",
+          "icao": "EHRD",
+          "lat": 51.956902,
+          "lon": 4.43722,
+          "distanceKm": 23.6
         }
       },
       {
@@ -6126,9 +6126,9 @@
           "city": "Auckland",
           "iata": "AKL",
           "icao": "NZAA",
-          "lat": -37.008098602299995,
-          "lon": 174.792007446,
-          "distanceKm": 17.4
+          "lat": -37.01199,
+          "lon": 174.786331,
+          "distanceKm": 17.8
         }
       },
       {
@@ -6169,8 +6169,8 @@
           "city": "Warsaw",
           "iata": "WAW",
           "icao": "EPWA",
-          "lat": 52.1656990051,
-          "lon": 20.967100143399996,
+          "lat": 52.165699,
+          "lon": 20.9671,
           "distanceKm": 12.2
         }
       },
@@ -6213,8 +6213,8 @@
           "city": "Warsaw",
           "iata": "WAW",
           "icao": "EPWA",
-          "lat": 52.1656990051,
-          "lon": 20.967100143399996,
+          "lat": 52.165699,
+          "lon": 20.9671,
           "distanceKm": 6.8
         }
       },
@@ -6249,7 +6249,7 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Humberto Delgado Airport (Lisbon Portela Airport)",
+          "name": "Lisbon Humberto Delgado Airport",
           "city": "Lisbon",
           "iata": "LIS",
           "icao": "LPPT",
@@ -6285,12 +6285,12 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Băneasa International Airport",
+          "name": "Bucharest Băneasa Aurel Vlaicu International Airport",
           "city": "Bucharest",
           "iata": "BBU",
           "icao": "LRBS",
-          "lat": 44.50320053100586,
-          "lon": 26.102100372314453,
+          "lat": 44.503133,
+          "lon": 26.102944,
           "distanceKm": 7.5
         }
       },
@@ -6331,8 +6331,8 @@
           "city": "Moscow",
           "iata": "VKO",
           "icao": "UUWW",
-          "lat": 55.5914993286,
-          "lon": 37.2615013123,
+          "lat": 55.591499,
+          "lon": 37.261501,
           "distanceKm": 16.7
         }
       },
@@ -6373,8 +6373,8 @@
           "city": "St. Petersburg",
           "iata": "LED",
           "icao": "ULLI",
-          "lat": 59.80030059814453,
-          "lon": 30.262500762939453,
+          "lat": 59.800301,
+          "lon": 30.262501,
           "distanceKm": 17.5
         }
       },
@@ -6413,8 +6413,8 @@
           "city": "St. Petersburg",
           "iata": "LED",
           "icao": "ULLI",
-          "lat": 59.80030059814453,
-          "lon": 30.262500762939453,
+          "lat": 59.800301,
+          "lon": 30.262501,
           "distanceKm": 17.5
         }
       },
@@ -6449,13 +6449,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Ostafyevo International Airport",
+          "name": "Vnukovo International Airport",
           "city": "Moscow",
-          "iata": "OSF",
-          "icao": "UUMO",
-          "lat": 55.511667,
-          "lon": 37.507222,
-          "distanceKm": 25.8
+          "iata": "VKO",
+          "icao": "UUWW",
+          "lat": 55.591499,
+          "lon": 37.261501,
+          "distanceKm": 26.5
         }
       },
       {
@@ -6490,13 +6490,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Tengah Air Base",
-          "city": "Tengah",
-          "iata": "TGA",
-          "icao": "WSAT",
-          "lat": 1.38725996017,
-          "lon": 103.708999634,
-          "distanceKm": 5.2
+          "name": "Seletar Airport",
+          "city": "Seletar",
+          "iata": "XSP",
+          "icao": "WSSL",
+          "lat": 1.41555,
+          "lon": 103.86673,
+          "distanceKm": 21.8
         }
       },
       {
@@ -6531,13 +6531,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Paya Lebar Air Base",
-          "city": "Paya Lebar",
-          "iata": "QPG",
-          "icao": "WSAP",
-          "lat": 1.3604199886322021,
-          "lon": 103.91000366210938,
-          "distanceKm": 9.8
+          "name": "Seletar Airport",
+          "city": "Seletar",
+          "iata": "XSP",
+          "icao": "WSSL",
+          "lat": 1.41555,
+          "lon": 103.86673,
+          "distanceKm": 13.4
         }
       },
       {
@@ -6568,13 +6568,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Sabadell Airport",
-          "city": "Sabadell",
-          "iata": "QSA",
-          "icao": "LELL",
-          "lat": 41.52090072631836,
-          "lon": 2.1050798892974854,
-          "distanceKm": 8.3
+          "name": "Josep Tarradellas Barcelona-El Prat Airport",
+          "city": "Barcelona",
+          "iata": "BCN",
+          "icao": "LEBL",
+          "lat": 41.2971,
+          "lon": 2.07846,
+          "distanceKm": 29.9
         }
       },
       {
@@ -6620,8 +6620,8 @@
           "city": "Pamplona",
           "iata": "PNA",
           "icao": "LEPP",
-          "lat": 42.77000045776367,
-          "lon": -1.6463299989700317,
+          "lat": 42.77,
+          "lon": -1.64633,
           "distanceKm": 3.6
         }
       },
@@ -6668,8 +6668,8 @@
           "city": "Pamplona",
           "iata": "PNA",
           "icao": "LEPP",
-          "lat": 42.77000045776367,
-          "lon": -1.6463299989700317,
+          "lat": 42.77,
+          "lon": -1.64633,
           "distanceKm": 3.6
         }
       },
@@ -6712,7 +6712,7 @@
         ],
         "nearestAirport": {
           "name": "A Coruña Airport",
-          "city": "La Coruna",
+          "city": "Culleredo",
           "iata": "LCG",
           "icao": "LECO",
           "lat": 43.302101,
@@ -6760,8 +6760,8 @@
           "city": "Vigo",
           "iata": "VGO",
           "icao": "LEVX",
-          "lat": 42.2318000793457,
-          "lon": -8.62677001953125,
+          "lat": 42.2318,
+          "lon": -8.62677,
           "distanceKm": 8.3
         }
       },
@@ -6799,7 +6799,7 @@
         "content": [],
         "nearestAirport": {
           "name": "Jönköping Airport",
-          "city": "Joenkoeping",
+          "city": "Jönköping",
           "iata": "JKG",
           "icao": "ESGJ",
           "lat": 57.757598876953125,
@@ -6840,7 +6840,7 @@
         "content": [],
         "nearestAirport": {
           "name": "Jönköping Airport",
-          "city": "Joenkoeping",
+          "city": "Jönköping",
           "iata": "JKG",
           "icao": "ESGJ",
           "lat": 57.757598876953125,
@@ -6886,12 +6886,12 @@
         "content": [],
         "nearestAirport": {
           "name": "Linköping City Airport",
-          "city": "Linkoeping",
+          "city": "Linköping",
           "iata": "LPI",
           "icao": "ESSL",
-          "lat": 58.4062004089,
-          "lon": 15.680500030500001,
-          "distanceKm": 6.2
+          "lat": 58.404909,
+          "lon": 15.684499,
+          "distanceKm": 6.4
         }
       },
       {
@@ -6924,12 +6924,12 @@
         "content": [],
         "nearestAirport": {
           "name": "Linköping City Airport",
-          "city": "Linkoeping",
+          "city": "Linköping",
           "iata": "LPI",
           "icao": "ESSL",
-          "lat": 58.4062004089,
-          "lon": 15.680500030500001,
-          "distanceKm": 6.2
+          "lat": 58.404909,
+          "lon": 15.684499,
+          "distanceKm": 6.4
         }
       },
       {
@@ -6972,11 +6972,11 @@
         "content": [],
         "nearestAirport": {
           "name": "Malmö Sturup Airport",
-          "city": "Malmoe",
+          "city": "Malmö",
           "iata": "MMX",
           "icao": "ESMS",
-          "lat": 55.536305364,
-          "lon": 13.376197814900001,
+          "lat": 55.535564,
+          "lon": 13.376327,
           "distanceKm": 25.4
         }
       },
@@ -7016,12 +7016,12 @@
         "content": [],
         "nearestAirport": {
           "name": "Malmö Sturup Airport",
-          "city": "Malmoe",
+          "city": "Malmö",
           "iata": "MMX",
           "icao": "ESMS",
-          "lat": 55.536305364,
-          "lon": 13.376197814900001,
-          "distanceKm": 653.8
+          "lat": 55.535564,
+          "lon": 13.376327,
+          "distanceKm": 653.7
         }
       },
       {
@@ -7065,9 +7065,9 @@
           "city": "Zurich",
           "iata": "ZRH",
           "icao": "LSZH",
-          "lat": 47.464699,
-          "lon": 8.54917,
-          "distanceKm": 33.6
+          "lat": 47.458056,
+          "lon": 8.548056,
+          "distanceKm": 33.1
         }
       },
       {
@@ -7112,13 +7112,13 @@
           }
         ],
         "nearestAirport": {
-          "name": "Bern Belp Airport",
+          "name": "Bern Airport",
           "city": "Bern",
           "iata": "BRN",
           "icao": "LSZB",
-          "lat": 46.914100647,
-          "lon": 7.497149944309999,
-          "distanceKm": 6.3
+          "lat": 46.912736,
+          "lon": 7.498819,
+          "distanceKm": 6.5
         }
       },
       {
@@ -7155,12 +7155,12 @@
         "content": [],
         "nearestAirport": {
           "name": "Chiayi Airport",
-          "city": "Chiayi",
+          "city": "Shuishang",
           "iata": "CYI",
           "icao": "RCKU",
-          "lat": 23.46179962158203,
-          "lon": 120.39299774169922,
-          "distanceKm": 14
+          "lat": 23.462577,
+          "lon": 120.390544,
+          "distanceKm": 14.1
         }
       },
       {
@@ -7192,12 +7192,12 @@
         "content": [],
         "nearestAirport": {
           "name": "Chiayi Airport",
-          "city": "Chiayi",
+          "city": "Shuishang",
           "iata": "CYI",
           "icao": "RCKU",
-          "lat": 23.46179962158203,
-          "lon": 120.39299774169922,
-          "distanceKm": 14
+          "lat": 23.462577,
+          "lon": 120.390544,
+          "distanceKm": 14.1
         }
       },
       {
@@ -7239,13 +7239,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Taipei Songshan Airport",
-          "city": "Taipei",
+          "name": "Taipei Songshan International Airport",
+          "city": "Taipei (Songshan)",
           "iata": "TSA",
           "icao": "RCSS",
-          "lat": 25.069400787353516,
-          "lon": 121.552001953125,
-          "distanceKm": 6
+          "lat": 25.067244,
+          "lon": 121.552822,
+          "distanceKm": 5.8
         }
       },
       {
@@ -7279,12 +7279,12 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Tainan Airport",
-          "city": "Tainan",
+          "name": "Tainan International Airport / Tainan Air Base",
+          "city": "Tainan (Rende)",
           "iata": "TNN",
           "icao": "RCNN",
-          "lat": 22.95039939880371,
-          "lon": 120.20600128173828,
+          "lat": 22.950399,
+          "lon": 120.206001,
           "distanceKm": 5.7
         }
       },
@@ -7324,13 +7324,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Taipei Songshan Airport",
-          "city": "Taipei",
+          "name": "Taipei Songshan International Airport",
+          "city": "Taipei (Songshan)",
           "iata": "TSA",
           "icao": "RCSS",
-          "lat": 25.069400787353516,
-          "lon": 121.552001953125,
-          "distanceKm": 7
+          "lat": 25.067244,
+          "lon": 121.552822,
+          "distanceKm": 6.8
         }
       },
       {
@@ -7370,13 +7370,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Taipei Songshan Airport",
-          "city": "Taipei",
+          "name": "Taipei Songshan International Airport",
+          "city": "Taipei (Songshan)",
           "iata": "TSA",
           "icao": "RCSS",
-          "lat": 25.069400787353516,
-          "lon": 121.552001953125,
-          "distanceKm": 10.2
+          "lat": 25.067244,
+          "lon": 121.552822,
+          "distanceKm": 9.9
         }
       },
       {
@@ -7426,8 +7426,8 @@
           "city": "Bangkok",
           "iata": "DMK",
           "icao": "VTBD",
-          "lat": 13.9125995636,
-          "lon": 100.607002258,
+          "lat": 13.9126,
+          "lon": 100.607002,
           "distanceKm": 18.6
         }
       },
@@ -7467,8 +7467,8 @@
           "city": "Bangkok",
           "iata": "DMK",
           "icao": "VTBD",
-          "lat": 13.9125995636,
-          "lon": 100.607002258,
+          "lat": 13.9126,
+          "lon": 100.607002,
           "distanceKm": 33.1
         }
       },
@@ -7505,13 +7505,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Etimesgut Air Base",
+          "name": "Esenboğa International Airport",
           "city": "Ankara",
-          "iata": "ANK",
-          "icao": "LTAD",
-          "lat": 39.949798584,
-          "lon": 32.6885986328,
-          "distanceKm": 10.4
+          "iata": "ESB",
+          "icao": "LTAC",
+          "lat": 40.128101,
+          "lon": 32.995098,
+          "distanceKm": 35.3
         }
       },
       {
@@ -7546,8 +7546,8 @@
           "city": "Albuquerque",
           "iata": "ABQ",
           "icao": "KABQ",
-          "lat": 35.040199,
-          "lon": -106.609001,
+          "lat": 35.039976,
+          "lon": -106.608925,
           "distanceKm": 5.3
         }
       },
@@ -7580,13 +7580,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Daniel K Inouye International Airport",
-          "city": "Honolulu",
+          "name": "Daniel K. Inouye International Airport",
+          "city": "Honolulu, Oahu",
           "iata": "HNL",
           "icao": "PHNL",
-          "lat": 21.32062,
-          "lon": -157.924228,
-          "distanceKm": 11
+          "lat": 21.318387,
+          "lon": -157.92567,
+          "distanceKm": 11.1
         }
       },
       {
@@ -7623,13 +7623,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Downtown-Manhattan/Wall St Heliport",
+          "name": "LaGuardia Airport",
           "city": "New York",
-          "iata": "JRB",
-          "icao": "KJRB",
-          "lat": 40.70119858,
-          "lon": -74.00900269,
-          "distanceKm": 1.2
+          "iata": "LGA",
+          "icao": "KLGA",
+          "lat": 40.777199,
+          "lon": -73.872597,
+          "distanceKm": 13.3
         }
       },
       {
@@ -7664,13 +7664,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "West 30th St. Heliport",
+          "name": "LaGuardia Airport",
           "city": "New York",
-          "iata": "JRA",
-          "icao": "KJRA",
-          "lat": 40.754501,
-          "lon": -74.007103,
-          "distanceKm": 5.4
+          "iata": "LGA",
+          "icao": "KLGA",
+          "lat": 40.777199,
+          "lon": -73.872597,
+          "distanceKm": 6.8
         }
       },
       {
@@ -7713,13 +7713,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Dutchess County Airport",
-          "city": "Poughkeepsie",
-          "iata": "POU",
-          "icao": "KPOU",
-          "lat": 41.6265983581543,
-          "lon": -73.88420104980469,
-          "distanceKm": 44.1
+          "name": "New York Stewart International Airport",
+          "city": "Newburgh",
+          "iata": "SWF",
+          "icao": "KSWF",
+          "lat": 41.50421,
+          "lon": -74.108901,
+          "distanceKm": 59.9
         }
       },
       {
@@ -7762,13 +7762,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Akron Fulton International Airport",
+          "name": "Akron Canton Regional Airport",
           "city": "Akron",
-          "iata": "AKC",
-          "icao": "KAKR",
-          "lat": 41.0374984741,
-          "lon": -81.4669036865,
-          "distanceKm": 15.9
+          "iata": "CAK",
+          "icao": "KCAK",
+          "lat": 40.916099548339844,
+          "lon": -81.44219970703125,
+          "distanceKm": 26.8
         }
       },
       {
@@ -7800,13 +7800,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Hartford Brainard Airport",
+          "name": "Bradley International Airport",
           "city": "Hartford",
-          "iata": "HFD",
-          "icao": "KHFD",
-          "lat": 41.736698150635,
-          "lon": -72.649398803711,
-          "distanceKm": 10.8
+          "iata": "BDL",
+          "icao": "KBDL",
+          "lat": 41.938555,
+          "lon": -72.688016,
+          "distanceKm": 28.1
         }
       },
       {
@@ -7895,8 +7895,8 @@
           "city": "Richmond",
           "iata": "RIC",
           "icao": "KRIC",
-          "lat": 37.50519943237305,
-          "lon": -77.3197021484375,
+          "lat": 37.505199,
+          "lon": -77.319702,
           "distanceKm": 12.7
         }
       },
@@ -7931,13 +7931,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Sacramento Executive Airport",
+          "name": "Sacramento International Airport",
           "city": "Sacramento",
-          "iata": "SAC",
-          "icao": "KSAC",
-          "lat": 38.5125007629,
-          "lon": -121.492996216,
-          "distanceKm": 8.2
+          "iata": "SMF",
+          "icao": "KSMF",
+          "lat": 38.6954,
+          "lon": -121.591003,
+          "distanceKm": 20.1
         }
       },
       {
@@ -7975,8 +7975,8 @@
           "city": "Weyers Cave",
           "iata": "SHD",
           "icao": "KSHD",
-          "lat": 38.2638015747,
-          "lon": -78.8964004517,
+          "lat": 38.263802,
+          "lon": -78.8964,
           "distanceKm": 19.3
         }
       },
@@ -8014,13 +8014,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Tallahassee Regional Airport",
+          "name": "Tallahassee International Airport",
           "city": "Tallahassee",
           "iata": "TLH",
           "icao": "KTLH",
-          "lat": 30.396499633789062,
-          "lon": -84.35030364990234,
-          "distanceKm": 7.2
+          "lat": 30.401209,
+          "lon": -84.35433,
+          "distanceKm": 7.1
         }
       },
       {
@@ -8097,13 +8097,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Eareckson Air Station",
-          "city": "Shemya",
-          "iata": "SYA",
-          "icao": "PASY",
-          "lat": 52.71229935,
-          "lon": 174.1139984,
-          "distanceKm": 5079.8
+          "name": "Adak Airport",
+          "city": "Adak",
+          "iata": "ADK",
+          "icao": "PADK",
+          "lat": 51.883564,
+          "lon": -176.642783,
+          "distanceKm": 5480.5
         }
       },
       {
@@ -8139,8 +8139,8 @@
           "city": "Worcester",
           "iata": "ORH",
           "icao": "KORH",
-          "lat": 42.26729965209961,
-          "lon": -71.87570190429688,
+          "lat": 42.2673,
+          "lon": -71.875702,
           "distanceKm": 4.7
         }
       },
@@ -8228,12 +8228,12 @@
         "content": [],
         "nearestAirport": {
           "name": "MBS International Airport",
-          "city": "Saginaw",
+          "city": "Freeland",
           "iata": "MBS",
           "icao": "KMBS",
-          "lat": 43.532901763916016,
-          "lon": -84.07959747314453,
-          "distanceKm": 9.9
+          "lat": 43.533181,
+          "lon": -84.083104,
+          "distanceKm": 10.2
         }
       },
       {
@@ -8271,13 +8271,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Long Island Mac Arthur Airport",
+          "name": "Long Island MacArthur Airport",
           "city": "Islip",
           "iata": "ISP",
           "icao": "KISP",
-          "lat": 40.79520035,
-          "lon": -73.10019684,
-          "distanceKm": 12.8
+          "lat": 40.796324,
+          "lon": -73.101703,
+          "distanceKm": 12.6
         }
       },
       {
@@ -8319,9 +8319,9 @@
           "city": "Wilmington",
           "iata": "ILM",
           "icao": "KILM",
-          "lat": 34.270599365234375,
-          "lon": -77.90260314941406,
-          "distanceKm": 5.9
+          "lat": 34.272345,
+          "lon": -77.905117,
+          "distanceKm": 6.2
         }
       },
       {
@@ -8359,8 +8359,8 @@
           "city": "Punta del Este",
           "iata": "PDP",
           "icao": "SULS",
-          "lat": -34.855098724365234,
-          "lon": -55.09429931640625,
+          "lat": -34.855099,
+          "lon": -55.094299,
           "distanceKm": 13.8
         }
       },
@@ -8399,11 +8399,11 @@
         "content": [],
         "nearestAirport": {
           "name": "Noi Bai International Airport",
-          "city": "Hanoi",
+          "city": "Hanoi (Soc Son)",
           "iata": "HAN",
           "icao": "VVNB",
-          "lat": 21.221200942993164,
-          "lon": 105.80699920654297,
+          "lat": 21.221201,
+          "lon": 105.806999,
           "distanceKm": 22.1
         }
       },
@@ -8436,13 +8436,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Shun Tak Heliport",
+          "name": "Hong Kong International Airport",
           "city": "Hong Kong",
-          "iata": "HHP",
-          "icao": "VHST",
-          "lat": 22.2893714905,
-          "lon": 114.152153015,
-          "distanceKm": 5.9
+          "iata": "HKG",
+          "icao": "VHHH",
+          "lat": 22.31184,
+          "lon": 113.914862,
+          "distanceKm": 26.4
         }
       },
       {
@@ -8482,11 +8482,11 @@
         ],
         "nearestAirport": {
           "name": "Noi Bai International Airport",
-          "city": "Hanoi",
+          "city": "Hanoi (Soc Son)",
           "iata": "HAN",
           "icao": "VVNB",
-          "lat": 21.221200942993164,
-          "lon": 105.80699920654297,
+          "lat": 21.221201,
+          "lon": 105.806999,
           "distanceKm": 37.2
         }
       }
@@ -8531,13 +8531,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Capital City Airport",
+          "name": "Capital Region International Airport",
           "city": "Lansing",
           "iata": "LAN",
           "icao": "KLAN",
-          "lat": 42.77870178222656,
-          "lon": -84.58740234375,
-          "distanceKm": 12.2
+          "lat": 42.777582,
+          "lon": -84.585721,
+          "distanceKm": 12
         }
       },
       {
@@ -8573,12 +8573,12 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "John Wayne Airport-Orange County Airport",
+          "name": "John Wayne Orange County International Airport",
           "city": "Santa Ana",
           "iata": "SNA",
           "icao": "KSNA",
-          "lat": 33.67570114,
-          "lon": -117.8679962,
+          "lat": 33.675063,
+          "lon": -117.869281,
           "distanceKm": 4.2
         }
       },
@@ -8617,13 +8617,13 @@
         },
         "content": [],
         "nearestAirport": {
-          "name": "Bristol Filton Airport",
+          "name": "Bristol Airport",
           "city": "Bristol",
-          "iata": "FZO",
-          "icao": "EGTG",
-          "lat": 51.5194015503,
-          "lon": -2.59083008766,
-          "distanceKm": 4.2
+          "iata": "BRS",
+          "icao": "EGGD",
+          "lat": 51.382326,
+          "lon": -2.716453,
+          "distanceKm": 13.4
         }
       }
     ]
