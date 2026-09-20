@@ -30,7 +30,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": -33.9175994,
+          "lon": 151.2312369,
+          "geocode": "University of New South Wales, Houston Lane, Kensington, Eastern Suburbs, Sydney, New South Wales, 2032, Australia"
         },
         {
           "id": "299195d34d6d81889b9dca02e5ec9bf4",
@@ -58,7 +61,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": -33.774197,
+          "lon": 151.1127138,
+          "geocode": "Macquarie University, Christie Road, Macquarie Park, Sydney, New South Wales, 2113, Australia"
         },
         {
           "id": "299195d34d6d81d29a7ef2dea1fc927f",
@@ -86,7 +92,10 @@
             "Course Method": "Offline (in person)",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": -35.0248752,
+          "lon": 138.5734181,
+          "geocode": "Flinders University, Donnybrook Road, Eden Hills, Adelaide, South Australia, 5050, Australia"
         },
         {
           "id": "299195d34d6d81a9bf51d9e18316299f",
@@ -119,7 +128,10 @@
               "type": "text",
               "text": "@uvigo.es"
             }
-          ]
+          ],
+          "lat": -34.4050554,
+          "lon": 150.8783465,
+          "geocode": "University of Wollongong, Bus Bay, Keiraville, Wollongong, New South Wales, 2500, Australia"
         },
         {
           "id": "299195d34d6d8196a7f8c6058f7557dd",
@@ -147,7 +159,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": -34.065433,
+          "lon": 150.7932545,
+          "geocode": "Western Sydney University, University Drive, Sydney, New South Wales, 2560, Australia"
         },
         {
           "id": "299195d34d6d81998015ff3f438978c6",
@@ -175,7 +190,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": -37.7169359,
+          "lon": 145.043982,
+          "geocode": "La Trobe University (Bay 4), The Agora, Bundoora, Melbourne, Victoria, 3083, Australia"
         },
         {
           "id": "2b7195d34d6d802db048d003031dd67d",
@@ -203,7 +221,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": -37.8100215,
+          "lon": 144.9689075,
+          "geocode": "Southern Cross University, 108, Lonsdale Street, Greek Precinct, Melbourne, Victoria, 3000, Australia"
         },
         {
           "id": "2bd195d34d6d808aac49cb532cfd246d",
@@ -231,7 +252,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": -27.6067483,
+          "lon": 151.9293708,
+          "geocode": "University of Southern Queensland, West Street, Darling Heights, Kearneys Spring, Toowoomba, Queensland, 4350, Australia"
         },
         {
           "id": "299195d34d6d8171b460d2d4b1f3996f",
@@ -259,7 +283,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 47.5839578,
+          "lon": 12.1733215,
+          "geocode": "University of Applied Sciences Kufstein, 7, Andreas Hofer-Straße, Kienbichl, Sparchen, Kufstein, Bezirk Kufstein, Tyrol, 6330, Austria"
         },
         {
           "id": "299195d34d6d810c9b94f49d722e6023",
@@ -287,7 +314,10 @@
             "Course Method": "Offline (in person)",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 47.2692703,
+          "lon": 11.3984544,
+          "geocode": "Management Center Innsbruck, Raiffeisenplatz, Innenstadt, Innsbruck, Tyrol, 6020, Austria"
         },
         {
           "id": "299195d34d6d81e5b051e41d2c7062d1",
@@ -315,7 +345,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 47.4062921,
+          "lon": 9.7437572,
+          "geocode": "FH Vorarlberg, 1, Achstraße, Hatlerdorf, Dornbirn, Bezirk Dornbirn, Vorarlberg, 6850, Austria"
         },
         {
           "id": "299195d34d6d8158942ce06fecb4a226",
@@ -343,7 +376,10 @@
             "Course Method": "Offline (in person)",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 46.797071,
+          "lon": 13.5012317,
+          "geocode": "Carinthia University of Applied Sciences, 1, Villacher Straße, Sankt Sigmund, Edling, Spittal an der Drau, Bezirk Spittal an der Drau, Carinthia, 9800, Austria"
         },
         {
           "id": "299195d34d6d81c19ca6ee3960299972",
@@ -371,7 +407,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 47.0692049,
+          "lon": 15.4074642,
+          "geocode": "FH Joanneum, 13, Eggenberger Allee, Katastralgemeinde Algersdorf, Eggenberg, Graz, Styria, 8020, Austria"
         },
         {
           "id": "299195d34d6d8122b9bbc1807d724a69",
@@ -399,7 +438,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 47.0582807,
+          "lon": 15.4602462,
+          "geocode": "Graz University of Technology, Koßgasse, Katastralgemeinde Waltendorf, Waltendorf, Graz, Styria, 8010, Austria"
         },
         {
           "id": "2bd195d34d6d80f1a736eec1fe32dba6",
@@ -427,7 +469,10 @@
             "Course Method": "Offline (in person)",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 48.1755458,
+          "lon": 16.3570742,
+          "geocode": "bfi, 92-94, Davidgasse, Triesterviertel, Katastralgemeinde Inzersdorf Stadt, Favoriten, Vienna, 1100, Austria"
         },
         {
           "id": "299195d34d6d8158bc06cc82b5accf83",
@@ -468,7 +513,10 @@
               "type": "text",
               "text": "> Spring semester : 17 February (TBC)"
             }
-          ]
+          ],
+          "lat": 50.8137605,
+          "lon": 4.3789118,
+          "geocode": "Solvay Brussels School of Economics & Management, Chemin Henri Storck, Petite Suisse - Klein-Zwitserland, south extension of Brussels, Brussels, Brussels-Capital, 1050, Belgium"
         },
         {
           "id": "299195d34d6d81c4a628ff7323b3695b",
@@ -496,7 +544,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 50.6368602,
+          "lon": 5.5624252,
+          "geocode": "HEC Liège Management School - University of Liège, 14, Rue Louvrex, Jonfosse, Centre, Liège, Wallonia, 4000, Belgium"
         },
         {
           "id": "299195d34d6d8196aad7c9ab9d8f3fb2",
@@ -524,7 +575,10 @@
             "Course Method": "Offline (in person)",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 50.6685842,
+          "lon": 4.6132341,
+          "geocode": "Doyens, 1, Rue Rabelais, Bruyères, Louvain-la-Neuve, Ottignies-Louvain-la-Neuve, Nivelles, Walloon Brabant, Wallonia, 1348, Belgium"
         },
         {
           "id": "299195d34d6d8184bb41d27f74170102",
@@ -552,7 +606,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 48.4203116,
+          "lon": -89.2623395,
+          "geocode": "Lakehead University, 955, Oliver Road, Red River, Thunder Bay, Thunder Bay District, Northwestern Ontario, Ontario, P7B 5E1, Canada"
         },
         {
           "id": "299195d34d6d8198bcbcc6f254e5a75c",
@@ -580,7 +637,10 @@
             "Course Method": "Offline (in person)",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 51.0116203,
+          "lon": -114.1307018,
+          "geocode": "Mount Royal University, Bishop Drive SW, Currie Barracks, Calgary, Alberta, T3E 8A9, Canada"
         },
         {
           "id": "299195d34d6d8175a20eef514e29b0ad",
@@ -608,7 +668,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 50.6724455,
+          "lon": -120.3640266,
+          "geocode": "Thompson Rivers University, McGill Road, Upper Sahali, Kamloops, Thompson-Nicola Regional District, British Columbia, V2C 6G2, Canada"
         },
         {
           "id": "299195d34d6d81679566cad36efda09c",
@@ -636,7 +699,10 @@
             "Course Method": "Offline (in person)",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 45.5047577,
+          "lon": -73.6145418,
+          "geocode": "Université de Montréal, 2900, Boulevard Édouard-Montpetit, Côte-des-Neiges–Notre-Dame-de-Grâce, Montreal, Urban agglomeration of Montreal, Montreal (administrative region), Quebec, H3T 1J4, Canada"
         },
         {
           "id": "2bf195d34d6d800cb4fbd4eb6c773897",
@@ -664,7 +730,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 48.4620599,
+          "lon": -123.3114198,
+          "geocode": "University of Victoria, Gordon Head Road, Gordon Head, Saanich, Capital Regional District, British Columbia, V8N 3X2, Canada"
         },
         {
           "id": "299195d34d6d812f9f15e08512629243",
@@ -692,7 +761,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 50.0888947,
+          "lon": 14.4162757,
+          "geocode": "Faculty of Arts, Charles University in Prague, Kaprova, Josefov, obvod Praha 1, Prague, 116 93, Czechia"
         },
         {
           "id": "299195d34d6d81b6bcf1ccc7f8e84159",
@@ -720,7 +792,10 @@
             "Course Method": "Offline (in person)",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 56.1670905,
+          "lon": 10.2026177,
+          "geocode": "Aarhus University, Østboulevarden, Trøjborg, Aarhus, Aarhus Municipality, Central Denmark Region, 8000, Denmark"
         },
         {
           "id": "299195d34d6d81e99990d162051e40fc",
@@ -748,7 +823,10 @@
             "Course Method": "Offline (in person)",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 55.6731787,
+          "lon": 12.5737989,
+          "geocode": "The Royal Danish Academy of Sciences and Letters, Dantes Plads, Postbyen, Islands Brygge, Ballonparken, Copenhagen, Copenhagen Municipality, Capital Region of Denmark, 1556, Denmark"
         },
         {
           "id": "299195d34d6d8132b0cad8c3451be034",
@@ -776,7 +854,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 55.3678533,
+          "lon": 10.4280534,
+          "geocode": "University of Southern Denmark, Fioniavej, Cortex Park, Odense, Odense Municipality, Region of Southern Denmark, 5230, Denmark"
         },
         {
           "id": "299195d34d6d8129989ce77370d86a52",
@@ -804,7 +885,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 55.8618812,
+          "lon": -4.2419566,
+          "geocode": "University of Strathclyde, Ingram Street, Merchant City, City Centre, Glasgow, Glasgow City, Scotland, G1 1DW, United Kingdom"
         },
         {
           "id": "299195d34d6d81edb7dedc6489e754de",
@@ -832,7 +916,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 51.5218979,
+          "lon": -0.1288676,
+          "geocode": "SOAS University of London, Russell Square, Bloomsbury, London Borough of Camden, Greater London, England, WC1H 0XG, United Kingdom"
         },
         {
           "id": "299195d34d6d8178b9c4edeee28a851c",
@@ -860,7 +947,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 53.4037508,
+          "lon": -2.9726752,
+          "geocode": "Liverpool John Moores University Mount Pleasant Campus, 80-98, Mount Pleasant, Knowledge Quarter, Edge Hill, Liverpool, Liverpool City Region, England, L3 5UZ, United Kingdom"
         },
         {
           "id": "299195d34d6d81b89266fc55c6d8c9c0",
@@ -888,7 +978,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 52.91164,
+          "lon": -1.1866048,
+          "geocode": "Nottingham Trent University (Clifton Campus), Merlin Close, Clifton, Nottingham, East Midlands, England, NG11 8BB, United Kingdom"
         },
         {
           "id": "299195d34d6d819ea19cf62a9a35bad4",
@@ -916,7 +1009,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 53.3729622,
+          "lon": -1.5059315,
+          "geocode": "University of Sheffield, Western Bank, Saint George's Quarter, Netherthorpe, Sheffield, South Yorkshire, England, S10 2TN, United Kingdom"
         },
         {
           "id": "299195d34d6d81679ddffe0885ada6de",
@@ -944,7 +1040,10 @@
             "Course Method": "Offline(in person)",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 53.982244,
+          "lon": -1.0763834,
+          "geocode": "York St John University, Dudley Mews, The Groves, Layerthorpe, York, York and North Yorkshire, England, YO31 7EX, United Kingdom"
         },
         {
           "id": "2b1195d34d6d80ca9ba4e43d08ae572c",
@@ -972,7 +1071,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 52.6297131,
+          "lon": -1.139284,
+          "geocode": "De Montfort University, Oxford Street, Bede Island, Leicester, City of Leicester, England, LE1 5XZ, United Kingdom"
         },
         {
           "id": "299195d34d6d816baf92d413b920e400",
@@ -1000,7 +1102,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 59.4393125,
+          "lon": 24.7723471,
+          "geocode": "Tallinn University, Tuukri, Sadama, City center, Tallinn, Harju County, 10154, Estonia"
         },
         {
           "id": "299195d34d6d8162b272ed8f59ea340f",
@@ -1028,7 +1133,10 @@
             "Course Method": "Offline (in person)",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 60.4560732,
+          "lon": 22.2864097,
+          "geocode": "University of Turku, University Hill, I, City Centre, Turku, Turku sub-region, Southwest Finland, Mainland Finland, 20500, Finland"
         },
         {
           "id": "299195d34d6d812a88f7ef356fd0a5d8",
@@ -1056,7 +1164,10 @@
             "Course Method": "Offline (in person)",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 61.5041278,
+          "lon": 23.8083919,
+          "geocode": "Tampere University of Applied Sciences, 3, Kuntokatu, Hipposkylä, Kissanmaa, Keskustan suuralue, Tampere, Tampere sub-region, Pirkanmaa, Mainland Finland, 33520, Finland"
         },
         {
           "id": "299195d34d6d81b1a286e5691564a11e",
@@ -1084,7 +1195,10 @@
             "Course Method": "Offline (in person)",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 63.1064129,
+          "lon": 21.5916924,
+          "geocode": "Vaasa University of Applied Sciences, 30, Wolffintie, Onkilahden ranta, Yliopisto, Vaasa, Vaasa sub-region, Ostrobothnia, Mainland Finland, 65200, Finland"
         },
         {
           "id": "299195d34d6d81268a04e3c6eaffd19e",
@@ -1112,7 +1226,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 60.2013724,
+          "lon": 24.9653266,
+          "geocode": "Arcada, University of Applied Sciences, 1, Jan-Magnus Janssonin aukio, Arabianranta, Toukola, Central major district, Helsinki, Helsinki sub-region, Uusimaa, Mainland Finland, 00560, Finland"
         },
         {
           "id": "299195d34d6d8100bfc2f8c36e60399c",
@@ -1140,7 +1257,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 61.2296902,
+          "lon": 25.8105246,
+          "geocode": "Päijät-Häme, Mainland Finland, Finland"
         },
         {
           "id": "299195d34d6d81cdaf94f486389b9afe",
@@ -1168,7 +1288,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 65.0612305,
+          "lon": 25.4690204,
+          "geocode": "Oulu University of Applied Sciences, Erkki Koiso-Kanttilan katu, Puulinnanmaa, Linnanmaa, Kaijonharju, Oulu, Oulu sub-region, North Ostrobothnia, Mainland Finland, 90570, Finland"
         },
         {
           "id": "299195d34d6d818b85a4ecaf18686112",
@@ -1209,7 +1332,10 @@
               "type": "text",
               "text": "Nice Campus"
             }
-          ]
+          ],
+          "lat": 50.6729687,
+          "lon": 3.1660828,
+          "geocode": "EDHEC Business School, Rue Verte, Croix, Lille, Nord, Hauts-de-France, Metropolitan France, 59170, France"
         },
         {
           "id": "299195d34d6d81d8a63dfeeb5dc94b8e",
@@ -1237,7 +1363,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 48.1274799,
+          "lon": -1.6903697,
+          "geocode": "Rennes School of Business, 2, Rue Robert d'Arbrissel, Beauregard, Villejean - Beauregard, Quartiers Nord-Ouest, Rennes, Ille-et-Vilaine, Brittany, Metropolitan France, 35000, France"
         },
         {
           "id": "299195d34d6d81fb9e35e8011a76c086",
@@ -1265,7 +1394,10 @@
             "Course Method": "Offline (in person)",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 43.5259126,
+          "lon": 5.4141035,
+          "geocode": "Aix Marseille Université, chemin piéton, Jas de Bouffan, Aix-en-Provence, Bouches-du-Rhône, Provence-Alpes-Côte d'Azur, Metropolitan France, 13097, France"
         },
         {
           "id": "299195d34d6d812ca79bf80f6a6988c2",
@@ -1293,7 +1425,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 49.463893,
+          "lon": 1.0654606,
+          "geocode": "Business School, Rue du Maréchal Juin, Parc de la Varenne, Mont-Saint-Aignan, Rouen, Seine-Maritime, Normandy, Metropolitan France, 76130, France"
         },
         {
           "id": "299195d34d6d81cda43fe302e6bd3943",
@@ -1321,7 +1456,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 48.8578622,
+          "lon": 2.3326429,
+          "geocode": "Maison de la Recherche - INaLCO, Rue des Saints-Pères, Quartier Saint-Thomas-d'Aquin, 7th Arrondissement, Paris, Ile-de-France, Metropolitan France, 75007, France"
         },
         {
           "id": "299195d34d6d81b9b45bec9ba3df8c32",
@@ -1349,7 +1487,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 45.8260427,
+          "lon": 1.2585756,
+          "geocode": "Université de Limoges, 33, Rue François Mitterrand, Le Château, Clos Moreau, Limoges, Haute-Vienne, Nouvelle-Aquitaine, Metropolitan France, 87000, France"
         },
         {
           "id": "299195d34d6d81ee8649e9c3977ba775",
@@ -1377,7 +1518,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 48.1250257,
+          "lon": -1.6970328,
+          "geocode": "Epita, 12, Rue Jean-Louis Bertrand, Atalante-Villejean, Villejean, Villejean - Beauregard, Quartiers Nord-Ouest, Rennes, Ille-et-Vilaine, Brittany, Metropolitan France, 35000, France"
         },
         {
           "id": "299195d34d6d812db84ce4a008032c7a",
@@ -1405,7 +1549,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 47.9072112,
+          "lon": 1.8905255,
+          "geocode": "Excelia, Boulevard de Châteaudun, Dunois Madeleine, Orléans, Loiret, Centre-Val de Loire, Metropolitan France, 45000, France"
         },
         {
           "id": "299195d34d6d81179474dfb37b3c59c1",
@@ -1433,7 +1580,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 46.1386902,
+          "lon": -1.1453926,
+          "geocode": "SUAPS université de La Rochelle, Avenue de la Rotonde, Bongraine, Besselue, Aytré, La Rochelle, Charente-Maritime, Nouvelle-Aquitaine, Metropolitan France, 17440, France"
         },
         {
           "id": "299195d34d6d811b9c0ff356b19bb2c1",
@@ -1461,7 +1611,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 48.8514684,
+          "lon": 2.341089,
+          "geocode": "Paris Cité University, 15, Rue de l'École de Médecine, Quartier de la Monnaie, 6th Arrondissement, Paris, Ile-de-France, Metropolitan France, 75006, France"
         },
         {
           "id": "299195d34d6d81fa9501e72721fb6602",
@@ -1489,7 +1642,10 @@
             "Course Method": "Offline (in person)",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 48.8473977,
+          "lon": 2.3455085,
+          "geocode": "Université Paris 1 Panthéon-Sorbonne, 2, Rue Cujas, Quartier de la Sorbonne, 5th Arrondissement, Paris, Ile-de-France, Metropolitan France, 75005, France"
         },
         {
           "id": "29d195d34d6d80c98396e9a755f13c98",
@@ -1517,7 +1673,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 48.8701102,
+          "lon": 2.2734842,
+          "geocode": "Université Paris-Dauphine, 1, Place du Maréchal de Lattre de Tassigny, Quartier de la Porte-Dauphine, 16th Arrondissement, Paris, Ile-de-France, Metropolitan France, 75116, France"
         },
         {
           "id": "2b9195d34d6d80e1b5dec0feddab341a",
@@ -1545,7 +1704,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 44.7964286,
+          "lon": -0.6008878,
+          "geocode": "Kedge Business School, Rue Ronsard, Thouars, Talence, Bordeaux, Gironde, Nouvelle-Aquitaine, Metropolitan France, 33400, France"
         },
         {
           "id": "2d5195d34d6d80179631ffac6a4929c8",
@@ -1573,7 +1735,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 48.8447757,
+          "lon": 2.3561335,
+          "geocode": "Institut de Physique du Globe de Paris, 1, Rue Jussieu, Quartier Saint-Victor, 5th Arrondissement, Paris, Ile-de-France, Metropolitan France, 75005, France"
         },
         {
           "id": "299195d34d6d81529757d9644d126f48",
@@ -1601,7 +1766,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 52.2868026,
+          "lon": 8.0182286,
+          "geocode": "Hochschule Osnabrück, Heinrich-Böll-Straße, Musikantenviertel, Westerberg, Osnabrück, Lower Saxony, 49076, Germany"
         },
         {
           "id": "299195d34d6d81ff94abe8a7b9cab895",
@@ -1629,7 +1797,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 48.5340595,
+          "lon": 9.0712444,
+          "geocode": "Climate Garden of University Tuebingen, Sand, Lustnau, Tübingen, Landkreis Tübingen, Baden-Württemberg, 72076, Germany"
         },
         {
           "id": "299195d34d6d819cb767fb5b6e8f072f",
@@ -1657,7 +1828,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 52.2731713,
+          "lon": 8.0457212,
+          "geocode": "Library of the University of Osnabrueck, Kamp, Heger-Tor-Viertel, Altstadt, Innenstadt, Osnabrück, Lower Saxony, 49074, Germany"
         },
         {
           "id": "299195d34d6d814aab1dd726e9adf3db",
@@ -1685,7 +1859,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 53.5909051,
+          "lon": 9.9753758,
+          "geocode": "University of Hamburg, Rothenburgsort, Hamburg-Mitte, Hamburg, 20539, Germany"
         },
         {
           "id": "299195d34d6d8179b4c5cc044281ec0b",
@@ -1713,7 +1890,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 49.0066424,
+          "lon": 8.3940515,
+          "geocode": "Karlshochschule International University, 36-38, Karlstraße, Innenstadt-West Westlicher Teil, Innenstadt-West, Karlsruhe, Baden-Württemberg, 76133, Germany"
         },
         {
           "id": "299195d34d6d8100b05ac222af76c635",
@@ -1741,7 +1921,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 52.4528565,
+          "lon": 13.2907249,
+          "geocode": "Freie Universität Berlin, Habelschwerdter Allee, Dahlem, Steglitz-Zehlendorf, Berlin, 14195, Germany"
         },
         {
           "id": "2b8195d34d6d80128d35eb9ce55fc487",
@@ -1769,7 +1952,10 @@
             "Course Method": "Offline(in person)",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 53.1079646,
+          "lon": 8.8556646,
+          "geocode": "University of Bremen, 1, Bibliothekstraße, Lehe, Horn-Lehe, Bremen-Ost, Bremen, 28359, Germany"
         },
         {
           "id": "2bf195d34d6d80aa8744da9778d56535",
@@ -1797,7 +1983,10 @@
             "Course Method": "Blended (Online + Offline)",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 50.7791732,
+          "lon": 6.0689207,
+          "geocode": "RWTH Aachen University, Berliner Ring, Rothe Erde, Aachen-Mitte, Aachen, Aachen (district), North Rhine-Westphalia, 52068, Germany"
         },
         {
           "id": "2c3195d34d6d80538ac2e8cf328e29c4",
@@ -1825,7 +2014,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 48.1107057,
+          "lon": 11.4693622,
+          "geocode": "LMU Klinikum – Campus Großhadern, 15, Marchioninistraße, Großhadern, Hadern, Munich, Bavaria, 81377, Germany"
         },
         {
           "id": "299195d34d6d81c4ab06f81010cf5ca1",
@@ -1853,7 +2045,10 @@
             "Course Method": "Offline (in person)",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 22.3044867,
+          "lon": 114.1796935,
+          "geocode": "The Hong Kong Polytechnic University, 11, Yuk Choi Road, Gun Club Hill, East Tsim Sha Tsui, Yau Tsim Mong District, Kowloon, Hong Kong, China"
         },
         {
           "id": "299195d34d6d816f879cc84b064189de",
@@ -1881,7 +2076,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 22.337988,
+          "lon": 114.1826259,
+          "geocode": "Hong Kong Baptist University, Sha Tin District, New Territories, Hong Kong, China"
         },
         {
           "id": "2b9195d34d6d8027a8ead3abf06bf946",
@@ -1909,7 +2107,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 22.4123588,
+          "lon": 113.9812776,
+          "geocode": "Lingnan University, 8, Castle Peak Road – Lingnan, Fu Tei, To Yuen Wai, Tuen Mun District, New Territories, Hong Kong, China"
         },
         {
           "id": "2d9195d34d6d80679d98dc2f1629c546",
@@ -1937,7 +2138,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 22.3400205,
+          "lon": 114.1697162,
+          "geocode": "City University of Hong Kong, Sunshine Grove, Yuen Chau Kok, Sha Tin District, New Territories, Hong Kong, China"
         },
         {
           "id": "299195d34d6d815190bad8459c1bb27a",
@@ -1965,7 +2169,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": -6.2288537,
+          "lon": 106.7967702,
+          "geocode": "Binus University, Jalan Terusan Hang Lekir I, RW 02, Gelora, Tanah Abang, Central Jakarta, Special Capital Region of Jakarta, 10270, Indonesia"
         },
         {
           "id": "299195d34d6d8138883cd09e48dfaa3b",
@@ -1993,7 +2200,10 @@
             "Course Method": "Offline (in person)",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": -6.3603157,
+          "lon": 106.8271856,
+          "geocode": "University of Indonesia, Jalan Prof. Dr. Sudjono D. Pusponegoro, Pondok Cina, Beji, Depok, West Java, 16424, Indonesia"
         },
         {
           "id": "2b6195d34d6d80a08f04e9f402935288",
@@ -2021,7 +2231,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 53.3820615,
+          "lon": -6.5988074,
+          "geocode": "Maynooth University, Kilcock Road, Maynooth ED, The Municipal District of Clane — Maynooth, County Kildare, Leinster, Ireland"
         },
         {
           "id": "299195d34d6d8167a5e7de3c12a426d0",
@@ -2049,7 +2262,10 @@
             "Course Method": "Offline (in person)",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 41.9035004,
+          "lon": 12.5147689,
+          "geocode": "Sapienza Università di Roma, Piazzale Aldo Moro, Municipio Roma II, Rome, Roma Capitale, Lazio, 00185, Italy"
         },
         {
           "id": "299195d34d6d8130bde7c9c0640f5558",
@@ -2077,7 +2293,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 45.4345657,
+          "lon": 12.3265552,
+          "geocode": "Ca' Foscari, Calle Giustinian, Dorsoduro, Venezia-Murano-Burano, Lido, Venice, Venezia, Veneto, 30123, Italy"
         },
         {
           "id": "299195d34d6d816ba444e760af402300",
@@ -2105,7 +2324,10 @@
             "Course Method": "Offline (in person)",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 35.8396929,
+          "lon": 139.7948767,
+          "geocode": "Dokkyo University, 花栗通り, 花栗四丁目, 学園町, Soka, Saitama Prefecture, 340-0042, Japan"
         },
         {
           "id": "299195d34d6d81099120c1e4295ef89f",
@@ -2133,7 +2355,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 35.6567104,
+          "lon": 140.0428837,
+          "geocode": "Kanda University of International Studies, Tokyo Wangan Road, Hamada 1-chome, Mihama Ward, Chiba, Chiba Prefecture, 261-0023, Japan"
         },
         {
           "id": "299195d34d6d81e595b9ef060d8eef62",
@@ -2161,7 +2386,10 @@
             "Course Method": "Offline (in person)",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 34.7727832,
+          "lon": 135.5104521,
+          "geocode": "Kansai University Senriyama Campus, Meishin Expressway, Senriyama-higashi 1-chome, Suita, Osaka Prefecture, 565-0842, Japan"
         },
         {
           "id": "299195d34d6d81f6af75dbf33fbdbb5c",
@@ -2189,7 +2417,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 35.0733427,
+          "lon": 135.7563402,
+          "geocode": "Kyoto Sangyo University, 小柳通, Koyama-Shimohatsunecho, Kita Ward, Kyoto, Kyoto Prefecture, 603-8173, Japan"
         },
         {
           "id": "299195d34d6d81fb9165dddc873dac83",
@@ -2217,7 +2448,10 @@
             "Course Method": "Offline (in person)",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 35.6403751,
+          "lon": 139.4045306,
+          "geocode": "Chuo University, 多摩丘陵トンネル, Hodokubo 4, Hodokubo, Hachioji, Tokyo, 191-8506, Japan"
         },
         {
           "id": "299195d34d6d81d6910ed5cb6e041df2",
@@ -2245,7 +2479,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 35.5795925,
+          "lon": 139.407955,
+          "geocode": "J.F.Oberlin Univ.-E., Sakura-Dori, Tadao 4-chome, Negishi, Machida, Tokyo, 194-0214, Japan"
         },
         {
           "id": "299195d34d6d81fb8c79efb40685f389",
@@ -2273,7 +2510,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 33.3359195,
+          "lon": 131.4688206,
+          "geocode": "立命館アジア太平洋大学, 1, Beppu, Oita Prefecture, 874-8577, Japan"
         },
         {
           "id": "299195d34d6d8110b77bfd2e6d35f33c",
@@ -2301,7 +2541,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 34.6517298,
+          "lon": 135.5913154,
+          "geocode": "Kindai university, Old Osaka Central Outer Ring Road, Hoji 2-chome, Higashiōsaka, Osaka Prefecture, 577-8502, Japan"
         },
         {
           "id": "299195d34d6d816190f5dd51007b2629",
@@ -2329,7 +2572,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 34.7291419,
+          "lon": 135.2683786,
+          "geocode": "Konan University, 1, Okamoto 8-chome, Higashinada Ward, Kobe, Hyogo Prefecture, 658-8501, Japan"
         },
         {
           "id": "299195d34d6d817698f9d6b614f57353",
@@ -2357,7 +2603,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 35.6741728,
+          "lon": 139.5204339,
+          "geocode": "Tokyo University of Foreign Studies, 1, Asahicho 3-chome, Fuchu, Tokyo, 183-8534, Japan"
         },
         {
           "id": "299195d34d6d81b0a3a9cf6c496a5af9",
@@ -2385,7 +2634,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 35.6975029,
+          "lon": 139.7613917,
+          "geocode": "Meiji University, Tochinoki-dori, Kanda-Surugadai 1, Kanda-Surugadai, Chiyoda, Tokyo, 101-0062, Japan"
         },
         {
           "id": "299195d34d6d81bcba93e76a891a255a",
@@ -2413,7 +2665,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 35.034404,
+          "lon": 135.726647,
+          "geocode": "Ritsumeikan University, Kitsuji street, Hirano-Kamiyanagicho, 馬喰町, Kita Ward, Kyoto, Kyoto Prefecture, 603-8577, Japan"
         },
         {
           "id": "299195d34d6d81189c20fae79d14f662",
@@ -2441,7 +2696,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 35.6969313,
+          "lon": 139.7539119,
+          "geocode": "Senshu University, Sendai-dori, Kanda-Jimbocho 2, Kanda-Jimbocho, Chiyoda, Tokyo, 101-0051, Japan"
         },
         {
           "id": "299195d34d6d8141b46ff42459808b27",
@@ -2478,7 +2736,10 @@
               "type": "text",
               "text": "Qingdao University"
             }
-          ]
+          ],
+          "lat": 35.6971554,
+          "lon": 139.7625818,
+          "geocode": "Nihon University, Kozakura-dori, Kanda-Surugadai 1, Kanda-Surugadai, Chiyoda, Tokyo, 101-0062, Japan"
         },
         {
           "id": "299195d34d6d8124ab9ce518c87bb61b",
@@ -2506,7 +2767,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 35.6527122,
+          "lon": 139.721317,
+          "geocode": "International School of the Sacred Heart, Gaien Nishi Dori, Minami-Azabu 5-chome, Hiroo, Shibuya, Tokyo, 106-0047, Japan"
         },
         {
           "id": "299195d34d6d81d0a7a2e66cd07576f3",
@@ -2534,7 +2798,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 35.7178122,
+          "lon": 139.6804514,
+          "geocode": "Mejiro University Shinjuku Campus, 1, Naka-Ochiai 4, Naka-Ochiai, Shinjuku, Tokyo, 161-8539, Japan"
         },
         {
           "id": "299195d34d6d81048c5fd17f4270c04b",
@@ -2562,7 +2829,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 35.7091798,
+          "lon": 139.7197213,
+          "geocode": "Waseda University Waseda Campus, 1, Nishi-Waseda 1, Nishi-Waseda, Shinjuku, Tokyo, 169-8050, Japan"
         },
         {
           "id": "299195d34d6d812aa24cf56aea12ab52",
@@ -2590,7 +2860,10 @@
             "Course Method": "Offline (in person)",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 35.6563628,
+          "lon": 138.6016277,
+          "geocode": "山梨学院大学, Joto bypass, Sakaori 1-chome, Sunadacho, Kōfu, Yamanashi Prefecture, 400-0806, Japan"
         },
         {
           "id": "2b9195d34d6d804e9669f49b85234f86",
@@ -2618,7 +2891,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 32.7861999,
+          "lon": 129.865345,
+          "geocode": "Nagasaki University, Nagasaki, Nagasaki Prefecture, 852-8521, Japan"
         },
         {
           "id": "299195d34d6d819ab86dd36c80296687",
@@ -2646,7 +2922,10 @@
             "Course Method": "Offline (in person)",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 43.2416004,
+          "lon": 76.9552551,
+          "geocode": "KIMEP University, Shokan Valikhanov Street, Медеу ауданы, Almaty, 050050, Kazakhstan"
         },
         {
           "id": "299195d34d6d8183ba38eaffae68de2f",
@@ -2679,7 +2958,10 @@
               "type": "text",
               "text": "Loading..."
             }
-          ]
+          ],
+          "lat": 54.6828203,
+          "lon": 25.2878334,
+          "geocode": "Vilnius University, Šv. Jono g., Old Town, Senamiesčio seniūnija, Vilnius, Vilnius city municipality, Vilnius County, 01123, Lithuania"
         },
         {
           "id": "299195d34d6d8154a918f78ec29540ef",
@@ -2707,7 +2989,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 55.7310323,
+          "lon": 21.1336188,
+          "geocode": "LCC International university, 36, Kretingos g., Miškas, Luizė, Klaipėda, Klaipėda City Municipality, Klaipėda County, 92307, Lithuania"
         },
         {
           "id": "299195d34d6d8137a01ec76e1b8a417b",
@@ -2735,7 +3020,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 54.8697097,
+          "lon": 23.9082135,
+          "geocode": "Botanical Garden of Vytautas Magnus University, Aleksoto seniūnija, Kaunas, Kauno miesto savivaldybė, Kaunas County, Lithuania"
         },
         {
           "id": "299195d34d6d814e8204fee1b69a21ce",
@@ -2763,7 +3051,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 54.6868825,
+          "lon": 25.2827027,
+          "geocode": "ISM Vadybos ir ekonomikos universitetas, 7, Gediminas Avenue, Old Town, Senamiesčio seniūnija, Vilnius, Vilnius city municipality, Vilnius County, 01103, Lithuania"
         },
         {
           "id": "2bf195d34d6d80d3a80eed6629c8c326",
@@ -2791,7 +3082,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 22.1526454,
+          "lon": 113.568041,
+          "geocode": "Macau University of Science and Technology, 路氹連貫公路圓形地下層行車道 Via de Circulação Desnivelada na Rotunda do Istmo Coloane-Taipa, Taipa Old Village, 松樹尾 Chun Su Mei, 嘉模堂區 Nossa Senhora do Carmo, Taipa, Macau, 999078, China"
         },
         {
           "id": "299195d34d6d8175ae2be27859b9405e",
@@ -2819,7 +3113,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 22.1283648,
+          "lon": 113.5437784,
+          "geocode": "University of Macau, University Ave. S. Roundabout, 嘉模堂區 Nossa Senhora do Carmo, Taipa, Macau, 999078, China"
         },
         {
           "id": "299195d34d6d813e97a3fb6fc0103e67",
@@ -2847,7 +3144,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 32.0565957,
+          "lon": 118.7740883,
+          "geocode": "Nanjing University (Gulou Campus), Shanghai Road, Hunanlu, Gulou District, Nanjing City, Jiangsu, 210093, China"
         },
         {
           "id": "299195d34d6d81a99e94f6146297281c",
@@ -2875,7 +3175,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 43.8538108,
+          "lon": 125.3281858,
+          "geocode": "Jilin University (Nanling Campus), 5988, Renmin Avenue, Nanling Subdistrict, Nanguan District, Changchun City, Nanguan, Jilin, 130025, China"
         },
         {
           "id": "299195d34d6d81dfb54ef9db6f5faf2b",
@@ -2903,7 +3206,10 @@
             "Course Method": "Offline (in person)",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 34.8194726,
+          "lon": 113.8143648,
+          "geocode": "Henan University (Zhengzhou Campus), West Liujiang Street, Longzihu Subdistrict, Jinshui District, Zhengzhou, Henan, 450046, China"
         },
         {
           "id": "299195d34d6d81a6b92ff61f23643f5c",
@@ -2931,7 +3237,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 23.160342,
+          "lon": 113.3372426,
+          "geocode": "South China University of Technology (Wushan Campus), Jiuyiba Road, 凤凰新村, Wushan, Tianhe District, Guangzhou City, Guangdong, 510642, China"
         },
         {
           "id": "299195d34d6d81f59093c28df6f272c5",
@@ -2959,7 +3268,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 39.815107,
+          "lon": 109.9917071,
+          "geocode": "Bank of China, 伊金霍洛西街, Jiaotong, 羊场壕, 交通街道, Dongsheng District, Ordos City, Inner Mongolia, China"
         },
         {
           "id": "299195d34d6d816b849bc6ae2325f904",
@@ -2987,7 +3299,10 @@
             "Course Method": "Offline (in person)",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 31.2847393,
+          "lon": 121.4969491,
+          "geocode": "Tongji University, 1239, Siping Road, Anshan, Sipinglu, Yangpu District, Shanghai, 200092, China"
         },
         {
           "id": "299195d34d6d81ae9858d550c295110e",
@@ -3015,7 +3330,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 30.5373773,
+          "lon": 114.361535,
+          "geocode": "Wuhan University, 299, Bayi Road, Luonan Subdistrict, Hongshan District, Wuhan, Hubei, 430072, China"
         },
         {
           "id": "299195d34d6d81ee99a3e3fe8f106940",
@@ -3043,7 +3361,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 5.3574323,
+          "lon": 100.3035504,
+          "geocode": "University of Science, Malaysia, Jalan Batu Uban 3, Batu Uban, North-East, George Town, Penang, 11700, Malaysia"
         },
         {
           "id": "299195d34d6d81ccb227e74ea72a2cde",
@@ -3071,7 +3392,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 3.1257602,
+          "lon": 101.6558796,
+          "geocode": "University of Malaya, Jalan 16/2, Kuala Lumpur, 50603, Malaysia"
         },
         {
           "id": "2be195d34d6d8018a51ae714087f1dfb",
@@ -3099,7 +3423,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 2.9240809,
+          "lon": 101.7812216,
+          "geocode": "National University of Malaysia, Jalan Tropika 2/1, Taman Universiti, Kampung Sungai Tangkas, Kajang Municipal Council, Hulu Langat, Selangor, 43600, Malaysia"
         },
         {
           "id": "2cb195d34d6d8088a9d8d4b30ed14cd2",
@@ -3127,7 +3454,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 3.0632813,
+          "lon": 101.6170616,
+          "geocode": "Taylor's University Lakeside Campus, Jalan Taylors, PJS 7, Sunway City, Puchong, Subang Jaya City Council, Petaling, Selangor, 46150, Malaysia"
         },
         {
           "id": "299195d34d6d81e68e42c5a1620c2c21",
@@ -3155,7 +3485,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 20.6954234,
+          "lon": -103.4191743,
+          "geocode": "Universidad Autonoma de Guadalajara, Callejón del Muro, Villa Universitaria, Zapopan, Región Centro, Jalisco, 44100, Mexico"
         },
         {
           "id": "299195d34d6d8134a7f3fb8cb370d3b4",
@@ -3183,7 +3516,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 20.6770044,
+          "lon": -105.2204317,
+          "geocode": "Tecnologico de Monterrey, Puerto Vallarta, Región Costa Norte, Jalisco, 48300, Mexico"
         },
         {
           "id": "299195d34d6d810594bdfd9cde4ccb9b",
@@ -3211,7 +3547,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 32.2186496,
+          "lon": -7.9363261,
+          "geocode": "Mohammed VI Polytechnic University, Lot 660, RP2109, ابن جرير, Ben Guerir, Pachalik de Benguerir باشوية ابن جرير, Rhamna Province, Marrakech-Safi, 43150, Morocco"
         },
         {
           "id": "299195d34d6d8126a52edf6dd2add818",
@@ -3239,7 +3578,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 51.9176312,
+          "lon": 4.5259623,
+          "geocode": "Erasmus Universiteit Rotterdam, 50, Burgemeester Oudlaan, Kralingen-Oost, Crooswijk, Kralingen-Crooswijk, Rotterdam, South Holland, Netherlands, 3062 PA, Netherlands"
         },
         {
           "id": "2d8195d34d6d8058bce1e6d4680b3b82",
@@ -3267,7 +3609,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 51.9176312,
+          "lon": 4.5259623,
+          "geocode": "Erasmus Universiteit Rotterdam, 50, Burgemeester Oudlaan, Kralingen-Oost, Crooswijk, Kralingen-Crooswijk, Rotterdam, South Holland, Netherlands, 3062 PA, Netherlands"
         },
         {
           "id": "299195d34d6d8102bbf1f87b5b159b7f",
@@ -3295,7 +3640,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 52.160782,
+          "lon": 5.0058838,
+          "geocode": "Nyenrode Business Universiteit, Nieuw Nijenrode, Broeckland, Breukelen, Stichtse Vecht, Utrecht, Netherlands, 3621 MA, Netherlands"
         },
         {
           "id": "299195d34d6d8156a8ddf93f55c1dc28",
@@ -3323,7 +3671,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 52.2433268,
+          "lon": 6.8509157,
+          "geocode": "University of Twente, Witbreuksweg, Enschede, Overijssel, Netherlands, 7522 PH, Netherlands"
         },
         {
           "id": "299195d34d6d81819f7dfd55e853ac7b",
@@ -3351,7 +3702,10 @@
             "Course Method": "Offline (in person)",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 52.08705,
+          "lon": 5.0989734,
+          "geocode": "Hogeschool Utrecht, 9, Koningsbergerstraat, Leidseweg E.o., Lombok, Leidseweg, West, Utrecht, Netherlands, 3531 AJ, Netherlands"
         },
         {
           "id": "299195d34d6d8136bf7af8711aebd982",
@@ -3379,7 +3733,10 @@
             "Course Method": "Offline (in person)",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 53.2194416,
+          "lon": 6.5629863,
+          "geocode": "University of Groningen, Broerplein, City centre North, City centre, Centrum, Groningen, Netherlands, 9712 CP, Netherlands"
         },
         {
           "id": "299195d34d6d81bdb4ffc1adce8b82f5",
@@ -3407,7 +3764,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 51.5386681,
+          "lon": 5.0784942,
+          "geocode": "Fontys University of Applied Sciences, Olympiaplein, Oud-Zuid, Tilburg, North Brabant, Netherlands, 5022 DW, Netherlands"
         },
         {
           "id": "2c6195d34d6d80f7bee6cd96b74ab95b",
@@ -3435,7 +3795,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 52.1686437,
+          "lon": 4.4597918,
+          "geocode": "Leiden University, Blauwpoortsbrug, Oude Morsch, Binnenstad, Leiden, South Holland, Netherlands, 2312 EL, Netherlands"
         },
         {
           "id": "299195d34d6d81889ff5ebea73c32b20",
@@ -3463,7 +3826,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": -36.8529871,
+          "lon": 174.76642,
+          "geocode": "Auckland University of Technology, Rutland Street, Aotea Arts Quarter, City Centre, Auckland, Waitematā, Auckland, 1010, New Zealand"
         },
         {
           "id": "299195d34d6d819195c6c3e5a656eb49",
@@ -3491,7 +3857,10 @@
             "Course Method": "Offline (in person)",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 52.2715024,
+          "lon": 21.0139678,
+          "geocode": "Kozminski University, 57/59, Jagiellońska, Golędzinów, Pelcowizna, Praga-Północ, Warsaw, Masovian Voivodeship, 03-301, Poland"
         },
         {
           "id": "299195d34d6d817b82f6c95cfab1e651",
@@ -3524,7 +3893,10 @@
               "type": "text",
               "text": "Each student is entitled to take courses equivalent to 30 ECTS per semester (+10%)."
             }
-          ]
+          ],
+          "lat": 52.2216394,
+          "lon": 21.007377,
+          "geocode": "Warsaw University of Technology, 1, Plac Politechniki, Koszyki, Śródmieście Południowe, Midtown, Warsaw, Masovian Voivodeship, 00-661, Poland"
         },
         {
           "id": "299195d34d6d814cbe85c3d4932629ec",
@@ -3552,7 +3924,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 38.7367455,
+          "lon": -9.1383914,
+          "geocode": "Instituto Superior Técnico, 1, Avenida Rovisco Pais, Areeiro, Lisbon, 1049-001, Portugal"
         },
         {
           "id": "2bc195d34d6d8044a657c302c707870b",
@@ -3580,7 +3955,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 44.4356445,
+          "lon": 26.1009263,
+          "geocode": "University of Bucharest, 4-12, Bulevardul Regina Elisabeta, Colțea, Centrul Istoric, Sector 3, Bucharest, 030018, Romania"
         },
         {
           "id": "299195d34d6d81c287d3e6314653f9b4",
@@ -3608,7 +3986,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 55.6725952,
+          "lon": 37.4857089,
+          "geocode": "Moscow State Institute of International Relations, улица Академика Евтихиева, Prospekt Vernadskogo District, Moscow, Central Federal District, 119454, Russia"
         },
         {
           "id": "299195d34d6d8184b0c7dcb171ce9427",
@@ -3636,7 +4017,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 59.970892,
+          "lon": 30.3125037,
+          "geocode": "St. Petersburg Museum of Avant-garde (Matyushin's House), 10, улица Профессора Попова, округ Аптекарский остров, Saint Petersburg, Northwestern Federal District, 197022, Russia"
         },
         {
           "id": "299195d34d6d81f299d0dcce9f3b148f",
@@ -3664,7 +4048,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 55.7388624,
+          "lon": 37.5942003,
+          "geocode": "Moscow State Linguistic University, Pomerantsev Lane, 33, Khamovniki District, Moscow, Central Federal District, 119034, Russia"
         },
         {
           "id": "299195d34d6d819db486f57f32cb77d4",
@@ -3692,7 +4079,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 1.3484104,
+          "lon": 103.6829332,
+          "geocode": "Nanyang Technological University, 50, Nanyang Avenue, Murai, Western Water Catchment, West Region, Singapore, 639798, Singapore"
         },
         {
           "id": "299195d34d6d81519731ce486fe76191",
@@ -3720,7 +4110,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 1.296168,
+          "lon": 103.8500437,
+          "geocode": "Singapore Management University, 81, Victoria Street, City Hall, Civic District, Downtown Core, Central Region, Singapore, 188065, Singapore"
         },
         {
           "id": "2b8195d34d6d8066baaaef206b1dbbd9",
@@ -3748,7 +4141,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 41.5630424,
+          "lon": 2.0232878,
+          "geocode": "ESEIAAT (PDI - PAS), Carrer de Colom, Plaça Catalunya-Escola Industrial, Districte 1, Terrassa, Vallès Occidental, Barcelona, Catalonia, 08222, Spain"
         },
         {
           "id": "299195d34d6d816ab299ec7e46b811e4",
@@ -3776,7 +4172,10 @@
             "Course Method": "Offline (in person)",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 42.801154,
+          "lon": -1.6585695,
+          "geocode": "Universidad de Navarra, San Juan Bosco kalea, Iturrama, Pamplona, Iruñerria, Navarre, 31007, Spain"
         },
         {
           "id": "299195d34d6d8128a644ff4202a9312e",
@@ -3804,7 +4203,10 @@
             "Course Method": "Offline (in person)",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 42.801154,
+          "lon": -1.6585695,
+          "geocode": "Universidad de Navarra, San Juan Bosco kalea, Iturrama, Pamplona, Iruñerria, Navarre, 31007, Spain"
         },
         {
           "id": "299195d34d6d8131b146d2b3665bf47e",
@@ -3837,7 +4239,10 @@
               "type": "text",
               "text": "Both, Santiago de Compostela and Lugo"
             }
-          ]
+          ],
+          "lat": 38.2761926,
+          "lon": -0.6932286,
+          "geocode": "Golf Practice Ground Miguel Hernández University of Elche, Camí del Pantà, les Cases de Ferrandes, Elx / Elche, el Baix Vinalopó, Alacant / Alicante, Valencian Community, 03271, Spain"
         },
         {
           "id": "299195d34d6d81119869d2c6032094f3",
@@ -3865,7 +4270,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 42.1697395,
+          "lon": -8.6833125,
+          "geocode": "Campus of As Lagoas-Marcosende, Estrada das Pedras Miúdas, Zamáns, Vigo, Pontevedra, Galicia, 36310, Spain"
         },
         {
           "id": "299195d34d6d815c970ac76cc7f8291d",
@@ -3893,7 +4301,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 57.7780222,
+          "lon": 14.162141,
+          "geocode": "Jönköping University, Barnarpsgatan, Tändsticksområdet, Väster, Jönköping, Jönköpings kommun, Jönköping County, 553 18, Sweden"
         },
         {
           "id": "299195d34d6d81f0b8f1e329b268e675",
@@ -3921,7 +4332,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 58.3977911,
+          "lon": 15.5754544,
+          "geocode": "Linköping University, Kemigränd, Västra Valla, Linköpings domkyrkodistrikt, Linköping, Linköpings kommun, Östergötland County, 583 26, Sweden"
         },
         {
           "id": "2b7195d34d6d804eb32bd5fe14fea0b0",
@@ -3949,7 +4363,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 58.3977911,
+          "lon": 15.5754544,
+          "geocode": "Linköping University, Kemigränd, Västra Valla, Linköpings domkyrkodistrikt, Linköping, Linköpings kommun, Östergötland County, 583 26, Sweden"
         },
         {
           "id": "299195d34d6d8130be98de5b7ed9d7a9",
@@ -3977,7 +4394,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 55.6088853,
+          "lon": 12.9932225,
+          "geocode": "Malmö University, Storgatan, Davidshall, Norr, Malmö, Malmö kommun, Skåne County, 211 42, Sweden"
         },
         {
           "id": "299195d34d6d81f4af31d00804947195",
@@ -4005,7 +4425,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 55.6037648,
+          "lon": 12.9878497,
+          "geocode": "The Linnaeus Garden, Malmö Hus, Norr, Malmö, Malmö kommun, Skåne County, Sweden"
         },
         {
           "id": "299195d34d6d812bbe50f163582e262a",
@@ -4033,7 +4456,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 47.2232303,
+          "lon": 8.8173602,
+          "geocode": "Ostschweizer Fachhochschule Campus Rapperswil Jona, Strandweg, Rapperswil, Rapperswil-Jona, Wahlkreis See-Gaster, St. Gallen, 8640, Switzerland"
         },
         {
           "id": "299195d34d6d811aa5bdde50a4974e31",
@@ -4066,7 +4492,10 @@
               "type": "text",
               "text": "Business School)"
             }
-          ]
+          ],
+          "lat": 46.9484742,
+          "lon": 7.4521749,
+          "geocode": "Bern, Bern-Mittelland administrative district, Bernese Mittelland administrative region, Bern, Switzerland"
         },
         {
           "id": "299195d34d6d81c89ed6c94f01c2706e",
@@ -4094,7 +4523,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 23.5629482,
+          "lon": 120.4751218,
+          "geocode": "National Chung Cheng University, 168, Daxue Road Section 1, Chencuoliao, Sanxing Village, Minxueng Township, Chiayi County, 62102, Taiwan"
         },
         {
           "id": "299195d34d6d814285cfee1de0cde1f6",
@@ -4122,7 +4554,10 @@
             "Course Method": "Offline (in person)",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 25.0168175,
+          "lon": 121.5384571,
+          "geocode": "National Taiwan University, 1, Section 4, Roosevelt Road, Xuefu Village, Da'an District, Gongguan, Taipei, 106319, Taiwan"
         },
         {
           "id": "299195d34d6d8188a906f90650a988ec",
@@ -4150,7 +4585,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 22.9990116,
+          "lon": 120.2162155,
+          "geocode": "National Cheng Kung University, 1, Dasyue Road, Daxue Village, East District, Sanfenzi, Tainan, 70101, Taiwan"
         },
         {
           "id": "299195d34d6d81aca6c4f092e1a33e60",
@@ -4187,7 +4625,10 @@
               "type": "text",
               "text": "Loading..."
             }
-          ]
+          ],
+          "lat": 25.0082321,
+          "lon": 121.5357715,
+          "geocode": "National Taiwan Normal University (Gongguan Campus), 88, Tingzhou Road Section 4, Wannian Village, Wenshan District, Gongguan, Taipei, 11677, Taiwan"
         },
         {
           "id": "299195d34d6d810a94d1e63452c78079",
@@ -4215,7 +4656,10 @@
             "Course Method": "Offline (in person)",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 24.9802091,
+          "lon": 121.5749593,
+          "geocode": "National Chengchi University, 64, Zhinan Road Section 2, Wanxing Village, Wenshan District, Taipei, 11605, Taiwan"
         },
         {
           "id": "2d9195d34d6d80889691c70145420761",
@@ -4248,7 +4692,10 @@
               "type": "text",
               "text": "- For English-taught programs: Minimum scores are TOEFL ITP 457, TOEFL iBT 57, IELTS 4.0, or TOEIC 550."
             }
-          ]
+          ],
+          "lat": 25.1359608,
+          "lon": 121.5389882,
+          "geocode": "Chinese Culture University, 55, HuaGang Road, Yangming Village, Shilin District, 草山, Taipei, 11114, Taiwan"
         },
         {
           "id": "299195d34d6d8179ad01d70a5b4ad963",
@@ -4281,7 +4728,10 @@
               "type": "text",
               "text": "https://oia.tu.ac.th/criteria-course/"
             }
-          ]
+          ],
+          "lat": 13.7565772,
+          "lon": 100.4923547,
+          "geocode": "Thammasat University, Na Phra That Road, Tha Pra Chan, Phra Borom Maha Ratchawang Subdistrict, Phra Nakhon District, Bangkok, 10200, Thailand"
         },
         {
           "id": "299195d34d6d81678a2cf44c9020b367",
@@ -4309,7 +4759,10 @@
             "Course Method": "Offline (in person)",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 13.7927827,
+          "lon": 100.3260556,
+          "geocode": "Mahidol University International College, 999, Phutthamonthon Sai 4 Road, Sala Ya Township Municipality, Khlong Yong, Phutthamonthon District, Nakhon Pathom Province, 73170, Thailand"
         },
         {
           "id": "299195d34d6d8108952ffb4097511d20",
@@ -4337,7 +4790,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 39.870469,
+          "lon": 32.7539193,
+          "geocode": "Bilkent University, 1601. Cadde, Bilkent Yurtlar, Üniversiteler Mahallesi, Çankaya, Ankara, Central Anatolia Region, 06800, Turkey"
         },
         {
           "id": "2bf195d34d6d80b2949bff9448a891b6",
@@ -4365,7 +4821,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 35.0866328,
+          "lon": -106.6202094,
+          "geocode": "University of New Mexico, Central Avenue Northeast, Nob Hill, Albuquerque, Bernalillo County, New Mexico, 87131, United States"
         },
         {
           "id": "2b6195d34d6d801f8b2ff997adac8368",
@@ -4393,7 +4852,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 21.3029562,
+          "lon": -157.8194671,
+          "geocode": "University Avenue, Lower Mānoa, Mānoa, East Honolulu, Honolulu, Honolulu County, Hawaii, 96822, United States"
         },
         {
           "id": "299195d34d6d81538b01ceacc1a125c6",
@@ -4421,7 +4883,10 @@
             "Course Method": "Offline (in person)",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 40.7111164,
+          "lon": -74.0048044,
+          "geocode": "Pace University, 1, Pace Plaza, Civic Center, Lower Manhattan, Manhattan, New York County, New York, 10038, United States"
         },
         {
           "id": "299195d34d6d812985bbdc732e35d8af",
@@ -4449,7 +4914,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 40.7367029,
+          "lon": -73.8187956,
+          "geocode": "Queens College, City University of New York, 65 30, Kissena Boulevard, Pomonok, Queens, Queens County, New York, 11367, United States"
         },
         {
           "id": "299195d34d6d81919212d2785e417ae7",
@@ -4477,7 +4945,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 42.0225482,
+          "lon": -73.9107242,
+          "geocode": "Bard College, 30, Campus Road, Annandale-on-Hudson, Town of Red Hook, Dutchess County, New York, 12504, United States"
         },
         {
           "id": "299195d34d6d81bda84ed4241990daf6",
@@ -4505,7 +4976,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 41.1441814,
+          "lon": -81.3398329,
+          "geocode": "Kent State University, Lester A. Lefton Esplanade, Kent, Portage County, Ohio, 44242, United States"
         },
         {
           "id": "299195d34d6d812984c8c9214da770e0",
@@ -4533,7 +5007,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 37.5461246,
+          "lon": -77.4540609,
+          "geocode": "Virginia Commonwealth University, 907, Floyd Avenue, Richmond, Virginia, 23284, United States"
         },
         {
           "id": "299195d34d6d815a9946c752d1eb62cf",
@@ -4561,7 +5038,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 38.5664697,
+          "lon": -121.4284035,
+          "geocode": "California State University Drive, Sacramento, Sacramento County, California, 95819, United States"
         },
         {
           "id": "299195d34d6d8140b66fcbd5636dd254",
@@ -4589,7 +5069,10 @@
             "Course Method": "Offline (in person)",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 30.442216,
+          "lon": -84.297453,
+          "geocode": "Florida State University, 600, West College Avenue, Tallahassee, Leon County, Florida, 32306, United States"
         },
         {
           "id": "299195d34d6d8105b547da988fbcec70",
@@ -4617,7 +5100,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 43.4525481,
+          "lon": -76.5450409,
+          "geocode": "State University of New York at Oswego, 7060, State Route 104, Oswego Beach, Town of Oswego, Oswego County, New York, 13126, United States"
         },
         {
           "id": "2b8195d34d6d80c192fbe3ae47fac3a5",
@@ -4645,7 +5131,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 13.4323798,
+          "lon": 144.8029233,
+          "geocode": "University of Guam, University Drive, Mangilao Municipality, Guam, 96923, United States"
         },
         {
           "id": "2b8195d34d6d8008b623de410fc7fee9",
@@ -4673,7 +5162,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 42.2514681,
+          "lon": -71.8229509,
+          "geocode": "Clark University, Webster Street, Main South, Worcester, Worcester County, Massachusetts, 01603, United States"
         },
         {
           "id": "2b8195d34d6d8004a7e3e07b42fae5c1",
@@ -4701,7 +5193,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 37.6748541,
+          "lon": -113.0731048,
+          "geocode": "Southern Utah University, 351, 300 West, Cedar City, Iron County, Utah, 84720, United States"
         },
         {
           "id": "2b9195d34d6d80b09897c5f72f2bb4c4",
@@ -4729,7 +5224,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 43.5158881,
+          "lon": -83.9593131,
+          "geocode": "Saginaw Valley State University, University Drive, Kochville Township, Carrollton Township, Saginaw County, Michigan, 48710, United States"
         },
         {
           "id": "2bf195d34d6d800d9783e398a75278d9",
@@ -4757,7 +5255,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 40.9090809,
+          "lon": -73.1205518,
+          "geocode": "Stony Brook University, 100, Nicolls Road, South Setauket, Stony Brook, Town of Brookhaven, Suffolk County, New York, 11794, United States"
         },
         {
           "id": "2c3195d34d6d80f5bc63c2165fafadb9",
@@ -4785,7 +5286,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 34.2249827,
+          "lon": -77.8690774,
+          "geocode": "University of North Carolina at Wilmington, 601, South College Road, Winter Park, Wilmington, New Hanover County, North Carolina, 28403, United States"
         },
         {
           "id": "299195d34d6d8125a009e277ee923bba",
@@ -4813,7 +5317,10 @@
             "Course Method": "",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": -34.9054527,
+          "lon": -54.9557331,
+          "geocode": "CEI ORT, Doctor Juan T. Edye, Barrio Centro, Sarubbi, Maldonado, 20000, Uruguay"
         },
         {
           "id": "299195d34d6d81bfad32d251ebb0df9f",
@@ -4841,7 +5348,10 @@
             "Course Method": "Offline (in person)",
             "Slots (모집인원)": ""
           },
-          "content": []
+          "content": [],
+          "lat": 21.0225029,
+          "lon": 105.805148,
+          "geocode": "Foreign Trade University, 91, Ngách 69/1 Phố Chùa Láng, Láng Trung, Ke Lang, Lang Ward, Hà Nội, 11528, Vietnam"
         },
         {
           "id": "299195d34d6d811c942ef05342b0e08b",
@@ -4873,7 +5383,10 @@
             "Slots(모집인원)": "2 slots",
             "Course Method": "Offline(In-person)"
           },
-          "content": []
+          "content": [],
+          "lat": 42.7023794,
+          "lon": -84.4803869,
+          "geocode": "Michigan State University, 426, Auditorium Road, North Neighborhood, East Lansing, Ingham County, Michigan, 48824, United States"
         },
         {
           "id": "299195d34d6d81f2a569c0e885954b39",
@@ -4905,7 +5418,10 @@
             "Slots(모집인원)": "2 slots",
             "Course Method": "Offline(In-person)"
           },
-          "content": []
+          "content": [],
+          "lat": 37.8707751,
+          "lon": -122.2656754,
+          "geocode": "University of California, The Crescent, Downtown Berkeley, Berkeley, Alameda County, California, 94704, United States"
         },
         {
           "id": "299195d34d6d81bdac1de671fee3b787",
@@ -4937,7 +5453,10 @@
             "Slots(모집인원)": "2 slots",
             "Course Method": ""
           },
-          "content": []
+          "content": [],
+          "lat": 51.4905582,
+          "lon": -2.6304825,
+          "geocode": "University of Bristol, Barrow Gurney, North Somerset, England, BS9 3RZ, United Kingdom"
         }
       ]
     },

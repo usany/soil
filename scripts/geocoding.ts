@@ -20,12 +20,14 @@ interface GeocodeResult {
   lat: number
   lon: number
   display: string
+  countryCode: string
 }
 
 interface NominatimHit {
   lat: string
   lon: string
   display_name: string
+  address?: { country_code?: string }
 }
 
 const data: Data = JSON.parse(fs.readFileSync(FILE, "utf8"))
@@ -39,9 +41,28 @@ const REGION_ALIAS: Record<string, string> = {
 }
 const normalizeRegion = (region: string) => REGION_ALIAS[region] || region
 
-async function geocode(query: string, attempt = 0): Promise<GeocodeResult | null> {
+// ISO 3166-1 alpha-2 code for each Region value. A result whose country does not
+// match is treated as a failed search (e.g. "La Rochelle" must not resolve to the US).
+const REGION_COUNTRY: Record<string, string> = {
+  Australia: "au", Austria: "at", Belgium: "be", Canada: "ca", Czech: "cz", Denmark: "dk",
+  England: "gb", Estonia: "ee", Finland: "fi", France: "fr", Germany: "de", "Hong Kong": "hk",
+  Indonesia: "id", Ireland: "ie", Italy: "it", Japan: "jp", Kazakhstan: "kz", Lithuania: "lt",
+  Macau: "mo", "Mainland China": "cn", Malaysia: "my", Mexico: "mx", Morocco: "ma",
+  Netherlands: "nl", "New Zealand": "nz", Poland: "pl", Portugal: "pt", Romania: "ro",
+  Russia: "ru", Singapore: "sg", Spain: "es", Sweden: "se", Switzerland: "ch", Taiwan: "tw",
+  Thailand: "th", Turkiye: "tr", "United States": "us", Uruguay: "uy", Vietnam: "vn",
+}
+const regionCountryCode = (region: string): string | undefined => {
+  const code = REGION_COUNTRY[region.trim()]
+  if (!code && region.trim()) console.log(`  WARNING: no country code for region "${region}", result not verified`)
+  return code
+}
+
+async function geocode(query: string, countryCode?: string, attempt = 0): Promise<GeocodeResult | null> {
   const url =
-    "https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&accept-language=en&q=" +
+    "https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&accept-language=en&addressdetails=1" +
+    (countryCode ? "&countrycodes=" + countryCode : "") +
+    "&q=" +
     encodeURIComponent(query)
   let res: Response
   try {
@@ -53,18 +74,24 @@ async function geocode(query: string, attempt = 0): Promise<GeocodeResult | null
     if (attempt >= 3) throw e
     console.log(`  network error (${(e as Error).message}), retrying...`)
     await sleep(3000 * (attempt + 1))
-    return geocode(query, attempt + 1)
+    return geocode(query, countryCode, attempt + 1)
   }
   if (res.status === 429 || res.status >= 500) {
     if (attempt >= 5) throw new Error("geocode " + res.status + " for " + query)
     console.log(`  HTTP ${res.status}, backing off...`)
     await sleep(5000 * (attempt + 1))
-    return geocode(query, attempt + 1)
+    return geocode(query, countryCode, attempt + 1)
   }
   if (!res.ok) throw new Error("geocode " + res.status + " for " + query)
   const j = (await res.json()) as NominatimHit[]
   if (!j || !j.length) return null
-  return { lat: Number(j[0].lat), lon: Number(j[0].lon), display: j[0].display_name }
+  const hit = j[0]
+  const hitCountry = (hit.address && hit.address.country_code) || ""
+  if (countryCode && hitCountry !== countryCode) {
+    console.log(`  country mismatch (${hitCountry || "?"} != ${countryCode}) for "${query}": ${hit.display_name}`)
+    return null
+  }
+  return { lat: Number(hit.lat), lon: Number(hit.lon), display: hit.display_name, countryCode: hitCountry }
 }
 
 function buildQuery(row: Row): string {
@@ -116,6 +143,7 @@ const MANUAL: Record<string, string> = {
   "Aix-Marseille University (Faculty of Arts & Humanities)": "Aix-Marseille Université, France",
   "University of Limoges - Faculty of Arts and Humanities": "Université de Limoges, France",
   "Université Paris Dauphine – PSL": "Université Paris-Dauphine, France",
+  "University of La Rochelle": "La Rochelle Université",
   "Ritsumeikan Asia Pacific University": "立命館アジア太平洋大学",
   "Yamanashi Gakuin University(iCLA)": "山梨学院大学",
   "HU University of Applied Sciences": "Hogeschool Utrecht, Netherlands",
@@ -138,9 +166,10 @@ try {
   for (const row of todo) {
     const queries = buildQueries(row)
     if (MANUAL[row.title]) queries.unshift(MANUAL[row.title])
+    const countryCode = regionCountryCode((row.properties && row.properties.Region) || "")
     let result: GeocodeResult | null = null
     for (const query of queries) {
-      result = await geocode(query)
+      result = await geocode(query, countryCode)
       if (result) break
       await sleep(1100)
     }
