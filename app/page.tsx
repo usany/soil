@@ -2,7 +2,7 @@
 
 import React, { Suspense, useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import universities from "../universities.json";
+import universities from "../scripts/universities.json";
 
 const esc = (s: unknown): string =>
   String(s ?? "")
