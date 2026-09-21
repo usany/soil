@@ -205,7 +205,10 @@ try {
         else await sleep(3000 * (attempt + 1));
       }
     }
-    if (!detail) continue;
+    if (!detail) {
+      console.log(`skipped: ${link.title} (no detail after retries)`);
+      continue;
+    }
     const uniName = detail.title || link.title;
     const properties = { ...detail.properties };
     delete properties.url;
