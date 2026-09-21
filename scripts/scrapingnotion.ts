@@ -205,10 +205,10 @@ try {
       }
     }
     if (!detail) continue;
-    const id = link.url.match(/([0-9a-f]{32})$/)?.[1] ?? link.url;
+    const uniName = detail.title || link.title;
     universities.push({
-      id,
-      title: id,
+      id: uniName,
+      title: uniName,
       url: link.url,
       summary: link.summary,
       semesters: [semester],
