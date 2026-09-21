@@ -51,6 +51,24 @@ interface UniversityRow extends Detail {
 
 const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
 
+function getSelectedSemester(): string {
+  const arg = process.argv.find((a) => a.startsWith("--"));
+  if (!arg) {
+    console.error(
+      `Usage: npx ts-node scrapingnotion.ts --<semester>\nAvailable: ${Object.keys(LIST_URL).join(", ")}`
+    );
+    process.exit(1);
+  }
+  const semester = arg.slice(2);
+  if (!(semester in LIST_URL)) {
+    console.error(
+      `Invalid semester: ${semester}\nAvailable: ${Object.keys(LIST_URL).join(", ")}`
+    );
+    process.exit(1);
+  }
+  return semester;
+}
+
 async function expandAllRows(page: Page): Promise<void> {
   // Notion only fetches collection rows after "Load more" is clicked; repeat until the button is gone.
   for (let i = 0; i < 30; i++) {
@@ -148,6 +166,9 @@ let db: Db | null = null;
 let collection: Collection | null = null;
 
 try {
+  const semester = getSelectedSemester();
+  console.log(`Scraping: ${semester}`);
+
   await client.connect();
   console.log("Connected to MongoDB");
 
@@ -161,7 +182,7 @@ try {
   const page = await browser.newPage();
   await page.setViewportSize({ width: 1400, height: 900 });
 
-  await page.goto(LIST_URL["26fall"], {
+  await page.goto(LIST_URL[semester as keyof typeof LIST_URL], {
     waitUntil: "domcontentloaded",
     timeout: 120000,
   });
