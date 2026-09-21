@@ -1,19 +1,21 @@
-import fs from "node:fs";
+import dotenv from "dotenv";
+import { MongoClient } from "mongodb";
 
-const FILE = "db/universities.json";
+dotenv.config();
+
+const MONGODB_URI = process.env.MONGODB_URI || "";
+const DB_NAME = "notion_scrape";
+const COLLECTION_NAME = "universities";
 const SAVE_EVERY = 10;
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 interface Row {
+  _id?: string;
   title: string;
   properties?: Record<string, string>;
   lat?: number | null;
   lon?: number | null;
   geocode?: string | null;
-}
-
-interface Data {
-  exchange: { rows: Row[] };
 }
 
 interface GeocodeResult {
@@ -29,8 +31,6 @@ interface NominatimHit {
   display_name: string;
   address?: { country_code?: string };
 }
-
-const data: Data = JSON.parse(fs.readFileSync(FILE, "utf8"));
 
 // Region names used in the Notion list that Nominatim does not understand as-is
 const REGION_ALIAS: Record<string, string> = {
@@ -214,19 +214,23 @@ const MANUAL: Record<string, string> = {
     "Ostschweizer Fachhochschule Campus Rapperswil Jona, Switzerland",
 };
 
-const rows = data.exchange.rows;
-const done = rows.filter((r) => r.lat != null && r.lon != null);
-const todo = rows.filter((r) => r.lat == null || r.lon == null);
-console.log(
-  `rows total: ${rows.length}, already geocoded: ${done.length}, to do: ${todo.length}`,
-);
-
-const save = () => fs.writeFileSync(FILE, JSON.stringify(data, null, 2));
+const client = new MongoClient(MONGODB_URI);
 
 let ok = 0;
 let fail = 0;
 let idx = 0;
 try {
+  await client.connect();
+  const db = client.db(DB_NAME);
+  const collection = db.collection(COLLECTION_NAME);
+
+  const rows = await collection.find({ title: { $exists: true } }).toArray() as Row[];
+  const done = rows.filter((r) => r.lat != null && r.lon != null);
+  const todo = rows.filter((r) => r.lat == null || r.lon == null);
+  console.log(
+    `rows total: ${rows.length}, already geocoded: ${done.length}, to do: ${todo.length}`,
+  );
+
   for (const row of todo) {
     const queries = buildQueries(row);
     if (MANUAL[row.title]) queries.unshift(MANUAL[row.title]);
@@ -241,22 +245,34 @@ try {
     }
     idx++;
     if (result) {
-      row.lat = result.lat;
-      row.lon = result.lon;
-      row.geocode = result.display;
+      await collection.updateOne(
+        { _id: row._id },
+        {
+          $set: {
+            lat: result.lat,
+            lon: result.lon,
+            geocode: result.display,
+          },
+        }
+      );
       ok++;
       console.log(`[${idx}/${todo.length}] ${row.title} -> ${result.display}`);
     } else {
-      row.lat = null;
-      row.lon = null;
+      await collection.updateOne(
+        { _id: row._id },
+        {
+          $set: {
+            lat: null,
+            lon: null,
+          },
+        }
+      );
       fail++;
       console.log(`[${idx}/${todo.length}] NO RESULT: ${row.title}`);
     }
-    if (idx % SAVE_EVERY === 0) save();
     await sleep(1100);
   }
-} finally {
-  save();
   console.log(`DONE. ok=${ok} fail=${fail}`);
-  console.log("saved", FILE);
+} finally {
+  await client.close();
 }
