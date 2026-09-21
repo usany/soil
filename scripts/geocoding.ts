@@ -6,7 +6,6 @@ dotenv.config();
 const MONGODB_URI = process.env.MONGODB_URI || "";
 const DB_NAME = "notion_scrape";
 const COLLECTION_NAME = "universities";
-const SAVE_EVERY = 10;
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 interface Row {
@@ -224,7 +223,9 @@ try {
   const db = client.db(DB_NAME);
   const collection = db.collection(COLLECTION_NAME);
 
-  const rows = await collection.find({ title: { $exists: true } }).toArray() as Row[];
+  const rows = (await collection
+    .find({ title: { $exists: true } })
+    .toArray()) as Row[];
   const done = rows.filter((r) => r.lat != null && r.lon != null);
   const todo = rows.filter((r) => r.lat == null || r.lon == null);
   console.log(
@@ -253,7 +254,7 @@ try {
             lon: result.lon,
             geocode: result.display,
           },
-        }
+        },
       );
       ok++;
       console.log(`[${idx}/${todo.length}] ${row.title} -> ${result.display}`);
@@ -265,7 +266,7 @@ try {
             lat: null,
             lon: null,
           },
-        }
+        },
       );
       fail++;
       console.log(`[${idx}/${todo.length}] NO RESULT: ${row.title}`);
