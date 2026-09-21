@@ -33,7 +33,7 @@ interface Detail {
   content: ContentBlock[];
 }
 
-interface UniversityRow extends Omit<Detail, 'title'> {
+interface UniversityRow extends Omit<Detail, "title"> {
   _id?: string;
   id: string;
   summary: string;
@@ -205,7 +205,7 @@ try {
     if (!detail) continue;
     const uniName = detail.title || link.title;
     universities.push({
-      id: uniName.replace(/\s*\(Study Abroad Program\)\s*/g, '').trim(),
+      id: uniName.replace(/\s*\(Study Abroad Program\)\s*/g, "").trim(),
       summary: link.summary,
       semesters: [semester],
       properties: { ...detail.properties, url: link.url },
