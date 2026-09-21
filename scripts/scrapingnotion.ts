@@ -166,8 +166,8 @@ try {
   db = client.db(DB_NAME);
   collection = db.collection(COLLECTION_NAME);
 
-  // Create index on properties.url for uniqueness
-  await collection.createIndex({ "properties.url": 1 }, { unique: true });
+  // Create index on id for faster lookups
+  await collection.createIndex({ id: 1 });
 
   const browser = await chromium.launch({ headless: false });
   const page = await browser.newPage();
@@ -224,10 +224,9 @@ try {
 
   for (const university of universities) {
     const result = await collection.updateOne(
-      { "properties.url": university.properties.url },
+      { id: university.id },
       {
         $set: {
-          id: university.id,
           summary: university.summary,
           properties: university.properties,
           content: university.content,
