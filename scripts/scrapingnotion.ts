@@ -41,14 +41,14 @@ interface UniversityRow extends Detail {
 const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
 
 function getSelectedSemester(): string {
-  const arg = process.argv.find((a) => a.startsWith("--"));
-  if (!arg) {
+  const sourceIndex = process.argv.indexOf("--source");
+  if (sourceIndex === -1 || sourceIndex === process.argv.length - 1) {
     console.error(
-      `Usage: npx ts-node scrapingnotion.ts --<semester>\nAvailable: ${Object.keys(LIST_URL).join(", ")}`,
+      `Usage: npm run scrape -- --source <semester>\nAvailable: ${Object.keys(LIST_URL).join(", ")}`,
     );
     process.exit(1);
   }
-  const semester = arg.slice(2);
+  const semester = process.argv[sourceIndex + 1];
   if (!(semester in LIST_URL)) {
     console.error(
       `Invalid semester: ${semester}\nAvailable: ${Object.keys(LIST_URL).join(", ")}`,
