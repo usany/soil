@@ -166,6 +166,9 @@ try {
   db = client.db(DB_NAME);
   collection = db.collection(COLLECTION_NAME);
 
+  // Drop the url index if it exists
+  await collection.dropIndex("url_1").catch(() => {});
+
   // Create index on id for faster lookups
   await collection.createIndex({ id: 1 });
 
