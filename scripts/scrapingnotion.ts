@@ -6,11 +6,10 @@ import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const LIST_URL = JSON.parse(
-  readFileSync(join(__dirname, "list-urls.json"), "utf-8")
+  readFileSync(join(__dirname, "list-urls.json"), "utf-8"),
 );
 
-
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:27017";
+const MONGODB_URI = process.env.MONGODB_URI;
 const DB_NAME = "notion_scrape";
 const COLLECTION_NAME = "universities";
 
@@ -45,14 +44,14 @@ function getSelectedSemester(): string {
   const arg = process.argv.find((a) => a.startsWith("--"));
   if (!arg) {
     console.error(
-      `Usage: npx ts-node scrapingnotion.ts --<semester>\nAvailable: ${Object.keys(LIST_URL).join(", ")}`
+      `Usage: npx ts-node scrapingnotion.ts --<semester>\nAvailable: ${Object.keys(LIST_URL).join(", ")}`,
     );
     process.exit(1);
   }
   const semester = arg.slice(2);
   if (!(semester in LIST_URL)) {
     console.error(
-      `Invalid semester: ${semester}\nAvailable: ${Object.keys(LIST_URL).join(", ")}`
+      `Invalid semester: ${semester}\nAvailable: ${Object.keys(LIST_URL).join(", ")}`,
     );
     process.exit(1);
   }
