@@ -161,7 +161,7 @@ try {
   const page = await browser.newPage();
   await page.setViewportSize({ width: 1400, height: 900 });
 
-  await page.goto(LIST_URL.fall26, {
+  await page.goto(LIST_URL["26fall"], {
     waitUntil: "domcontentloaded",
     timeout: 120000,
   });
