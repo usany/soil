@@ -208,7 +208,7 @@ try {
       id: uniName.replace(/\s*\(Study Abroad Program\)\s*/g, "").trim(),
       summary: link.summary,
       semesters: [semester],
-      properties: { ...detail.properties, url: link.url },
+      properties: detail.properties,
       content: detail.content,
     });
     if ((i + 1) % 10 === 0 || i + 1 === links.length)
