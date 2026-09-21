@@ -1,7 +1,13 @@
 import { chromium, type Page } from "playwright";
 import { MongoClient, Db, Collection } from "mongodb";
-import { LIST_URL } from "./config";
+import { readFileSync } from "fs";
+import { dirname, join } from "path";
+import { fileURLToPath } from "url";
 
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const LIST_URL = JSON.parse(
+  readFileSync(join(__dirname, "list-urls.json"), "utf-8")
+);
 
 
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:27017";
