@@ -205,7 +205,7 @@ try {
     if (!detail) continue;
     const uniName = detail.title || link.title;
     universities.push({
-      id: uniName,
+      id: uniName.replace(/\s*\(Study Abroad Program\)\s*/g, '').trim(),
       summary: link.summary,
       semesters: [semester],
       properties: { ...detail.properties, url: link.url },
