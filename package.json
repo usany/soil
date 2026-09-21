@@ -11,7 +11,8 @@
     "start": "next start",
     "scrape": "tsx scripts/scrapingnotion.ts",
     "geocode": "tsx scripts/geocoding.ts",
-    "nearest-airport": "tsx scripts/nearest-airport.ts"
+    "nearest-airport": "tsx scripts/nearest-airport.ts",
+    "sync-cache": "tsx scripts/sync-to-json.ts"
   },
   "dependencies": {
     "axios": "^1.19.0",
