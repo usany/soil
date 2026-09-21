@@ -1,15 +1,18 @@
+import dotenv from "dotenv";
 import { chromium, type Page } from "playwright";
 import { MongoClient, Db, Collection } from "mongodb";
 import { readFileSync } from "fs";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 
+dotenv.config();
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const LIST_URL = JSON.parse(
   readFileSync(join(__dirname, "list-urls.json"), "utf-8"),
 );
 
-const MONGODB_URI = process.env.MONGODB_URI;
+const MONGODB_URI = process.env.MONGODB_URI || "";
 const DB_NAME = "notion_scrape";
 const COLLECTION_NAME = "universities";
 
