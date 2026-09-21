@@ -38,6 +38,7 @@ interface UniversityRow extends Detail {
   id: string;
   url: string;
   summary: string;
+  semesters: string[];
   scrapedAt: Date;
 }
 
@@ -204,11 +205,13 @@ try {
       }
     }
     if (!detail) continue;
+    const id = link.url.match(/([0-9a-f]{32})$/)?.[1] ?? link.url;
     universities.push({
-      id: link.url.match(/([0-9a-f]{32})$/)?.[1] ?? link.url,
-      title: detail.title || link.title,
+      id,
+      title: id,
       url: link.url,
       summary: link.summary,
+      semesters: [semester],
       properties: detail.properties,
       content: detail.content,
       scrapedAt: new Date(),
@@ -227,7 +230,17 @@ try {
   for (const university of universities) {
     const result = await collection.updateOne(
       { url: university.url },
-      { $set: university },
+      {
+        $set: {
+          id: university.id,
+          title: university.title,
+          summary: university.summary,
+          properties: university.properties,
+          content: university.content,
+          scrapedAt: university.scrapedAt,
+        },
+        $addToSet: { semesters: { $each: university.semesters } },
+      },
       { upsert: true },
     );
     if (result.upsertedId) inserted++;
