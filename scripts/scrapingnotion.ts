@@ -204,11 +204,13 @@ try {
     }
     if (!detail) continue;
     const uniName = detail.title || link.title;
+    const properties = { ...detail.properties };
+    delete properties.url;
     universities.push({
       id: uniName.replace(/\s*\(Study Abroad Program\)\s*/g, "").trim(),
       summary: link.summary,
       semesters: [semester],
-      properties: detail.properties,
+      properties,
       content: detail.content,
     });
     if ((i + 1) % 10 === 0 || i + 1 === links.length)
