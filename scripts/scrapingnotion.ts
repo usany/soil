@@ -33,13 +33,11 @@ interface Detail {
   content: ContentBlock[];
 }
 
-interface UniversityRow extends Detail {
+interface UniversityRow extends Omit<Detail, 'title'> {
   _id?: string;
   id: string;
-  url: string;
   summary: string;
   semesters: string[];
-  scrapedAt: Date;
 }
 
 const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
@@ -168,8 +166,8 @@ try {
   db = client.db(DB_NAME);
   collection = db.collection(COLLECTION_NAME);
 
-  // Create index on url for uniqueness
-  await collection.createIndex({ url: 1 }, { unique: true });
+  // Create index on properties.url for uniqueness
+  await collection.createIndex({ "properties.url": 1 }, { unique: true });
 
   const browser = await chromium.launch({ headless: false });
   const page = await browser.newPage();
@@ -208,13 +206,10 @@ try {
     const uniName = detail.title || link.title;
     universities.push({
       id: uniName,
-      title: uniName,
-      url: link.url,
       summary: link.summary,
       semesters: [semester],
-      properties: detail.properties,
+      properties: { ...detail.properties, url: link.url },
       content: detail.content,
-      scrapedAt: new Date(),
     });
     if ((i + 1) % 10 === 0 || i + 1 === links.length)
       console.log(`scraped ${i + 1}/${links.length}`);
@@ -229,15 +224,13 @@ try {
 
   for (const university of universities) {
     const result = await collection.updateOne(
-      { url: university.url },
+      { "properties.url": university.properties.url },
       {
         $set: {
           id: university.id,
-          title: university.title,
           summary: university.summary,
           properties: university.properties,
           content: university.content,
-          scrapedAt: university.scrapedAt,
         },
         $addToSet: { semesters: { $each: university.semesters } },
       },
