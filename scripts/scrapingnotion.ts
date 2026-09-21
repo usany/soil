@@ -1,154 +1,185 @@
-import { chromium, type Page } from "playwright"
-import { MongoClient, Db, Collection } from "mongodb"
+import { chromium, type Page } from "playwright";
+import { MongoClient, Db, Collection } from "mongodb";
 
-const LIST_URL = "https://dust-driver-b9b.notion.site/2026-Fall-Exchange-Program-Host-University-List-299195d34d6d81ad8d62f3b191e63222"
-const LABEL = "2026 Fall Exchange Program University List"
+const LIST_URL = {
+  "23spring":
+    "https://dust-driver-b9b.notion.site/2023-Spring-Exchange-Program-Host-University-List-7a96a4a0823b40b4b542bec071feb0d7",
+  "23fall": 
+  "26fall":
+    "https://dust-driver-b9b.notion.site/2026-Fall-Exchange-Program-Host-University-List-299195d34d6d81ad8d62f3b191e63222",
+};
 
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:27017"
-const DB_NAME = "notion_scrape"
-const COLLECTION_NAME = "universities"
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:27017";
+const DB_NAME = "notion_scrape";
+const COLLECTION_NAME = "universities";
 
 interface RowLink {
-  url: string
-  title: string
-  summary: string
+  url: string;
+  title: string;
+  summary: string;
 }
 
 interface ContentBlock {
-  type: string
-  text: string
+  type: string;
+  text: string;
 }
 
 interface Detail {
-  title: string
-  properties: Record<string, string>
-  content: ContentBlock[]
+  title: string;
+  properties: Record<string, string>;
+  content: ContentBlock[];
 }
 
 interface UniversityRow extends Detail {
-  _id?: string
-  id: string
-  url: string
-  summary: string
-  scrapedAt: Date
+  _id?: string;
+  id: string;
+  url: string;
+  summary: string;
+  scrapedAt: Date;
 }
 
-const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms))
+const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
 
 async function expandAllRows(page: Page): Promise<void> {
   // Notion only fetches collection rows after "Load more" is clicked; repeat until the button is gone.
   for (let i = 0; i < 30; i++) {
-    const btn = page.getByText("Load more", { exact: true }).first()
-    if (!(await btn.isVisible().catch(() => false))) break
-    await btn.scrollIntoViewIfNeeded().catch(() => {})
-    await btn.click().catch(() => {})
-    await sleep(2500)
+    const btn = page.getByText("Load more", { exact: true }).first();
+    if (!(await btn.isVisible().catch(() => false))) break;
+    await btn.scrollIntoViewIfNeeded().catch(() => {});
+    await btn.click().catch(() => {});
+    await sleep(2500);
   }
 }
 
 function collectRowLinks(page: Page): Promise<RowLink[]> {
   return page.evaluate(() => {
-    const seen = new Set<string>()
-    const rows: RowLink[] = []
+    const seen = new Set<string>();
+    const rows: RowLink[] = [];
     for (const a of document.querySelectorAll<HTMLAnchorElement>("a[href]")) {
-      const text = (a.innerText || "").trim()
-      if (!/^\p{Regional_Indicator}{2}/u.test(text)) continue
-      const url = a.href.split("?")[0]
-      if (seen.has(url)) continue
-      seen.add(url)
-      const lines = text.split("\n").map((s) => s.trim()).filter(Boolean)
-      rows.push({ url, title: lines[1] || "", summary: lines.slice(1).join(" | ") })
+      const text = (a.innerText || "").trim();
+      if (!/^\p{Regional_Indicator}{2}/u.test(text)) continue;
+      const url = a.href.split("?")[0];
+      if (seen.has(url)) continue;
+      seen.add(url);
+      const lines = text
+        .split("\n")
+        .map((s) => s.trim())
+        .filter(Boolean);
+      rows.push({
+        url,
+        title: lines[1] || "",
+        summary: lines.slice(1).join(" | "),
+      });
     }
-    return rows
-  })
+    return rows;
+  });
 }
 
 async function scrapeDetail(page: Page, url: string): Promise<Detail> {
-  await page.goto(url, { waitUntil: "domcontentloaded", timeout: 60000 })
-  await page.waitForSelector("[role='table'] [role='row']", { timeout: 30000 })
+  await page.goto(url, { waitUntil: "domcontentloaded", timeout: 60000 });
+  await page.waitForSelector("[role='table'] [role='row']", { timeout: 30000 });
 
-  const more = page.getByText(/^\d+ more propert/).first()
+  const more = page.getByText(/^\d+ more propert/).first();
   if (await more.isVisible().catch(() => false)) {
-    await more.click().catch(() => {})
-    await sleep(800)
+    await more.click().catch(() => {});
+    await sleep(800);
   }
 
   await page
-    .waitForFunction(() => !document.body.innerText.includes("Loading..."), { timeout: 8000 })
-    .catch(() => {})
+    .waitForFunction(() => !document.body.innerText.includes("Loading..."), {
+      timeout: 8000,
+    })
+    .catch(() => {});
 
   return page.evaluate(() => {
-    const properties: Record<string, string> = {}
-    for (const row of document.querySelectorAll("[role='table'] [role='row']")) {
-      const cells = row.querySelectorAll<HTMLElement>("[role='cell']")
-      if (cells.length < 2) continue
-      const name = cells[0].innerText.trim()
-      let value = cells[1].innerText.trim()
-      const anchors = [...cells[1].querySelectorAll<HTMLAnchorElement>("a[href]")]
+    const properties: Record<string, string> = {};
+    for (const row of document.querySelectorAll(
+      "[role='table'] [role='row']",
+    )) {
+      const cells = row.querySelectorAll<HTMLElement>("[role='cell']");
+      if (cells.length < 2) continue;
+      const name = cells[0].innerText.trim();
+      let value = cells[1].innerText.trim();
+      const anchors = [
+        ...cells[1].querySelectorAll<HTMLAnchorElement>("a[href]"),
+      ];
       for (const a of anchors) {
-        const shown = a.innerText.trim()
-        if (shown && value.includes(shown) && !value.includes(a.href)) value = value.replace(shown, a.href)
+        const shown = a.innerText.trim();
+        if (shown && value.includes(shown) && !value.includes(a.href))
+          value = value.replace(shown, a.href);
       }
-      for (const a of anchors) if (!value.includes(a.href)) value += (value ? "\n" : "") + a.href
-      value = value.replace(/mailto:/g, "")
-      if (value === "Empty") value = ""
-      if (name) properties[name] = value
+      for (const a of anchors)
+        if (!value.includes(a.href)) value += (value ? "\n" : "") + a.href;
+      value = value.replace(/mailto:/g, "");
+      if (value === "Empty") value = "";
+      if (name) properties[name] = value;
     }
 
-    const body = document.querySelector<HTMLElement>(".notion-page-content")
+    const body = document.querySelector<HTMLElement>(".notion-page-content");
     const content: ContentBlock[] = body
-      ? body.innerText.split("\n").map((s) => s.trim()).filter(Boolean).map((text) => ({ type: "text", text }))
-      : []
+      ? body.innerText
+          .split("\n")
+          .map((s) => s.trim())
+          .filter(Boolean)
+          .map((text) => ({ type: "text", text }))
+      : [];
 
-    return { title: document.querySelector("h1")?.innerText.trim() || "", properties, content }
-  })
+    return {
+      title: document.querySelector("h1")?.innerText.trim() || "",
+      properties,
+      content,
+    };
+  });
 }
 
-const client = new MongoClient(MONGODB_URI)
-let db: Db | null = null
-let collection: Collection | null = null
+const client = new MongoClient(MONGODB_URI);
+let db: Db | null = null;
+let collection: Collection | null = null;
 
 try {
-  await client.connect()
-  console.log("Connected to MongoDB")
+  await client.connect();
+  console.log("Connected to MongoDB");
 
-  db = client.db(DB_NAME)
-  collection = db.collection(COLLECTION_NAME)
+  db = client.db(DB_NAME);
+  collection = db.collection(COLLECTION_NAME);
 
   // Create index on url for uniqueness
-  await collection.createIndex({ url: 1 }, { unique: true })
+  await collection.createIndex({ url: 1 }, { unique: true });
 
-  const browser = await chromium.launch({ headless: false })
-  const page = await browser.newPage()
-  await page.setViewportSize({ width: 1400, height: 900 })
+  const browser = await chromium.launch({ headless: false });
+  const page = await browser.newPage();
+  await page.setViewportSize({ width: 1400, height: 900 });
 
-  await page.goto(LIST_URL, { waitUntil: "domcontentloaded", timeout: 120000 })
-  await sleep(4000)
-  await expandAllRows(page)
+  await page.goto(LIST_URL.fall26, {
+    waitUntil: "domcontentloaded",
+    timeout: 120000,
+  });
+  await sleep(4000);
+  await expandAllRows(page);
 
-  const links = await collectRowLinks(page)
-  console.log(`rows found: ${links.length}`)
+  const links = await collectRowLinks(page);
+  console.log(`rows found: ${links.length}`);
   if (links.length === 0) {
-    const title = await page.title()
-    await browser.close()
-    throw new Error(`no rows found (page title: "${title}")`)
+    const title = await page.title();
+    await browser.close();
+    throw new Error(`no rows found (page title: "${title}")`);
   }
 
-  const universities: UniversityRow[] = []
+  const universities: UniversityRow[] = [];
 
   for (let i = 0; i < links.length; i++) {
-    const link = links[i]
-    let detail: Detail | null = null
+    const link = links[i];
+    let detail: Detail | null = null;
     for (let attempt = 0; attempt < 3 && !detail; attempt++) {
       try {
-        detail = await scrapeDetail(page, link.url)
+        detail = await scrapeDetail(page, link.url);
       } catch (e) {
-        const msg = e instanceof Error ? e.message.split("\n")[0] : String(e)
-        if (attempt === 2) console.log(`failed: ${link.title} (${msg})`)
-        else await sleep(3000 * (attempt + 1))
+        const msg = e instanceof Error ? e.message.split("\n")[0] : String(e);
+        if (attempt === 2) console.log(`failed: ${link.title} (${msg})`);
+        else await sleep(3000 * (attempt + 1));
       }
     }
-    if (!detail) continue
+    if (!detail) continue;
     universities.push({
       id: link.url.match(/([0-9a-f]{32})$/)?.[1] ?? link.url,
       title: detail.title || link.title,
@@ -157,30 +188,31 @@ try {
       properties: detail.properties,
       content: detail.content,
       scrapedAt: new Date(),
-    })
-    if ((i + 1) % 10 === 0 || i + 1 === links.length) console.log(`scraped ${i + 1}/${links.length}`)
-    await sleep(800)
+    });
+    if ((i + 1) % 10 === 0 || i + 1 === links.length)
+      console.log(`scraped ${i + 1}/${links.length}`);
+    await sleep(800);
   }
 
-  await browser.close()
+  await browser.close();
 
   // Insert or update universities in MongoDB
-  let inserted = 0
-  let updated = 0
+  let inserted = 0;
+  let updated = 0;
 
   for (const university of universities) {
     const result = await collection.updateOne(
       { url: university.url },
       { $set: university },
-      { upsert: true }
-    )
-    if (result.upsertedId) inserted++
-    else if (result.modifiedCount > 0) updated++
+      { upsert: true },
+    );
+    if (result.upsertedId) inserted++;
+    else if (result.modifiedCount > 0) updated++;
   }
 
-  console.log(`Saved to MongoDB: ${inserted} inserted, ${updated} updated`)
-  console.log(`Collection: ${DB_NAME}.${COLLECTION_NAME}`)
+  console.log(`Saved to MongoDB: ${inserted} inserted, ${updated} updated`);
+  console.log(`Collection: ${DB_NAME}.${COLLECTION_NAME}`);
 } finally {
-  await client.close()
-  console.log("Disconnected from MongoDB")
+  await client.close();
+  console.log("Disconnected from MongoDB");
 }
