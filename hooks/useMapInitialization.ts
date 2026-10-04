@@ -318,6 +318,8 @@ export function useMapInitialization(
         });
 
         marker.openPopup();
+        // Center on the destination (after openPopup, so its autoPan doesn't override this)
+        map.panTo([airport.lat, airport.lon], { animate: true });
       };
 
       const addMarkers = (rows: any[], color: string) => {
