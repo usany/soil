@@ -83,19 +83,21 @@ export function useMapInitialization(
       const defaultZoom = Math.max(2, Math.ceil(Math.log2(screenWidth / 256)));
 
       const map = L.map(mapRef.current as HTMLElement, {
+        // Clamp vertically only; longitude is effectively unbounded so the
+        // world wraps when scrolling sideways.
         maxBounds: [
-          [-85, -180],
-          [85, 180],
+          [-85, -100000],
+          [85, 100000],
         ],
         maxBoundsViscosity: 1.0,
-        worldCopyJump: false,
+        // Jump back to the main world copy so markers stay visible.
+        worldCopyJump: true,
       }).setView([20, 0], defaultZoom);
 
       tileLayerRef.current = L.tileLayer(
         "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
         {
           maxZoom: 19,
-          noWrap: true,
           attribution:
             '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
         },
@@ -103,6 +105,16 @@ export function useMapInitialization(
 
       const seoulLat = 37.46;
       const seoulLon = 126.4;
+
+      // Pick the copy of Seoul (shifted by ±360°) within 180° of the
+      // destination, so the flight path goes the short way around
+      // (e.g. across the Pacific to the US) while the destination stays put.
+      const departureLonFor = (destLon: number) => {
+        let l = seoulLon;
+        while (l - destLon > 180) l -= 360;
+        while (l - destLon < -180) l += 360;
+        return l;
+      };
 
       const drawArc = (
         map: any,
@@ -160,7 +172,13 @@ export function useMapInitialization(
           )
           .addTo(map);
 
-        const arc = drawArc(map, seoulLat, seoulLon, airport.lat, airport.lon);
+        const arc = drawArc(
+          map,
+          seoulLat,
+          departureLonFor(airport.lon),
+          airport.lat,
+          airport.lon,
+        );
 
         shownAirportsRef.current.set(key, marker);
         shownAirportsRef.current.set(`${key}-date`, dateStr);

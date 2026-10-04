@@ -12,6 +12,7 @@ interface UniversityRow {
   title: string;
   url?: string;
   summary?: string;
+  semesters?: string[];
   properties?: Record<string, string>;
   content?: unknown[];
   lat?: number | null;

@@ -46,7 +46,7 @@ function getSelectedSemester(): string {
   const sourceIndex = process.argv.indexOf("--source");
   if (sourceIndex === -1 || sourceIndex === process.argv.length - 1) {
     console.error(
-      `Usage: npm run scrape -- --source <semester>\nAvailable: ${Object.keys(LIST_URL).join(", ")}`,
+      `Usage: npm run scrape --source <semester>\nAvailable: ${Object.keys(LIST_URL).join(", ")}`,
     );
     process.exit(1);
   }

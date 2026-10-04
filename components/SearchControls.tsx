@@ -38,6 +38,17 @@ export function SearchControls({
         maxWidth: "100%",
       }}
     >
+      <h1
+        style={{
+          flex: "1 1 100%",
+          margin: 0,
+          fontSize: "18px",
+          fontWeight: "bold",
+        }}
+      >
+        KHU exchange search
+      </h1>
+
       <select
         value={searchType}
         onChange={(e) => onSearchTypeChange(e.target.value)}
