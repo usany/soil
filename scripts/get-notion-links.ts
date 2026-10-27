@@ -66,11 +66,6 @@ function toCanonicalNotionUrl(href: string): string | null {
   }
 }
 
-/** Prefer a real host-university list URL over a "will-be-confirmed" placeholder. */
-function isPlaceholder(url: string): boolean {
-  return /will-be-confirmed/i.test(url);
-}
-
 /**
  * Derive the semester key from a Notion URL slug, e.g.:
  *   ".../2027-Spring-Exchange-Program-Host-University-List-..."
@@ -136,11 +131,8 @@ async function main() {
   const boardIds = await getBoardIds();
   console.log(`Found ${boardIds.length} post(s)`);
 
-  // Collect raw notion links across all posts, preferring a canonical host:
-  // the original list-urls.json uses "*.notion.site" links, so we prefer
-  // those over "www.notion.so" for the same page id.
+  // Collect raw notion links across all posts.
   const foundByPageId = new Map<string, string>();
-  const pending = new Map<string, string>(); // link -> some semester key (later)
 
   for (let i = 0; i < boardIds.length; i++) {
     const id = boardIds[i];
@@ -148,12 +140,7 @@ async function main() {
       const links = await getNotionLinksFromDetail(id);
       for (const link of links) {
         const pageId = link.match(/([0-9a-f]{32})/i)?.[1] ?? link;
-        const prev = foundByPageId.get(pageId);
-        const better =
-          !prev ||
-          (link.includes("notion.site") && !prev.includes("notion.site")) ||
-          (!isPlaceholder(link) && isPlaceholder(prev));
-        if (better) {
+        if (!foundByPageId.has(pageId)) {
           foundByPageId.set(pageId, link);
         }
       }
