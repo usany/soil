@@ -1,10 +1,9 @@
 import axios from "axios";
 import * as cheerio from "cheerio";
-import { readFileSync, writeFileSync, existsSync } from "fs";
-import { dirname, join } from "path";
-import { fileURLToPath } from "url";
+import dotenv from "dotenv";
+import { MongoClient, Collection } from "mongodb";
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
+dotenv.config();
 
 // Board list URL (search for "notion" in the Outgoing Program board)
 const LIST_URL =
@@ -12,21 +11,25 @@ const LIST_URL =
 const MENU_NO = "5800012";
 const SEARCH_KEYWORD = "notion";
 
-// File where collected Notion links are stored (semester-keyed JSON object)
-const URLS_FILE = join(__dirname, "list-urls.json");
+// MongoDB where collected Notion links are stored (semester-keyed documents)
+const MONGODB_URI = process.env.MONGODB_URI || "";
+const DB_NAME = "notion_scrape";
+const COLLECTION_NAME = "semesters";
 
 // Notion hosts that we consider "Notion links"
 const NOTION_HOSTS = ["notion.site", "notion.so", "app.notion.com", "notion.com"];
 
 type ListUrls = Record<string, string>;
 
-function readExisting(): ListUrls {
-  if (!existsSync(URLS_FILE)) return {};
-  try {
-    return JSON.parse(readFileSync(URLS_FILE, "utf-8"));
-  } catch {
-    return {};
+async function readExisting(collection: Collection): Promise<ListUrls> {
+  const docs = await collection.find({}).toArray();
+  const result: ListUrls = {};
+  for (const doc of docs) {
+    if (doc.key && typeof doc.url === "string") {
+      result[String(doc.key)] = doc.url;
+    }
   }
+  return result;
 }
 
 async function fetchHtml(url: string): Promise<string> {
@@ -127,6 +130,15 @@ async function getNotionLinksFromDetail(boardId: string): Promise<string[]> {
 }
 
 async function main() {
+  if (!MONGODB_URI) {
+    console.error("MONGODB_URI is not configured");
+    process.exit(1);
+  }
+
+  const client = new MongoClient(MONGODB_URI);
+  await client.connect();
+  const collection = client.db(DB_NAME).collection(COLLECTION_NAME);
+
   console.log("Fetching board list ...");
   const boardIds = await getBoardIds();
   console.log(`Found ${boardIds.length} post(s)`);
@@ -151,8 +163,7 @@ async function main() {
     }
   }
 
-  const existing = readExisting();
-  const result: ListUrls = { ...existing };
+  const existing = await readExisting(collection);
   let added = 0;
   const skippedNoKey: string[] = [];
 
@@ -173,21 +184,26 @@ async function main() {
     }
 
     // Multi-year URLs (older posts) may repeat a season key; first wins.
-    if (!(key in result)) {
-      result[key] = link;
+    if (!(key in existing)) {
+      await collection.updateOne(
+        { key },
+        { $set: { key, url: link } },
+        { upsert: true },
+      );
+      existing[key] = link;
       added++;
     }
   }
 
-  writeFileSync(URLS_FILE, JSON.stringify(result) + "\n");
-
-  console.log(`\nSaved to ${URLS_FILE} (added ${added} link(s))`);
-  for (const [k, v] of Object.entries(result)) {
-    if (!(k in existing)) console.log(`  + "${k}": "${v}"`);
+  console.log(`\nSaved to ${DB_NAME}.${COLLECTION_NAME} (added ${added} link(s))`);
+  for (const [k, v] of Object.entries(existing)) {
+    console.log(`  "${k}": "${v}"`);
   }
   for (const link of skippedNoKey) {
     console.warn(`  ! no semester key, skipped: ${link}`);
   }
+
+  await client.close();
 }
 
 main().catch((e) => {

@@ -1,20 +1,13 @@
 import dotenv from "dotenv";
 import { chromium, type Page } from "playwright";
 import { MongoClient, Db, Collection } from "mongodb";
-import { readFileSync } from "fs";
-import { dirname, join } from "path";
-import { fileURLToPath } from "url";
 
 dotenv.config();
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const LIST_URL = JSON.parse(
-  readFileSync(join(__dirname, "list-urls.json"), "utf-8"),
-);
 
 const MONGODB_URI = process.env.MONGODB_URI || "";
 const DB_NAME = "notion_scrape";
 const COLLECTION_NAME = "universities";
+const SEMESTERS_COLLECTION = "semesters";
 
 interface RowLink {
   url: string;
@@ -42,22 +35,28 @@ interface UniversityRow extends Omit<Detail, "title"> {
 
 const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
 
+async function getSemesterUrl(
+  db: Db,
+  semester: string,
+): Promise<string | null> {
+  const doc = await db
+    .collection(SEMESTERS_COLLECTION)
+    .findOne({ key: semester });
+  return doc && typeof doc.url === "string" ? doc.url : null;
+}
+
+async function getSemesterKeys(db: Db): Promise<string[]> {
+  const docs = await db.collection(SEMESTERS_COLLECTION).find({}).toArray();
+  return docs.map((d) => String(d.key)).filter(Boolean);
+}
+
 function getSelectedSemester(): string {
   const sourceIndex = process.argv.indexOf("--source");
   if (sourceIndex === -1 || sourceIndex === process.argv.length - 1) {
-    console.error(
-      `Usage: npm run scrape --source <semester>\nAvailable: ${Object.keys(LIST_URL).join(", ")}`,
-    );
+    console.error("Usage: npm run scrape --source <semester>");
     process.exit(1);
   }
-  const semester = process.argv[sourceIndex + 1];
-  if (!(semester in LIST_URL)) {
-    console.error(
-      `Invalid semester: ${semester}\nAvailable: ${Object.keys(LIST_URL).join(", ")}`,
-    );
-    process.exit(1);
-  }
-  return semester;
+  return process.argv[sourceIndex + 1];
 }
 
 async function expandAllRows(page: Page): Promise<void> {
@@ -164,6 +163,16 @@ try {
   console.log("Connected to MongoDB");
 
   db = client.db(DB_NAME);
+
+  const semesterKeys = await getSemesterKeys(db);
+  const semesterUrl = await getSemesterUrl(db, semester);
+  if (!semesterUrl) {
+    console.error(
+      `Invalid semester: ${semester}\nAvailable: ${semesterKeys.join(", ")}`,
+    );
+    process.exit(1);
+  }
+
   collection = db.collection(COLLECTION_NAME);
 
   // Drop the url index if it exists
@@ -176,7 +185,7 @@ try {
   const page = await browser.newPage();
   await page.setViewportSize({ width: 1400, height: 900 });
 
-  await page.goto(LIST_URL[semester as keyof typeof LIST_URL], {
+  await page.goto(semesterUrl, {
     waitUntil: "domcontentloaded",
     timeout: 120000,
   });
