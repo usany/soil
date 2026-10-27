@@ -10,6 +10,7 @@
     "build": "next build",
     "start": "next start",
     "scrape": "tsx scripts/scrapingnotion.ts",
+    "get-notion-links": "tsx scripts/get-notion-links.ts",
     "geocode": "tsx scripts/geocoding.ts",
     "nearest-airport": "tsx scripts/nearest-airport.ts",
     "sync-cache": "tsx scripts/sync-to-json.ts"
