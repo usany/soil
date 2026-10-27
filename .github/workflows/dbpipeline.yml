@@ -5,9 +5,6 @@ on:
   schedule:
     - cron: "0 3 * * 1" # every Monday at 03:00 UTC
 
-permissions:
-  contents: write
-
 concurrency:
   group: data-pipeline
   cancel-in-progress: false
@@ -38,24 +35,17 @@ jobs:
       - name: Install Playwright browsers
         run: pnpm exec playwright install --with-deps chromium
 
-      # 1. Collect Notion links from the OIA board -> writes scripts/list-urls.json
+      # 1. Collect Notion links from the OIA board -> saves into MongoDB `semesters` collection
       - name: Get Notion links
+        env:
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
         run: pnpm run get-notion-links
 
-      # 2. Scrape Notion pages into MongoDB (requires a semester key from list-urls.json)
+      # 2. Scrape Notion pages into MongoDB (reads semester keys from the `semesters` collection)
       - name: Scrape Notion
         env:
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
-        run: |
-          semesters=$(node -e "console.log(Object.keys(require('./scripts/list-urls.json')).join(' '))")
-          if [ -z "$semesters" ]; then
-            echo "No semesters found in list-urls.json; skipping scrape"
-            exit 0
-          fi
-          for s in $semesters; do
-            echo "Scraping semester: $s"
-            pnpm run scrape -- --source "$s"
-          done
+        run: pnpm run scrape -- --all
 
       # 3. Geocode universities (adds lat/lon via Nominatim)
       - name: Geocoding
@@ -68,16 +58,3 @@ jobs:
         env:
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
         run: pnpm run nearest-airport
-
-      # Persist any changes to list-urls.json back to the repo
-      - name: Commit list-urls.json
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add scripts/list-urls.json
-          if git diff --cached --quiet; then
-            echo "No changes to list-urls.json"
-          else
-            git commit -m "chore: update notion links [skip ci]"
-            git push
-          fi
