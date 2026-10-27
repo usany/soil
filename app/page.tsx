@@ -1,7 +1,6 @@
 "use client";
 
 import React, { Suspense, useEffect, useRef, useState } from "react";
-import universities from "@/db/universities.json";
 import { useSearch } from "@/hooks/useSearch";
 import { useMapInitialization } from "@/hooks/useMapInitialization";
 import { SearchControls } from "@/components/SearchControls";
@@ -21,6 +20,7 @@ function HomeContent() {
     typeof window !== "undefined" ? localStorage.getItem("lang") || "en" : "en",
   );
   const [bigMacData, setBigMacData] = useState(null);
+  const [universities, setUniversities] = useState<any>(null);
 
   const { searchType, setSearchType, searchText, setSearchText, updateUrl, filterMarkers } = useSearch();
   const { mapInstanceRef, markersRef, shownAirportsRef } = useMapInitialization(
@@ -50,6 +50,21 @@ function HomeContent() {
       filterMarkers(searchText, searchType, markersRef, mapInstanceRef, shownAirportsRef);
     }
   }, [searchText, searchType]);
+
+  useEffect(() => {
+    const fetchUniversities = async () => {
+      try {
+        const response = await fetch("/api/universities");
+        const data = await response.json();
+        if (data.success) {
+          setUniversities(data.rows);
+        }
+      } catch (error) {
+        console.error("Error fetching universities:", error);
+      }
+    };
+    fetchUniversities();
+  }, []);
 
   useEffect(() => {
     const fetchBigMacData = async () => {
