@@ -31,15 +31,6 @@ html.dark .leaflet-container {
   background: #111827;
 }
 
-html.dark .lang-toggle {
-  color: #e5e7eb;
-  border-color: #374151;
-}
-
-.lang-toggle {
-  color: #111827;
-}
-
 .leaflet-popup {
   max-width: 90vw;
 }

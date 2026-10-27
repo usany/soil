@@ -4,6 +4,7 @@ import React, { Suspense, useEffect, useRef, useState } from "react";
 import { useSearch } from "@/hooks/useSearch";
 import { useMapInitialization } from "@/hooks/useMapInitialization";
 import { SearchControls } from "@/components/SearchControls";
+import styles from "./page.module.css";
 
 function HomeContent() {
   const mapRef = useRef<HTMLDivElement>(null);
@@ -82,14 +83,7 @@ function HomeContent() {
   }, []);
 
   return (
-    <div
-      style={{
-        height: "100vh",
-        width: "100%",
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
+    <div className={styles.container}>
       <SearchControls
         searchType={searchType}
         searchText={searchText}
@@ -116,7 +110,7 @@ function HomeContent() {
       />
       <div
         ref={mapRef}
-        style={{ flex: 1, width: "100%", height: "100%", minHeight: 0 }}
+        className={styles.map}
       />
     </div>
   );
