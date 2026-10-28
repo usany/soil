@@ -118,14 +118,50 @@ function parseArgs(allKeysSorted: string[]): string[] {
 }
 
 async function expandAllRows(page: Page): Promise<void> {
-  // Notion only fetches collection rows after "Load more" is clicked; repeat until the button is gone.
-  for (let i = 0; i < 30; i++) {
+  // Notion renders collection rows in a virtualized scroller: it only mounts a
+  // window of rows and lazily loads more as you scroll (or click "Load more").
+  // Loop until the item count stops growing so we don't miss universities.
+  let lastCount = 0;
+  let stable = 0;
+
+  for (let i = 0; i < 80; i++) {
+    // 1) Click any visible "Load more" button.
     const btn = page.getByText("Load more", { exact: true }).first();
-    if (!(await btn.isVisible().catch(() => false))) break;
-    await btn.scrollIntoViewIfNeeded().catch(() => {});
-    await btn.click().catch(() => {});
-    await sleep(2500);
+    if (await btn.isVisible().catch(() => false)) {
+      await btn.scrollIntoViewIfNeeded().catch(() => {});
+      await btn.click().catch(() => {});
+      await sleep(1500);
+    }
+
+    // 2) Scroll every collection scroller to the bottom to force lazy loading.
+    await page.evaluate(() => {
+      const scrollers = document.querySelectorAll(
+        ".notion-scroller.vertical, .notion-collection-view-body",
+      );
+      for (const s of scrollers) {
+        (s as HTMLElement).scrollTop = (s as HTMLElement).scrollHeight;
+      }
+      window.scrollTo(0, document.body.scrollHeight);
+    });
+
+    await sleep(1000);
+
+    // 3) Measure item count; stop once it has been stable for a few rounds.
+    const count = await page.evaluate(
+      () => document.querySelectorAll(".notion-collection-item").length,
+    );
+    if (count > 0 && count === lastCount) {
+      stable++;
+      if (stable >= 3) break;
+    } else {
+      stable = 0;
+    }
+    lastCount = count;
   }
+
+  console.log(
+    `[expandAllRows] final collection-item count: ${lastCount}`,
+  );
 }
 
 function collectRowLinks(page: Page): Promise<RowLink[]> {
@@ -133,7 +169,16 @@ function collectRowLinks(page: Page): Promise<RowLink[]> {
     const seen = new Set<string>();
     const rows: RowLink[] = [];
 
-    for (const a of document.querySelectorAll<HTMLAnchorElement>("a[href]")) {
+    // Each university is a `.notion-collection-item` containing an <a href> to
+    // its detail page. Collect only those (not every anchor on the page).
+    const items = document.querySelectorAll<HTMLElement>(
+      ".notion-collection-item",
+    );
+
+    for (const item of items) {
+      const a = item.querySelector<HTMLAnchorElement>("a[href]");
+      if (!a) continue;
+
       const text = (a.innerText || "").trim();
       if (!text) continue;
 
@@ -143,10 +188,8 @@ function collectRowLinks(page: Page): Promise<RowLink[]> {
         .filter(Boolean);
       const title = lines[0] || "";
 
-      // Only keep links that look like university detail pages: they have a
-      // title line beginning with an uppercase letter followed by 2+ lines of
-      // info (country, language, scores, slots). The flag-emoji test was
-      // removed because newer pages render plain country names instead.
+      // A university detail title starts with an uppercase letter and has at
+      // least one extra info line (country, language, scores, slots).
       if (!/^[A-Z]/.test(title)) continue;
       if (lines.length < 2) continue;
 
@@ -160,6 +203,7 @@ function collectRowLinks(page: Page): Promise<RowLink[]> {
         summary: lines.slice(1).join(" | "),
       });
     }
+
     return rows;
   });
 }
@@ -305,14 +349,35 @@ async function scrapeSemester(
       waitUntil: "domcontentloaded",
       timeout: 120000,
     });
-    await sleep(4000);
+
+    // Wait for the collection view to actually hydrate. Notion renders the
+    // page shell first, then lazily fetches and mounts the collection items.
+    await page
+      .waitForSelector(".notion-collection-item", {
+        timeout: 60000,
+      })
+      .catch(() => {});
+
     await expandAllRows(page);
+
+    // Give the last lazy-loaded items a moment to finish mounting.
+    await page
+      .waitForFunction(
+        () => !document.body.innerText.includes("Loading..."),
+        { timeout: 15000 },
+      )
+      .catch(() => {});
 
     const links = await collectRowLinks(page);
     console.log(`[${semester}] rows found: ${links.length}`);
     if (links.length === 0) {
       const title = await page.title();
-      throw new Error(`no rows found (page title: "${title}")`);
+      const bodyLen = await page.evaluate(
+        () => document.body.innerText.length,
+      );
+      throw new Error(
+        `no rows found (page title: "${title}", body length: ${bodyLen})`,
+      );
     }
 
     const universities: UniversityRow[] = [];
@@ -398,7 +463,9 @@ let db: Db | null = null;
     // Create index on id for faster lookups
     await collection.createIndex({ id: 1 });
 
-    const browser = await chromium.launch({ headless: false });
+    const browser = await chromium.launch({
+      headless: true,
+    });
     let totalInserted = 0;
     let totalUpdated = 0;
     let totalRows = 0;
