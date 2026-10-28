@@ -225,7 +225,7 @@ try {
 
   const rows = (await collection
     .find({ title: { $exists: true } })
-    .toArray()) as Row[];
+    .toArray()) as unknown as Row[];
   const done = rows.filter((r) => r.lat != null && r.lon != null);
   const todo = rows.filter((r) => r.lat == null || r.lon == null);
   console.log(
