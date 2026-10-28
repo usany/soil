@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { MongoClient } from "mongodb";
+import { MongoClient, ObjectId } from "mongodb";
 
 dotenv.config();
 
@@ -28,7 +28,7 @@ interface Airport {
 }
 
 interface Row {
-  _id?: string;
+  _id?: ObjectId;
   title: string;
   properties?: Record<string, string>;
   lat?: number | null;
@@ -196,7 +196,7 @@ try {
   const db = client.db(DB_NAME);
   const collection = db.collection(COLLECTION_NAME);
 
-  const rows = await collection.find({ title: { $exists: true } }).toArray() as Row[];
+  const rows = (await collection.find({ title: { $exists: true } }).toArray()) as unknown as Row[];
 
   for (const row of rows) {
     if (row.lat == null || row.lon == null) continue;

@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-import { MongoClient } from "mongodb";
+import { MongoClient, ObjectId } from "mongodb";
 
 dotenv.config();
 
@@ -9,7 +9,7 @@ const COLLECTION_NAME = "universities";
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 interface Row {
-  _id?: string;
+  _id?: ObjectId;
   title: string;
   properties?: Record<string, string>;
   lat?: number | null;
