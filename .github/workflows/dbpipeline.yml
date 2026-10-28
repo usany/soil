@@ -39,4 +39,4 @@ jobs:
       - name: Run pipeline
         env:
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
-        run: pnpm run pipeline -- --all
+        run: pnpm run pipeline
