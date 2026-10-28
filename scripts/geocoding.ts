@@ -213,13 +213,19 @@ const MANUAL: Record<string, string> = {
     "Ostschweizer Fachhochschule Campus Rapperswil Jona, Switzerland",
 };
 
-const client = new MongoClient(MONGODB_URI);
+async function main() {
+  if (!MONGODB_URI) {
+    console.error("MONGODB_URI is not configured");
+    process.exit(1);
+  }
 
-let ok = 0;
-let fail = 0;
-let idx = 0;
-try {
-  await client.connect();
+  const client = new MongoClient(MONGODB_URI);
+
+  let ok = 0;
+  let fail = 0;
+  let idx = 0;
+  try {
+    await client.connect();
   const db = client.db(DB_NAME);
   const collection = db.collection(COLLECTION_NAME);
 
@@ -274,6 +280,12 @@ try {
     await sleep(1100);
   }
   console.log(`DONE. ok=${ok} fail=${fail}`);
-} finally {
-  await client.close();
+  } finally {
+    await client.close();
+  }
 }
+
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});
