@@ -15,7 +15,7 @@ export interface PipelineStep {
 
 export const PIPELINE_STEPS: PipelineStep[] = [
   { id: "get-notion-links", label: "Get notion links", script: "get-notion-links.ts" },
-  { id: "scrapingnotion",   label: "Scrape notion",    script: "scrapingnotion.ts",   args: ["--all"] },
+  { id: "scrapingnotion",   label: "Scrape notion",    script: "scrapingnotion.ts" },
   { id: "geocoding",        label: "Geocoding",        script: "geocoding.ts" },
   { id: "nearest-airport",  label: "Nearest airport",  script: "nearest-airport.ts" },
 ];
