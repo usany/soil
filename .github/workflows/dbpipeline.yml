@@ -35,26 +35,8 @@ jobs:
       - name: Install Playwright browsers
         run: pnpm exec playwright install --with-deps chromium
 
-      # 1. Collect Notion links from the OIA board -> saves into MongoDB `semesters` collection
-      - name: Get Notion links
+      # Run the full data pipeline: get-notion-links → scrape → geocode → nearest-airport
+      - name: Run pipeline
         env:
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
-        run: pnpm run get-notion-links
-
-      # 2. Scrape Notion pages into MongoDB (reads semester keys from the `semesters` collection)
-      - name: Scrape Notion
-        env:
-          MONGODB_URI: ${{ secrets.MONGODB_URI }}
-        run: pnpm run scrape -- --all
-
-      # 3. Geocode universities (adds lat/lon via Nominatim)
-      - name: Geocoding
-        env:
-          MONGODB_URI: ${{ secrets.MONGODB_URI }}
-        run: pnpm run geocode
-
-      # 4. Compute nearest airport for each university
-      - name: Nearest airport
-        env:
-          MONGODB_URI: ${{ secrets.MONGODB_URI }}
-        run: pnpm run nearest-airport
+        run: pnpm run pipeline -- --all
