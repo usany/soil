@@ -132,19 +132,31 @@ function collectRowLinks(page: Page): Promise<RowLink[]> {
   return page.evaluate(() => {
     const seen = new Set<string>();
     const rows: RowLink[] = [];
+
     for (const a of document.querySelectorAll<HTMLAnchorElement>("a[href]")) {
       const text = (a.innerText || "").trim();
-      if (!/^\p{Regional_Indicator}{2}/u.test(text)) continue;
-      const url = a.href.split("?")[0];
-      if (seen.has(url)) continue;
-      seen.add(url);
+      if (!text) continue;
+
       const lines = text
         .split("\n")
         .map((s) => s.trim())
         .filter(Boolean);
+      const title = lines[0] || "";
+
+      // Only keep links that look like university detail pages: they have a
+      // title line beginning with an uppercase letter followed by 2+ lines of
+      // info (country, language, scores, slots). The flag-emoji test was
+      // removed because newer pages render plain country names instead.
+      if (!/^[A-Z]/.test(title)) continue;
+      if (lines.length < 2) continue;
+
+      const url = a.href.split("?")[0];
+      if (seen.has(url)) continue;
+      seen.add(url);
+
       rows.push({
         url,
-        title: lines[1] || "",
+        title,
         summary: lines.slice(1).join(" | "),
       });
     }
@@ -153,8 +165,62 @@ function collectRowLinks(page: Page): Promise<RowLink[]> {
 }
 
 async function scrapeDetail(page: Page, url: string): Promise<Detail> {
-  await page.goto(url, { waitUntil: "domcontentloaded", timeout: 60000 });
-  await page.waitForSelector("[role='table'] [role='row']", { timeout: 30000 });
+  // Click the university item's row/anchor to open its detail (peek) instead of
+  // navigating away via page.goto. The universal-link rows are <a href> with the
+  // page URL as the slug. Click the anchor whose href resolves to this url.
+  const slug = url.split("/").filter(Boolean).pop() || "";
+
+  let clicked = false;
+  if (slug) {
+    const anchor = page.locator(`a[href*="${slug}"]`).first();
+    if ((await anchor.count()) > 0) {
+      await anchor.scrollIntoViewIfNeeded().catch(() => {});
+      await anchor.click().catch(() => {});
+      clicked = true;
+    }
+  }
+
+  // Fallback: click by page title text (first line of the link).
+  if (!clicked) {
+    const title = url
+      .split("/")
+      .filter(Boolean)
+      .pop()
+      ?.split("-")
+      .filter((w) => w.length > 2)
+      .slice(0, 4)
+      .join(" ");
+    if (title) {
+      const anchor = page.locator("a[href]", { hasText: title }).first();
+      if ((await anchor.count()) > 0) {
+        await anchor.scrollIntoViewIfNeeded().catch(() => {});
+        await anchor.click().catch(() => {});
+        clicked = true;
+      }
+    }
+  }
+
+  // Last resort: navigate directly.
+  if (!clicked) {
+    await page.goto(url, { waitUntil: "domcontentloaded", timeout: 60000 });
+  }
+
+  await sleep(1500);
+
+  // Wait for the detail (peek overlay) to render properties or content.
+  await page
+    .waitForFunction(
+      () => {
+        const peek = document.querySelector(".notion-peek-renderer");
+        const root = peek || document.body;
+        return (
+          root.querySelector("[role='table'] [role='row']") !== null ||
+          root.querySelector(".notion-page-content") !== null
+        );
+      },
+      { timeout: 20000 },
+    )
+    .catch(() => {});
 
   const more = page.getByText(/^\d+ more propert/).first();
   if (await more.isVisible().catch(() => false)) {
@@ -169,10 +235,12 @@ async function scrapeDetail(page: Page, url: string): Promise<Detail> {
     .catch(() => {});
 
   return page.evaluate(() => {
+    const peek = document.querySelector(".notion-peek-renderer");
+    const root: HTMLElement | null =
+      (peek as HTMLElement | null) || document.body;
+
     const properties: Record<string, string> = {};
-    for (const row of document.querySelectorAll(
-      "[role='table'] [role='row']",
-    )) {
+    for (const row of root.querySelectorAll("[role='table'] [role='row']")) {
       const cells = row.querySelectorAll<HTMLElement>("[role='cell']");
       if (cells.length < 2) continue;
       const name = cells[0].innerText.trim();
@@ -192,7 +260,7 @@ async function scrapeDetail(page: Page, url: string): Promise<Detail> {
       if (name) properties[name] = value;
     }
 
-    const body = document.querySelector<HTMLElement>(".notion-page-content");
+    const body = root.querySelector<HTMLElement>(".notion-page-content");
     const content: ContentBlock[] = body
       ? body.innerText
           .split("\n")
@@ -201,8 +269,13 @@ async function scrapeDetail(page: Page, url: string): Promise<Detail> {
           .map((text) => ({ type: "text", text }))
       : [];
 
+    const peekTitle =
+      peek instanceof Element
+        ? (peek.querySelector("h1")?.textContent || "").trim()
+        : "";
+
     return {
-      title: document.querySelector("h1")?.innerText.trim() || "",
+      title: peekTitle || document.querySelector("h1")?.innerText.trim() || "",
       properties,
       content,
     };
