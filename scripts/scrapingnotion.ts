@@ -27,6 +27,49 @@ interface UniversityRow extends Omit<Detail, "id"> {
 }
 const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
 
+function formatDuration(sec: number): string {
+  sec = Math.max(0, Math.round(sec));
+  const h = Math.floor(sec / 3600);
+  const m = Math.floor((sec % 3600) / 60);
+  const s = sec % 60;
+  if (h > 0) return `${h}h ${m}m ${s}s`;
+  if (m > 0) return `${m}m ${s}s`;
+  return `${s}s`;
+}
+
+const PROGRESS_BAR_WIDTH = 30;
+
+/**
+ * Render a single-line live progress bar to the terminal showing how many
+ * items have been crawled so far out of the total, along with the current item
+ * name, an estimated time remaining, and the crawl rate.
+ */
+function renderProgress(
+  done: number,
+  total: number,
+  detail: { fileName: string; eta: number; rate: number },
+): void {
+  const pct = total > 0 ? done / total : 0;
+  const filled = Math.round(pct * PROGRESS_BAR_WIDTH);
+  const bar = "█".repeat(filled) + "░".repeat(PROGRESS_BAR_WIDTH - filled);
+  const pctText = `${Math.round(pct * 100)}%`;
+  const eta = formatDuration(detail.eta);
+  const rate = detail.rate.toFixed(1);
+
+  // Truncate item name to keep the line within ~110 columns.
+  let name = detail.fileName;
+  const maxName = 28;
+  if (name.length > maxName) name = name.slice(0, maxName - 1) + "…";
+
+  const line =
+    `\r[${String(done).padStart(String(total).length, "0")}/${total}] ` +
+    `[${bar}] ${pctText} | item: ${name.padEnd(maxName)} ` +
+    `| ${rate} it/s | ETA ${eta}      `;
+
+  process.stdout.write(line);
+}
+
+
 const SEASON_ORDER: Record<string, number> = {
   spring: 0,
   summer: 1,
@@ -373,8 +416,11 @@ async function scrapeSemester(
     }
 
     const universities: UniversityRow[] = [];
+    let failedCount = 0;
+    const total = links.length;
+    const crawlStart = Date.now();
 
-    for (let i = 0; i < links.length; i++) {
+    for (let i = 0; i < total; i++) {
       const link = links[i];
       let detail: Detail | null = null;
       for (let attempt = 0; attempt < 3 && !detail; attempt++) {
@@ -382,12 +428,14 @@ async function scrapeSemester(
           detail = await scrapeDetail(page, link.url);
         } catch (e) {
           const msg = e instanceof Error ? e.message.split("\n")[0] : String(e);
-          if (attempt === 2) console.log(`failed: ${link.id} (${msg})`);
-          else await sleep(3000 * (attempt + 1));
+          if (attempt === 2) {
+            failedCount++;
+            console.log(`  ✗ failed: ${link.id} (${msg})`);
+          } else await sleep(3000 * (attempt + 1));
         }
       }
       if (!detail) {
-        console.log(`skipped: ${link.id} (no detail after retries)`);
+        console.log(`  ⚠ skipped: ${link.id} (no detail after retries)`);
         continue;
       }
       const uniName = detail.id || link.id;
@@ -399,10 +447,21 @@ async function scrapeSemester(
         semesters: [semester],
         properties,
       });
-      if ((i + 1) % 10 === 0 || i + 1 === links.length)
-        console.log(`[${semester}] scraped ${i + 1}/${links.length}`);
+
+      // Real-time crawling progress: live count + progress bar + ETA.
+      const done = i + 1;
+      const elapsed = (Date.now() - crawlStart) / 1000;
+      const rate = done / Math.max(elapsed, 1);
+      const remaining = total - done;
+      const eta = remaining / Math.max(rate, 1e-6);
+      renderProgress(done, total, { fileName: uniName, eta, rate });
       await sleep(800);
     }
+
+    console.log(
+      `[${semester}] crawl complete: ${universities.length}/${total} crawled, ` +
+        `${failedCount} failed`,
+    );
 
     // Insert or update universities in MongoDB
     let inserted = 0;
