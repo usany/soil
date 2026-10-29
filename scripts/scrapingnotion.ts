@@ -488,6 +488,7 @@ async function scrapeSemester(
       const setDoc: Record<string, unknown> = {
         id: university.id,
         summary: university.summary,
+        timestamp: now,
       };
       if (applyProps) {
         setDoc.properties = university.properties;
@@ -501,14 +502,6 @@ async function scrapeSemester(
         },
         { upsert: true },
       );
-
-      // Record when this semester's data was last stored.
-      if (university.semesters.length > 0) {
-        await collection.updateOne(
-          { id: university.id },
-          { $set: { [`timestamps.${university.semesters[0]}`]: now } },
-        );
-      }
 
       // For upserts, ensure properties are written (updateOne upsert always
       // writes the full $set doc, so this already happened above).
