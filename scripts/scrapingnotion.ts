@@ -16,11 +16,11 @@ interface RowLink {
 }
 
 interface Detail {
-  title: string;
+  id: string;
   properties: Record<string, string>;
 }
 
-interface UniversityRow extends Omit<Detail, "title"> {
+interface UniversityRow extends Omit<Detail, "id"> {
   id: string;
   summary: string;
   semesters: string[];
@@ -312,7 +312,7 @@ async function scrapeDetail(page: Page, url: string): Promise<Detail> {
         : "";
 
     return {
-      title: peekTitle || document.querySelector("h1")?.innerText.trim() || "",
+      id: peekTitle || document.querySelector("h1")?.innerText.trim() || "",
       properties,
     };
   });
@@ -390,7 +390,7 @@ async function scrapeSemester(
         console.log(`skipped: ${link.id} (no detail after retries)`);
         continue;
       }
-      const uniName = detail.title || link.id;
+      const uniName = detail.id || link.id;
       const properties = { ...detail.properties };
       delete properties.url;
       universities.push({

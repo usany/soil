@@ -28,8 +28,7 @@ interface Airport {
 }
 
 interface Row {
-  id?: string;
-  title: string;
+  id: string;
   properties?: Record<string, string>;
   lat?: number | null;
   lon?: number | null;
@@ -197,7 +196,7 @@ async function main() {
     const db = client.db(DB_NAME);
     const collection = db.collection(COLLECTION_NAME);
 
-    const rows = (await collection.find({ title: { $exists: true } }).toArray()) as unknown as Row[];
+    const rows = (await collection.find({ id: { $exists: true } }).toArray()) as unknown as Row[];
 
     for (const row of rows) {
       if (row.lat == null || row.lon == null) continue;
@@ -208,13 +207,13 @@ async function main() {
       }
       const ofCountry = COUNTRY_MAP[region];
       if (!ofCountry) {
-        console.log("NO MAP:", row.title, "=>", region);
+        console.log("NO MAP:", row.id, "=>", region);
         noAirport++;
         continue;
       }
       const airports = airportsByCountry.get(ofCountry);
       if (!airports || !airports.length) {
-        console.log("NO AIRPORTS:", row.title, "=>", ofCountry);
+        console.log("NO AIRPORTS:", row.id, "=>", ofCountry);
         noAirport++;
         continue;
       }

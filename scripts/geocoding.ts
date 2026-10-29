@@ -9,8 +9,7 @@ const COLLECTION_NAME = "universities";
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 interface Row {
-  id?: string;
-  title: string;
+  id: string;
   properties?: Record<string, string>;
   lat?: number | null;
   lon?: number | null;
@@ -152,7 +151,7 @@ function buildQuery(row: Row): string {
     !campus.includes(";") &&
     campus.length < 40;
   const region = normalizeRegion((p.Region || "").trim());
-  let q = row.title;
+  let q = row.id;
   if (isSinglePlace) q = `${q}, ${campus}`;
   if (region) q = `${q}, ${region}`;
   return q;
@@ -176,7 +175,7 @@ function buildQueries(row: Row): string[] {
     ((row.properties && row.properties.Region) || "").trim(),
   );
   const primary = buildQuery(row);
-  const cleaned = cleanTitle(row.title);
+  const cleaned = cleanTitle(row.id);
   const queries: string[] = [];
   const push = (q: string) => {
     const s = q.replace(/\s+/g, " ").trim();
@@ -230,7 +229,7 @@ async function main() {
   const collection = db.collection(COLLECTION_NAME);
 
   const rows = (await collection
-    .find({ title: { $exists: true } })
+    .find({ id: { $exists: true } })
     .toArray()) as unknown as Row[];
   const done = rows.filter((r) => r.lat != null && r.lon != null);
   const todo = rows.filter((r) => r.lat == null || r.lon == null);
@@ -240,7 +239,7 @@ async function main() {
 
   for (const row of todo) {
     const queries = buildQueries(row);
-    if (MANUAL[row.title]) queries.unshift(MANUAL[row.title]);
+    if (MANUAL[row.id]) queries.unshift(MANUAL[row.id]);
     const countryCode = regionCountryCode(
       (row.properties && row.properties.Region) || "",
     );
@@ -263,7 +262,7 @@ async function main() {
         },
       );
       ok++;
-      console.log(`[${idx}/${todo.length}] ${row.title} -> ${result.display}`);
+      console.log(`[${idx}/${todo.length}] ${row.id} -> ${result.display}`);
     } else {
       await collection.updateOne(
         { id: row.id },
@@ -275,7 +274,7 @@ async function main() {
         },
       );
       fail++;
-      console.log(`[${idx}/${todo.length}] NO RESULT: ${row.title}`);
+      console.log(`[${idx}/${todo.length}] NO RESULT: ${row.id}`);
     }
     await sleep(1100);
   }
