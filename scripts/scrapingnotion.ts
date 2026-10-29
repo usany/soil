@@ -63,7 +63,7 @@ function renderProgress(
 
   const line =
     `\r[${String(done).padStart(String(total).length, "0")}/${total}] ` +
-    `[${bar}] ${pctText} | item: ${name.padEnd(maxName)} ` +
+    `| item: ${name.padEnd(maxName)} ` +
     `| ${rate} it/s | ETA ${eta}      `;
 
   process.stdout.write(line);
@@ -165,7 +165,8 @@ async function expandAllRows(page: Page): Promise<void> {
     if (await btn.isVisible().catch(() => false)) {
       await btn.scrollIntoViewIfNeeded().catch(() => {});
       await btn.click().catch(() => {});
-      await sleep(1500);
+      // Initial lazy-load needs a real beat to fetch the next batch.
+      await sleep(1200);
     }
 
     // 2) Scroll every collection scroller to the bottom to force lazy loading.
@@ -179,7 +180,7 @@ async function expandAllRows(page: Page): Promise<void> {
       window.scrollTo(0, document.body.scrollHeight);
     });
 
-    await sleep(1000);
+    await sleep(600);
 
     // 3) Measure item count; stop once it has been stable for a few rounds.
     const count = await page.evaluate(
@@ -294,9 +295,9 @@ async function scrapeDetail(page: Page, url: string): Promise<Detail> {
     await page.goto(url, { waitUntil: "domcontentloaded", timeout: 60000 });
   }
 
-  await sleep(1500);
-
-  // Wait for the detail (peek overlay) to render properties or content.
+  // Wait for the detail (peek overlay) to actually render properties or
+  // content, instead of a fixed sleep. Give it a generous initial budget for
+  // the first load, but bail as soon as it's ready so we don't waste time.
   await page
     .waitForFunction(
       () => {
@@ -314,7 +315,7 @@ async function scrapeDetail(page: Page, url: string): Promise<Detail> {
   const more = page.getByText(/^\d+ more propert/).first();
   if (await more.isVisible().catch(() => false)) {
     await more.click().catch(() => {});
-    await sleep(800);
+    await sleep(300);
   }
 
   await page
@@ -431,7 +432,7 @@ async function scrapeSemester(
           if (attempt === 2) {
             failedCount++;
             console.log(`  ✗ failed: ${link.id} (${msg})`);
-          } else await sleep(3000 * (attempt + 1));
+          } else await sleep(1000 * (attempt + 1));
         }
       }
       if (!detail) {
@@ -455,7 +456,9 @@ async function scrapeSemester(
       const remaining = total - done;
       const eta = remaining / Math.max(rate, 1e-6);
       renderProgress(done, total, { fileName: uniName, eta, rate });
-      await sleep(800);
+      // No blanket per-item sleep: scrapeDetail already waits for render. A tiny
+      // gap avoids hammering Notion without adding hundreds of idle seconds.
+      await sleep(150);
     }
 
     console.log(
@@ -485,7 +488,6 @@ async function scrapeSemester(
       const setDoc: Record<string, unknown> = {
         id: university.id,
         summary: university.summary,
-        timestamp: now,
       };
       if (applyProps) {
         setDoc.properties = university.properties;
