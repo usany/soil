@@ -24,7 +24,7 @@ interface UniversityRow {
 }
 
 const DB_NAME = "notion_scrape";
-const COLLECTION_NAME = "universities";
+const COLLECTION_NAME = "participations";
 
 export async function GET() {
   const uri = process.env.MONGODB_URI;
