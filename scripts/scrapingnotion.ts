@@ -11,7 +11,7 @@ const SEMESTERS_COLLECTION = "semesters";
 
 interface RowLink {
   url: string;
-  title: string;
+  id: string;
   summary: string;
 }
 
@@ -191,13 +191,18 @@ function collectRowLinks(page: Page): Promise<RowLink[]> {
 
       rows.push({
         url,
-        title,
+        id: title,
         // Summary lines come from the row text; strip any line that just
         // repeats the title so the summary does not contain the title.
         summary: lines
           .slice(1)
           .filter((line) => line !== title)
-          .join(" | "),
+          .join(" | ")
+          .replace(/\s*\(Study Abroad Program\)\s*/g, " ")
+          .replace(/\|\s*\|/g, "|")
+          .replace(/^\s*\|\s*/g, "")
+          .replace(/\s*\|\s*$/g, "")
+          .trim(),
       });
     }
 
@@ -377,15 +382,15 @@ async function scrapeSemester(
           detail = await scrapeDetail(page, link.url);
         } catch (e) {
           const msg = e instanceof Error ? e.message.split("\n")[0] : String(e);
-          if (attempt === 2) console.log(`failed: ${link.title} (${msg})`);
+          if (attempt === 2) console.log(`failed: ${link.id} (${msg})`);
           else await sleep(3000 * (attempt + 1));
         }
       }
       if (!detail) {
-        console.log(`skipped: ${link.title} (no detail after retries)`);
+        console.log(`skipped: ${link.id} (no detail after retries)`);
         continue;
       }
-      const uniName = detail.title || link.title;
+      const uniName = detail.title || link.id;
       const properties = { ...detail.properties };
       delete properties.url;
       universities.push({
