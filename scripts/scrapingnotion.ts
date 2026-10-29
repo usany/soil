@@ -21,7 +21,6 @@ interface Detail {
 }
 
 interface UniversityRow extends Omit<Detail, "title"> {
-  _id?: string;
   id: string;
   summary: string;
   semesters: string[];

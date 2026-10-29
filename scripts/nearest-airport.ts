@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { MongoClient, ObjectId } from "mongodb";
+import { MongoClient } from "mongodb";
 
 dotenv.config();
 
@@ -28,7 +28,7 @@ interface Airport {
 }
 
 interface Row {
-  _id?: ObjectId;
+  id?: string;
   title: string;
   properties?: Record<string, string>;
   lat?: number | null;
@@ -220,7 +220,7 @@ async function main() {
       }
       const nearestAirportData = nearestAirport(airports, row.lat, row.lon);
       await collection.updateOne(
-        { _id: row._id },
+        { id: row.id },
         { $set: { nearestAirport: nearestAirportData } }
       );
       ok++;

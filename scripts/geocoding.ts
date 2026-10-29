@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-import { MongoClient, ObjectId } from "mongodb";
+import { MongoClient } from "mongodb";
 
 dotenv.config();
 
@@ -9,7 +9,7 @@ const COLLECTION_NAME = "universities";
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 interface Row {
-  _id?: ObjectId;
+  id?: string;
   title: string;
   properties?: Record<string, string>;
   lat?: number | null;
@@ -253,7 +253,7 @@ async function main() {
     idx++;
     if (result) {
       await collection.updateOne(
-        { _id: row._id },
+        { id: row.id },
         {
           $set: {
             lat: result.lat,
@@ -266,7 +266,7 @@ async function main() {
       console.log(`[${idx}/${todo.length}] ${row.title} -> ${result.display}`);
     } else {
       await collection.updateOne(
-        { _id: row._id },
+        { id: row.id },
         {
           $set: {
             lat: null,
