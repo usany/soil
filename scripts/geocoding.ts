@@ -210,6 +210,16 @@ const MANUAL: Record<string, string> = {
   "University of Navarra": "Universidad de Navarra, Spain",
   "OST Eastern Switzerland University of Applied Sciences":
     "Ostschweizer Fachhochschule Campus Rapperswil Jona, Switzerland",
+  "City University of Hong Kong":
+    "City University of Hong Kong, Kowloon Tong, Hong Kong",
+  "Hong Kong Baptist University":
+    "Hong Kong Baptist University, Kowloon Tong, Hong Kong",
+  "Lingnan University": "Lingnan University, Tuen Mun, Hong Kong",
+  "Macau University of Science and Technology":
+    "Macau University of Science and Technology, Taipa, Macau",
+  "The Hong Kong Polytechnic University":
+    "The Hong Kong Polytechnic University, Hung Hom, Hong Kong",
+  "University of Macau": "University of Macau, Taipa, Macau",
 };
 
 async function main() {
