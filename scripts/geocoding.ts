@@ -53,14 +53,17 @@ const REGION_COUNTRY: Record<string, string> = {
   Finland: "fi",
   France: "fr",
   Germany: "de",
-  "Hong Kong": "hk",
+  // Nominatim reports both Hong Kong and Macau (SARs of China) with
+  // country_code "cn", so we must match "cn" here or every result would
+  // be rejected as a country mismatch.
+  "Hong Kong": "cn",
   Indonesia: "id",
   Ireland: "ie",
   Italy: "it",
   Japan: "jp",
   Kazakhstan: "kz",
   Lithuania: "lt",
-  Macau: "mo",
+  Macau: "cn",
   "Mainland China": "cn",
   Malaysia: "my",
   Mexico: "mx",
@@ -210,16 +213,16 @@ const MANUAL: Record<string, string> = {
   "University of Navarra": "Universidad de Navarra, Spain",
   "OST Eastern Switzerland University of Applied Sciences":
     "Ostschweizer Fachhochschule Campus Rapperswil Jona, Switzerland",
-  "City University of Hong Kong":
-    "City University of Hong Kong, Kowloon Tong, Hong Kong",
-  "Hong Kong Baptist University":
-    "Hong Kong Baptist University, Kowloon Tong, Hong Kong",
-  "Lingnan University": "Lingnan University, Tuen Mun, Hong Kong",
+  // Nominatim returns these under country_code "cn", and the plain names
+  // resolve directly (district suffixes like Kowloon Tong/Taipa return
+  // nothing), so we override with the exact OSM names.
+  "City University of Hong Kong": "香港城市大學",
+  "Hong Kong Baptist University": "香港浸會大學",
+  "Lingnan University": "Lingnan University, Hong Kong",
   "Macau University of Science and Technology":
-    "Macau University of Science and Technology, Taipa, Macau",
-  "The Hong Kong Polytechnic University":
-    "The Hong Kong Polytechnic University, Hung Hom, Hong Kong",
-  "University of Macau": "University of Macau, Taipa, Macau",
+    "澳門科技大學",
+  "The Hong Kong Polytechnic University": "香港理工大學",
+  "University of Macau": "澳門大學",
 };
 
 async function main() {
