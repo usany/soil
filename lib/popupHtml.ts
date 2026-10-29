@@ -1,6 +1,48 @@
 import { esc } from "@/lib/helpers";
 import { getBigMacComparison } from "@/lib/bigMac";
 
+const SEASON_ORDER: Record<string, number> = {
+  spring: 0,
+  summer: 1,
+  fall: 2,
+  winter: 3,
+};
+
+function formatSemester(key: string): string {
+  const m = key.match(/^(\d{2})(spring|summer|fall|winter)$/i);
+  if (m) {
+    const year = Number(m[1]);
+    const season = m[2].toLowerCase();
+    const seasonLabel =
+      season === "spring"
+        ? "Spring"
+        : season === "summer"
+          ? "Summer"
+          : season === "fall"
+            ? "Fall"
+            : "Winter";
+    return `20${year} ${seasonLabel}`;
+  }
+  return key;
+}
+
+function sortSemesters(keys: string[]): string[] {
+  return [...keys].sort((a, b) => {
+    const pa = a.match(/^(\d{2})(spring|summer|fall|winter)$/i);
+    const pb = b.match(/^(\d{2})(spring|summer|fall|winter)$/i);
+    if (pa && pb) {
+      const ya = Number(pa[1]);
+      const yb = Number(pb[1]);
+      if (ya !== yb) return ya - yb;
+      return (
+        (SEASON_ORDER[pa[2].toLowerCase()] ?? 0) -
+        (SEASON_ORDER[pb[2].toLowerCase()] ?? 0)
+      );
+    }
+    return a.localeCompare(b);
+  });
+}
+
 export function popupHtml(
   row: any,
   lang: string,
@@ -30,6 +72,16 @@ export function popupHtml(
     }
 
     parts.push(airportHtml);
+  }
+
+  const semesters = Array.isArray(row.semesters) ? row.semesters : [];
+  if (semesters.length > 0) {
+    const list = sortSemesters(semesters)
+      .map((s) => `&middot; ${esc(formatSemester(s))}`)
+      .join(" ");
+    parts.push(
+      `<div style="margin-top:6px;font-size:12px"><b>${lang === "ko" ? "교환 프로그램 학기" : "Exchange program semesters"}:</b> ${list}</div>`,
+    );
   }
 
   const add = (k: string, label: string) => {
