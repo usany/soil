@@ -16,7 +16,7 @@ const AIRPORT_TYPES = new Set([
 ]);
 const MONGODB_URI = process.env.MONGODB_URI || "";
 const DB_NAME = "notion_scrape";
-const COLLECTION_NAME = "participants";
+const COLLECTION_NAME = "universities";
 
 interface Airport {
   name: string;
