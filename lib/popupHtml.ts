@@ -76,11 +76,14 @@ export function popupHtml(
 
   const semesters = Array.isArray(row.semesters) ? row.semesters : [];
   if (semesters.length > 0) {
-    const list = sortSemesters(semesters)
-      .map((s) => `&middot; ${esc(formatSemester(s))}`)
-      .join(" ");
+    const chips = sortSemesters(semesters)
+      .map(
+        (s) =>
+          `<span style="display:inline-block;padding:2px 8px;margin:2px 4px 2px 0;font-size:11px;font-weight:600;line-height:1.5;border-radius:999px;color:#0f766e;background:rgba(15,118,110,0.12);border:1px solid rgba(15,118,110,0.35)">${esc(formatSemester(s))}</span>`,
+      )
+      .join("");
     parts.push(
-      `<div style="margin-top:6px;font-size:12px"><b>${lang === "ko" ? "교환 프로그램 학기" : "Exchange program semesters"}:</b> ${list}</div>`,
+      `<div style="margin-top:6px;font-size:12px"><b>${lang === "ko" ? "교환 프로그램 학기" : "Exchange program semesters"}:</b><div style="margin-top:2px">${chips}</div></div>`,
     );
   }
 
