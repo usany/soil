@@ -5,11 +5,9 @@ export const dynamic = "force-dynamic";
 interface UniversityRow {
   _id?: unknown;
   id?: string;
-  title: string;
   url?: string;
   summary?: string;
   properties?: Record<string, string>;
-  content?: unknown[];
   lat?: number | null;
   lon?: number | null;
   geocode?: string | null;
@@ -42,7 +40,7 @@ export async function GET() {
     await client.connect();
     const collection = client.db(DB_NAME).collection(COLLECTION_NAME);
     const rows = (await collection
-      .find({ title: { $exists: true } })
+      .find({})
       .toArray()) as UniversityRow[];
 
     const cleaned = rows.map(({ _id, ...rest }) => rest);
