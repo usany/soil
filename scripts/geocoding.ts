@@ -5,7 +5,7 @@ dotenv.config();
 
 const MONGODB_URI = process.env.MONGODB_URI || "";
 const DB_NAME = "notion_scrape";
-const COLLECTION_NAME = "universities";
+const COLLECTION_NAME = "participants";
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 interface Row {

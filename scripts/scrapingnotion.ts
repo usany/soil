@@ -6,7 +6,7 @@ dotenv.config();
 
 const MONGODB_URI = process.env.MONGODB_URI || "";
 const DB_NAME = "notion_scrape";
-const COLLECTION_NAME = "universities";
+const COLLECTION_NAME = "participants";
 const SEMESTERS_COLLECTION = "semesters";
 
 interface RowLink {
