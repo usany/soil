@@ -15,15 +15,9 @@ interface RowLink {
   summary: string;
 }
 
-interface ContentBlock {
-  type: string;
-  text: string;
-}
-
 interface Detail {
   title: string;
   properties: Record<string, string>;
-  content: ContentBlock[];
 }
 
 interface UniversityRow extends Omit<Detail, "title"> {
@@ -32,7 +26,6 @@ interface UniversityRow extends Omit<Detail, "title"> {
   summary: string;
   semesters: string[];
 }
-
 const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
 
 const SEASON_ORDER: Record<string, number> = {
@@ -200,7 +193,12 @@ function collectRowLinks(page: Page): Promise<RowLink[]> {
       rows.push({
         url,
         title,
-        summary: lines.slice(1).join(" | "),
+        // Summary lines come from the row text; strip any line that just
+        // repeats the title so the summary does not contain the title.
+        summary: lines
+          .slice(1)
+          .filter((line) => line !== title)
+          .join(" | "),
       });
     }
 
@@ -304,15 +302,6 @@ async function scrapeDetail(page: Page, url: string): Promise<Detail> {
       if (name) properties[name] = value;
     }
 
-    const body = root.querySelector<HTMLElement>(".notion-page-content");
-    const content: ContentBlock[] = body
-      ? body.innerText
-          .split("\n")
-          .map((s) => s.trim())
-          .filter(Boolean)
-          .map((text) => ({ type: "text", text }))
-      : [];
-
     const peekTitle =
       peek instanceof Element
         ? (peek.querySelector("h1")?.textContent || "").trim()
@@ -321,7 +310,6 @@ async function scrapeDetail(page: Page, url: string): Promise<Detail> {
     return {
       title: peekTitle || document.querySelector("h1")?.innerText.trim() || "",
       properties,
-      content,
     };
   });
 }
@@ -406,7 +394,6 @@ async function scrapeSemester(
         summary: link.summary,
         semesters: [semester],
         properties,
-        content: detail.content,
       });
       if ((i + 1) % 10 === 0 || i + 1 === links.length)
         console.log(`[${semester}] scraped ${i + 1}/${links.length}`);
@@ -418,18 +405,48 @@ async function scrapeSemester(
     let updated = 0;
 
     for (const university of universities) {
+      const existing = await collection.findOne({ id: university.id });
+      const now = new Date();
+
+      // When a university already has a more recent semester stored, keep its
+      // existing properties (the latest data wins). Only overwrite properties
+      // when this scrape is itself the most recent semester for the university.
+      const existingSemesters = (existing?.semesters ?? []) as string[];
+      const isMostRecent =
+        existingSemesters.length === 0 ||
+        sortSemesterKeys([...existingSemesters, university.semesters[0]]).pop() ===
+          university.semesters[0];
+
+      const applyProps = isMostRecent && Object.keys(university.properties).length > 0;
+
+      const setDoc: Record<string, unknown> = {
+        id: university.id,
+        summary: university.summary,
+        timestamp: now,
+      };
+      if (applyProps) {
+        setDoc.properties = university.properties;
+      }
+
       const result = await collection.updateOne(
         { id: university.id },
         {
-          $set: {
-            summary: university.summary,
-            properties: university.properties,
-            content: university.content,
-          },
+          $set: setDoc,
           $addToSet: { semesters: { $each: university.semesters } },
         },
         { upsert: true },
       );
+
+      // Record when this semester's data was last stored.
+      if (university.semesters.length > 0) {
+        await collection.updateOne(
+          { id: university.id },
+          { $set: { [`timestamps.${university.semesters[0]}`]: now } },
+        );
+      }
+
+      // For upserts, ensure properties are written (updateOne upsert always
+      // writes the full $set doc, so this already happened above).
       if (result.upsertedId) inserted++;
       else if (result.modifiedCount > 0) updated++;
     }
