@@ -1,3 +1,5 @@
+import styles from "./SearchControls.module.css";
+
 interface SearchControlsProps {
   searchType: string;
   searchText: string;
@@ -26,28 +28,11 @@ export function SearchControls({
   const t = (ko: string, en: string) => (lang === "ko" ? ko : en);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexWrap: "wrap",
-        gap: "10px",
-        padding: "10px",
-        alignItems: "center",
-        boxSizing: "border-box",
-        width: "100%",
-        maxWidth: "100%",
-      }}
-    >
+    <div className={styles.controls}>
       <select
         value={searchType}
         onChange={(e) => onSearchTypeChange(e.target.value)}
-        style={{
-          padding: "8px 12px",
-          borderRadius: "4px",
-          border: "1px solid #ccc",
-          fontSize: "14px",
-          zIndex: 1000,
-        }}
+        className={styles.select}
       >
         <option value="name">{searchLabels.name}</option>
         <option value="language">{searchLabels.language}</option>
@@ -60,16 +45,7 @@ export function SearchControls({
         placeholder={searchPlaceholders[searchType]}
         value={searchText}
         onChange={(e) => onSearchTextChange(e.target.value)}
-        style={{
-          flex: "1 1 160px",
-          minWidth: "0",
-          padding: "8px 12px",
-          borderRadius: "4px",
-          border: "1px solid #ccc",
-          fontSize: "14px",
-          boxSizing: "border-box",
-          zIndex: 1000,
-        }}
+        className={styles.input}
       />
 
       <button
@@ -77,16 +53,7 @@ export function SearchControls({
         onClick={onThemeToggle}
         aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
         title={dark ? "Switch to light mode" : "Switch to dark mode"}
-        style={{
-          padding: "8px 12px",
-          borderRadius: "4px",
-          border: "1px solid #ccc",
-          background: "transparent",
-          fontSize: "16px",
-          cursor: "pointer",
-          lineHeight: 1,
-          zIndex: 1000,
-        }}
+        className={styles.button}
       >
         {dark ? "🌙" : "☀️"}
       </button>
@@ -96,18 +63,7 @@ export function SearchControls({
         onClick={onLanguageToggle}
         aria-label={t("언어 전환 (영어)", "Switch language (Korean)")}
         title={t("언어 전환 (영어)", "Switch language (Korean)")}
-        className="lang-toggle"
-        style={{
-          padding: "8px 12px",
-          borderRadius: "4px",
-          border: "1px solid #ccc",
-          background: "transparent",
-          fontSize: "13px",
-          fontWeight: "bold",
-          cursor: "pointer",
-          lineHeight: 1,
-          zIndex: 1000,
-        }}
+        className={styles.langToggle}
       >
         {t("KO", "EN")}
       </button>

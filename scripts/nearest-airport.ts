@@ -8,7 +8,7 @@ dotenv.config();
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // OurAirports open data: https://davidmegginson.github.io/ourairports-data/airports.csv
-const AIRPORTS_FILE = path.join(__dirname, "..", "db/airports.csv");
+const AIRPORTS_FILE = path.join(__dirname, "airports.csv");
 const AIRPORT_TYPES = new Set([
   "large_airport",
   "medium_airport",
@@ -16,7 +16,7 @@ const AIRPORT_TYPES = new Set([
 ]);
 const MONGODB_URI = process.env.MONGODB_URI || "";
 const DB_NAME = "notion_scrape";
-const COLLECTION_NAME = "universities";
+const COLLECTION_NAME = "participations";
 
 interface Airport {
   name: string;
@@ -28,8 +28,7 @@ interface Airport {
 }
 
 interface Row {
-  _id?: string;
-  title: string;
+  id: string;
   properties?: Record<string, string>;
   lat?: number | null;
   lon?: number | null;
@@ -185,47 +184,51 @@ console.log(
   `loaded ${airportsByCountry.size} countries from airports.csv (OurAirports)`,
 );
 
-const client = new MongoClient(MONGODB_URI);
+async function main() {
+  const client = new MongoClient(MONGODB_URI);
 
-let ok = 0;
-let noRegion = 0;
-let noAirport = 0;
+  let ok = 0;
+  let noRegion = 0;
+  let noAirport = 0;
 
-try {
-  await client.connect();
-  const db = client.db(DB_NAME);
-  const collection = db.collection(COLLECTION_NAME);
+  try {
+    await client.connect();
+    const db = client.db(DB_NAME);
+    const collection = db.collection(COLLECTION_NAME);
 
-  const rows = await collection.find({ title: { $exists: true } }).toArray() as Row[];
+    const rows = (await collection.find({ id: { $exists: true } }).toArray()) as unknown as Row[];
 
-  for (const row of rows) {
-    if (row.lat == null || row.lon == null) continue;
-    const region = ((row.properties && row.properties.Region) || "").trim();
-    if (!region) {
-      noRegion++;
-      continue;
+    for (const row of rows) {
+      if (row.lat == null || row.lon == null) continue;
+      const region = ((row.properties && row.properties.Region) || "").trim();
+      if (!region) {
+        noRegion++;
+        continue;
+      }
+      const ofCountry = COUNTRY_MAP[region];
+      if (!ofCountry) {
+        console.log("NO MAP:", row.id, "=>", region);
+        noAirport++;
+        continue;
+      }
+      const airports = airportsByCountry.get(ofCountry);
+      if (!airports || !airports.length) {
+        console.log("NO AIRPORTS:", row.id, "=>", ofCountry);
+        noAirport++;
+        continue;
+      }
+      const nearestAirportData = nearestAirport(airports, row.lat, row.lon);
+      await collection.updateOne(
+        { id: row.id },
+        { $set: { nearestAirport: nearestAirportData } }
+      );
+      ok++;
     }
-    const ofCountry = COUNTRY_MAP[region];
-    if (!ofCountry) {
-      console.log("NO MAP:", row.title, "=>", region);
-      noAirport++;
-      continue;
-    }
-    const airports = airportsByCountry.get(ofCountry);
-    if (!airports || !airports.length) {
-      console.log("NO AIRPORTS:", row.title, "=>", ofCountry);
-      noAirport++;
-      continue;
-    }
-    const nearestAirportData = nearestAirport(airports, row.lat, row.lon);
-    await collection.updateOne(
-      { _id: row._id },
-      { $set: { nearestAirport: nearestAirportData } }
-    );
-    ok++;
+
+    console.log(`DONE. ok=${ok} noRegion=${noRegion} noAirport=${noAirport}`);
+  } finally {
+    await client.close();
   }
-
-  console.log(`DONE. ok=${ok} noRegion=${noRegion} noAirport=${noAirport}`);
-} finally {
-  await client.close();
 }
+
+main();

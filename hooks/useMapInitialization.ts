@@ -73,7 +73,7 @@ export function useMapInitialization(
   }, [bigMacData, dark]);
 
   useEffect(() => {
-    if (mapInstanceRef.current || !mapRef.current) return;
+    if (mapInstanceRef.current || !mapRef.current || !universities) return;
 
     import("leaflet").then(({ default: L }) => {
       import("leaflet/dist/leaflet.css");
@@ -366,7 +366,7 @@ export function useMapInitialization(
         });
       };
 
-      addMarkers(universities.exchange.rows, "#3b82f6");
+      addMarkers(universities, "#3b82f6");
 
       mapInstanceRef.current = map;
 
@@ -381,7 +381,7 @@ export function useMapInitialization(
         mapInstanceRef.current = null;
       }
     };
-  }, []);
+  }, [universities]);
 
   return {
     mapInstanceRef,

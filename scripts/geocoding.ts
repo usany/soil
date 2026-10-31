@@ -5,12 +5,11 @@ dotenv.config();
 
 const MONGODB_URI = process.env.MONGODB_URI || "";
 const DB_NAME = "notion_scrape";
-const COLLECTION_NAME = "universities";
+const COLLECTION_NAME = "participations";
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 interface Row {
-  _id?: string;
-  title: string;
+  id: string;
   properties?: Record<string, string>;
   lat?: number | null;
   lon?: number | null;
@@ -54,14 +53,17 @@ const REGION_COUNTRY: Record<string, string> = {
   Finland: "fi",
   France: "fr",
   Germany: "de",
-  "Hong Kong": "hk",
+  // Nominatim reports both Hong Kong and Macau (SARs of China) with
+  // country_code "cn", so we must match "cn" here or every result would
+  // be rejected as a country mismatch.
+  "Hong Kong": "cn",
   Indonesia: "id",
   Ireland: "ie",
   Italy: "it",
   Japan: "jp",
   Kazakhstan: "kz",
   Lithuania: "lt",
-  Macau: "mo",
+  Macau: "cn",
   "Mainland China": "cn",
   Malaysia: "my",
   Mexico: "mx",
@@ -152,7 +154,7 @@ function buildQuery(row: Row): string {
     !campus.includes(";") &&
     campus.length < 40;
   const region = normalizeRegion((p.Region || "").trim());
-  let q = row.title;
+  let q = row.id;
   if (isSinglePlace) q = `${q}, ${campus}`;
   if (region) q = `${q}, ${region}`;
   return q;
@@ -176,7 +178,7 @@ function buildQueries(row: Row): string[] {
     ((row.properties && row.properties.Region) || "").trim(),
   );
   const primary = buildQuery(row);
-  const cleaned = cleanTitle(row.title);
+  const cleaned = cleanTitle(row.id);
   const queries: string[] = [];
   const push = (q: string) => {
     const s = q.replace(/\s+/g, " ").trim();
@@ -211,21 +213,37 @@ const MANUAL: Record<string, string> = {
   "University of Navarra": "Universidad de Navarra, Spain",
   "OST Eastern Switzerland University of Applied Sciences":
     "Ostschweizer Fachhochschule Campus Rapperswil Jona, Switzerland",
+  // Nominatim returns these under country_code "cn", and the plain names
+  // resolve directly (district suffixes like Kowloon Tong/Taipa return
+  // nothing), so we override with the exact OSM names.
+  "City University of Hong Kong": "香港城市大學",
+  "Hong Kong Baptist University": "香港浸會大學",
+  "Lingnan University": "Lingnan University, Hong Kong",
+  "Macau University of Science and Technology":
+    "澳門科技大學",
+  "The Hong Kong Polytechnic University": "香港理工大學",
+  "University of Macau": "澳門大學",
 };
 
-const client = new MongoClient(MONGODB_URI);
+async function main() {
+  if (!MONGODB_URI) {
+    console.error("MONGODB_URI is not configured");
+    process.exit(1);
+  }
 
-let ok = 0;
-let fail = 0;
-let idx = 0;
-try {
-  await client.connect();
+  const client = new MongoClient(MONGODB_URI);
+
+  let ok = 0;
+  let fail = 0;
+  let idx = 0;
+  try {
+    await client.connect();
   const db = client.db(DB_NAME);
   const collection = db.collection(COLLECTION_NAME);
 
   const rows = (await collection
-    .find({ title: { $exists: true } })
-    .toArray()) as Row[];
+    .find({ id: { $exists: true } })
+    .toArray()) as unknown as Row[];
   const done = rows.filter((r) => r.lat != null && r.lon != null);
   const todo = rows.filter((r) => r.lat == null || r.lon == null);
   console.log(
@@ -234,7 +252,7 @@ try {
 
   for (const row of todo) {
     const queries = buildQueries(row);
-    if (MANUAL[row.title]) queries.unshift(MANUAL[row.title]);
+    if (MANUAL[row.id]) queries.unshift(MANUAL[row.id]);
     const countryCode = regionCountryCode(
       (row.properties && row.properties.Region) || "",
     );
@@ -247,7 +265,7 @@ try {
     idx++;
     if (result) {
       await collection.updateOne(
-        { _id: row._id },
+        { id: row.id },
         {
           $set: {
             lat: result.lat,
@@ -257,10 +275,10 @@ try {
         },
       );
       ok++;
-      console.log(`[${idx}/${todo.length}] ${row.title} -> ${result.display}`);
+      console.log(`[${idx}/${todo.length}] ${row.id} -> ${result.display}`);
     } else {
       await collection.updateOne(
-        { _id: row._id },
+        { id: row.id },
         {
           $set: {
             lat: null,
@@ -269,11 +287,17 @@ try {
         },
       );
       fail++;
-      console.log(`[${idx}/${todo.length}] NO RESULT: ${row.title}`);
+      console.log(`[${idx}/${todo.length}] NO RESULT: ${row.id}`);
     }
     await sleep(1100);
   }
   console.log(`DONE. ok=${ok} fail=${fail}`);
-} finally {
-  await client.close();
+  } finally {
+    await client.close();
+  }
 }
+
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});

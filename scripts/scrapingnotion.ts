@@ -1,108 +1,321 @@
 import dotenv from "dotenv";
 import { chromium, type Page } from "playwright";
 import { MongoClient, Db, Collection } from "mongodb";
-import { readFileSync } from "fs";
-import { dirname, join } from "path";
-import { fileURLToPath } from "url";
 
 dotenv.config();
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const LIST_URL = JSON.parse(
-  readFileSync(join(__dirname, "list-urls.json"), "utf-8"),
-);
-
 const MONGODB_URI = process.env.MONGODB_URI || "";
 const DB_NAME = "notion_scrape";
-const COLLECTION_NAME = "universities";
+const COLLECTION_NAME = "participations";
+const SEMESTERS_COLLECTION = "semesters";
 
 interface RowLink {
   url: string;
-  title: string;
+  id: string;
   summary: string;
 }
 
-interface ContentBlock {
-  type: string;
-  text: string;
-}
-
 interface Detail {
-  title: string;
+  id: string;
   properties: Record<string, string>;
-  content: ContentBlock[];
 }
 
-interface UniversityRow extends Omit<Detail, "title"> {
-  _id?: string;
+interface UniversityRow extends Omit<Detail, "id"> {
   id: string;
   summary: string;
   semesters: string[];
 }
-
 const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
 
-function getSelectedSemester(): string {
-  const sourceIndex = process.argv.indexOf("--source");
-  if (sourceIndex === -1 || sourceIndex === process.argv.length - 1) {
+function formatDuration(sec: number): string {
+  sec = Math.max(0, Math.round(sec));
+  const h = Math.floor(sec / 3600);
+  const m = Math.floor((sec % 3600) / 60);
+  const s = sec % 60;
+  if (h > 0) return `${h}h ${m}m ${s}s`;
+  if (m > 0) return `${m}m ${s}s`;
+  return `${s}s`;
+}
+
+const PROGRESS_BAR_WIDTH = 30;
+
+/**
+ * Render a single-line live progress bar to the terminal showing how many
+ * items have been crawled so far out of the total, along with the current item
+ * name, an estimated time remaining, and the crawl rate.
+ */
+function renderProgress(
+  done: number,
+  total: number,
+  detail: { fileName: string; eta: number; rate: number },
+): void {
+  const pct = total > 0 ? done / total : 0;
+  const filled = Math.round(pct * PROGRESS_BAR_WIDTH);
+  const bar = "█".repeat(filled) + "░".repeat(PROGRESS_BAR_WIDTH - filled);
+  const pctText = `${Math.round(pct * 100)}%`;
+  const eta = formatDuration(detail.eta);
+  const rate = detail.rate.toFixed(1);
+
+  // Truncate item name to keep the line within ~110 columns.
+  let name = detail.fileName;
+  const maxName = 28;
+  if (name.length > maxName) name = name.slice(0, maxName - 1) + "…";
+
+  const line =
+    `\r[${String(done).padStart(String(total).length, "0")}/${total}] ` +
+    `| item: ${name.padEnd(maxName)} ` +
+    `| ${rate} it/s | ETA ${eta}      `;
+
+  process.stdout.write(line);
+}
+
+
+const SEASON_ORDER: Record<string, number> = {
+  spring: 0,
+  summer: 1,
+  fall: 2,
+  winter: 3,
+};
+
+async function getSemesterUrl(
+  db: Db,
+  semester: string,
+): Promise<string | null> {
+  const doc = await db
+    .collection(SEMESTERS_COLLECTION)
+    .findOne({ key: semester });
+  return doc && typeof doc.url === "string" ? doc.url : null;
+}
+
+async function getSemesterKeys(db: Db): Promise<string[]> {
+  const docs = await db.collection(SEMESTERS_COLLECTION).find({}).toArray();
+  return docs.map((d) => String(d.key)).filter(Boolean);
+}
+
+/**
+ * Order semester keys chronologically, e.g. "23spring" < "23fall" < "24spring".
+ * Expects keys shaped like `YYseason` (year two digits + season name).
+ */
+function sortSemesterKeys(keys: string[]): string[] {
+  return [...keys].sort((a, b) => {
+    const pa = a.match(/^(\d{2})(spring|summer|fall|winter)$/i);
+    const pb = b.match(/^(\d{2})(spring|summer|fall|winter)$/i);
+    if (pa && pb) {
+      const ya = Number(pa[1]);
+      const yb = Number(pb[1]);
+      if (ya !== yb) return ya - yb;
+      return (
+        (SEASON_ORDER[pa[2].toLowerCase()] ?? 0) -
+        (SEASON_ORDER[pb[2].toLowerCase()] ?? 0)
+      );
+    }
+    // Fall back to lexical ordering for non-standard keys.
+    return a.localeCompare(b);
+  });
+}
+
+/**
+ * Parse CLI args. Returns an array of semester keys to scrape.
+ *   --all               => every semester (chronological order)
+ *   --source <semester> => just that semester
+ *   (nothing)           => most recent semester only
+ */
+function parseArgs(allKeysSorted: string[]): string[] {
+  const args = process.argv.slice(2);
+
+  if (args.includes("--all")) return allKeysSorted;
+
+  const sourceIndex = args.indexOf("--source");
+  if (sourceIndex !== -1 && sourceIndex + 1 < args.length) {
+    return [args[sourceIndex + 1]];
+  }
+
+  if (args.includes("--help") || args.includes("-h")) {
     console.error(
-      `Usage: npm run scrape --source <semester>\nAvailable: ${Object.keys(LIST_URL).join(", ")}`,
+      `Usage:\n` +
+        `  npm run scrape                    # most recent semester\n` +
+        `  npm run scrape -- --all           # every semester\n` +
+        `  npm run scrape -- --source <key>  # a specific semester\n` +
+        `\nAvailable: ${allKeysSorted.join(", ")}`,
+    );
+    process.exit(0);
+  }
+
+  // Default: most recent semester.
+  if (allKeysSorted.length === 0) {
+    console.error(
+      "No semesters found in the `semesters` collection. " +
+        "Run get-notion-links first.",
     );
     process.exit(1);
   }
-  const semester = process.argv[sourceIndex + 1];
-  if (!(semester in LIST_URL)) {
-    console.error(
-      `Invalid semester: ${semester}\nAvailable: ${Object.keys(LIST_URL).join(", ")}`,
-    );
-    process.exit(1);
-  }
-  return semester;
+  return [allKeysSorted[allKeysSorted.length - 1]];
 }
 
 async function expandAllRows(page: Page): Promise<void> {
-  // Notion only fetches collection rows after "Load more" is clicked; repeat until the button is gone.
-  for (let i = 0; i < 30; i++) {
+  // Notion renders collection rows in a virtualized scroller: it only mounts a
+  // window of rows and lazily loads more as you scroll (or click "Load more").
+  // Loop until the item count stops growing so we don't miss universities.
+  let lastCount = 0;
+  let stable = 0;
+
+  for (let i = 0; i < 80; i++) {
+    // 1) Click any visible "Load more" button.
     const btn = page.getByText("Load more", { exact: true }).first();
-    if (!(await btn.isVisible().catch(() => false))) break;
-    await btn.scrollIntoViewIfNeeded().catch(() => {});
-    await btn.click().catch(() => {});
-    await sleep(2500);
+    if (await btn.isVisible().catch(() => false)) {
+      await btn.scrollIntoViewIfNeeded().catch(() => {});
+      await btn.click().catch(() => {});
+      // Initial lazy-load needs a real beat to fetch the next batch.
+      await sleep(1200);
+    }
+
+    // 2) Scroll every collection scroller to the bottom to force lazy loading.
+    await page.evaluate(() => {
+      const scrollers = document.querySelectorAll(
+        ".notion-scroller.vertical, .notion-collection-view-body",
+      );
+      for (const s of scrollers) {
+        (s as HTMLElement).scrollTop = (s as HTMLElement).scrollHeight;
+      }
+      window.scrollTo(0, document.body.scrollHeight);
+    });
+
+    await sleep(600);
+
+    // 3) Measure item count; stop once it has been stable for a few rounds.
+    const count = await page.evaluate(
+      () => document.querySelectorAll(".notion-collection-item").length,
+    );
+    if (count > 0 && count === lastCount) {
+      stable++;
+      if (stable >= 3) break;
+    } else {
+      stable = 0;
+    }
+    lastCount = count;
   }
+
+  console.log(
+    `[expandAllRows] final collection-item count: ${lastCount}`,
+  );
 }
 
 function collectRowLinks(page: Page): Promise<RowLink[]> {
   return page.evaluate(() => {
     const seen = new Set<string>();
     const rows: RowLink[] = [];
-    for (const a of document.querySelectorAll<HTMLAnchorElement>("a[href]")) {
+
+    // Each university is a `.notion-collection-item` containing an <a href> to
+    // its detail page. Collect only those (not every anchor on the page).
+    const items = document.querySelectorAll<HTMLElement>(
+      ".notion-collection-item",
+    );
+
+    for (const item of items) {
+      const a = item.querySelector<HTMLAnchorElement>("a[href]");
+      if (!a) continue;
+
       const text = (a.innerText || "").trim();
-      if (!/^\p{Regional_Indicator}{2}/u.test(text)) continue;
-      const url = a.href.split("?")[0];
-      if (seen.has(url)) continue;
-      seen.add(url);
+      if (!text) continue;
+
       const lines = text
         .split("\n")
         .map((s) => s.trim())
         .filter(Boolean);
+      const title = lines[0] || "";
+
+      // A university detail title starts with an uppercase letter and has at
+      // least one extra info line (country, language, scores, slots).
+      if (!/^[A-Z]/.test(title)) continue;
+      if (lines.length < 2) continue;
+
+      const url = a.href.split("?")[0];
+      if (seen.has(url)) continue;
+      seen.add(url);
+
       rows.push({
         url,
-        title: lines[1] || "",
-        summary: lines.slice(1).join(" | "),
+        id: title,
+        // Summary lines come from the row text; strip any line that just
+        // repeats the title so the summary does not contain the title.
+        summary: lines
+          .slice(1)
+          .filter((line) => line !== title)
+          .join(" | ")
+          .replace(/\s*\(Study Abroad Program\)\s*/g, " ")
+          .replace(/\|\s*\|/g, "|")
+          .replace(/^\s*\|\s*/g, "")
+          .replace(/\s*\|\s*$/g, "")
+          .trim(),
       });
     }
+
     return rows;
   });
 }
 
 async function scrapeDetail(page: Page, url: string): Promise<Detail> {
-  await page.goto(url, { waitUntil: "domcontentloaded", timeout: 60000 });
-  await page.waitForSelector("[role='table'] [role='row']", { timeout: 30000 });
+  // Click the university item's row/anchor to open its detail (peek) instead of
+  // navigating away via page.goto. The universal-link rows are <a href> with the
+  // page URL as the slug. Click the anchor whose href resolves to this url.
+  const slug = url.split("/").filter(Boolean).pop() || "";
+
+  let clicked = false;
+  if (slug) {
+    const anchor = page.locator(`a[href*="${slug}"]`).first();
+    if ((await anchor.count()) > 0) {
+      await anchor.scrollIntoViewIfNeeded().catch(() => {});
+      await anchor.click().catch(() => {});
+      clicked = true;
+    }
+  }
+
+  // Fallback: click by page title text (first line of the link).
+  if (!clicked) {
+    const title = url
+      .split("/")
+      .filter(Boolean)
+      .pop()
+      ?.split("-")
+      .filter((w) => w.length > 2)
+      .slice(0, 4)
+      .join(" ");
+    if (title) {
+      const anchor = page.locator("a[href]", { hasText: title }).first();
+      if ((await anchor.count()) > 0) {
+        await anchor.scrollIntoViewIfNeeded().catch(() => {});
+        await anchor.click().catch(() => {});
+        clicked = true;
+      }
+    }
+  }
+
+  // Last resort: navigate directly.
+  if (!clicked) {
+    await page.goto(url, { waitUntil: "domcontentloaded", timeout: 60000 });
+  }
+
+  // Wait for the detail (peek overlay) to actually render properties or
+  // content, instead of a fixed sleep. Give it a generous initial budget for
+  // the first load, but bail as soon as it's ready so we don't waste time.
+  await page
+    .waitForFunction(
+      () => {
+        const peek = document.querySelector(".notion-peek-renderer");
+        const root = peek || document.body;
+        return (
+          root.querySelector("[role='table'] [role='row']") !== null ||
+          root.querySelector(".notion-page-content") !== null
+        );
+      },
+      { timeout: 20000 },
+    )
+    .catch(() => {});
 
   const more = page.getByText(/^\d+ more propert/).first();
   if (await more.isVisible().catch(() => false)) {
     await more.click().catch(() => {});
-    await sleep(800);
+    await sleep(300);
   }
 
   await page
@@ -112,10 +325,12 @@ async function scrapeDetail(page: Page, url: string): Promise<Detail> {
     .catch(() => {});
 
   return page.evaluate(() => {
+    const peek = document.querySelector(".notion-peek-renderer");
+    const root: HTMLElement | null =
+      (peek as HTMLElement | null) || document.body;
+
     const properties: Record<string, string> = {};
-    for (const row of document.querySelectorAll(
-      "[role='table'] [role='row']",
-    )) {
+    for (const row of root.querySelectorAll("[role='table'] [role='row']")) {
       const cells = row.querySelectorAll<HTMLElement>("[role='cell']");
       if (cells.length < 2) continue;
       const name = cells[0].innerText.trim();
@@ -135,121 +350,229 @@ async function scrapeDetail(page: Page, url: string): Promise<Detail> {
       if (name) properties[name] = value;
     }
 
-    const body = document.querySelector<HTMLElement>(".notion-page-content");
-    const content: ContentBlock[] = body
-      ? body.innerText
-          .split("\n")
-          .map((s) => s.trim())
-          .filter(Boolean)
-          .map((text) => ({ type: "text", text }))
-      : [];
+    const peekTitle =
+      peek instanceof Element
+        ? (peek.querySelector("h1")?.textContent || "").trim()
+        : "";
 
     return {
-      title: document.querySelector("h1")?.innerText.trim() || "",
+      id: peekTitle || document.querySelector("h1")?.innerText.trim() || "",
       properties,
-      content,
     };
   });
 }
 
-const client = new MongoClient(MONGODB_URI);
-let db: Db | null = null;
-let collection: Collection | null = null;
+/**
+ * Scrape a single semester's Notion page into the `universities` collection.
+ * Returns { inserted, updated, rows } counts for logging.
+ */
+async function scrapeSemester(
+  db: Db,
+  semester: string,
+  browser: import("playwright").Browser,
+): Promise<{ inserted: number; updated: number; rows: number }> {
+  const semesterUrl = await getSemesterUrl(db, semester);
+  if (!semesterUrl) {
+    throw new Error(`No URL found for semester: ${semester}`);
+  }
 
-try {
-  const semester = getSelectedSemester();
-  console.log(`Scraping: ${semester}`);
-
-  await client.connect();
-  console.log("Connected to MongoDB");
-
-  db = client.db(DB_NAME);
-  collection = db.collection(COLLECTION_NAME);
-
-  // Drop the url index if it exists
-  await collection.dropIndex("url_1").catch(() => {});
-
-  // Create index on id for faster lookups
-  await collection.createIndex({ id: 1 });
-
-  const browser = await chromium.launch({ headless: false });
+  const collection = db.collection(COLLECTION_NAME);
   const page = await browser.newPage();
   await page.setViewportSize({ width: 1400, height: 900 });
 
-  await page.goto(LIST_URL[semester as keyof typeof LIST_URL], {
-    waitUntil: "domcontentloaded",
-    timeout: 120000,
-  });
-  await sleep(4000);
-  await expandAllRows(page);
-
-  const links = await collectRowLinks(page);
-  console.log(`rows found: ${links.length}`);
-  if (links.length === 0) {
-    const title = await page.title();
-    await browser.close();
-    throw new Error(`no rows found (page title: "${title}")`);
-  }
-
-  const universities: UniversityRow[] = [];
-
-  for (let i = 0; i < links.length; i++) {
-    const link = links[i];
-    let detail: Detail | null = null;
-    for (let attempt = 0; attempt < 3 && !detail; attempt++) {
-      try {
-        detail = await scrapeDetail(page, link.url);
-      } catch (e) {
-        const msg = e instanceof Error ? e.message.split("\n")[0] : String(e);
-        if (attempt === 2) console.log(`failed: ${link.title} (${msg})`);
-        else await sleep(3000 * (attempt + 1));
-      }
-    }
-    if (!detail) {
-      console.log(`skipped: ${link.title} (no detail after retries)`);
-      continue;
-    }
-    const uniName = detail.title || link.title;
-    const properties = { ...detail.properties };
-    delete properties.url;
-    universities.push({
-      id: uniName.replace(/\s*\(Study Abroad Program\)\s*/g, "").trim(),
-      summary: link.summary,
-      semesters: [semester],
-      properties,
-      content: detail.content,
+  try {
+    await page.goto(semesterUrl, {
+      waitUntil: "domcontentloaded",
+      timeout: 120000,
     });
-    if ((i + 1) % 10 === 0 || i + 1 === links.length)
-      console.log(`scraped ${i + 1}/${links.length}`);
-    await sleep(800);
-  }
 
-  await browser.close();
+    // Wait for the collection view to actually hydrate. Notion renders the
+    // page shell first, then lazily fetches and mounts the collection items.
+    await page
+      .waitForSelector(".notion-collection-item", {
+        timeout: 60000,
+      })
+      .catch(() => {});
 
-  // Insert or update universities in MongoDB
-  let inserted = 0;
-  let updated = 0;
+    await expandAllRows(page);
 
-  for (const university of universities) {
-    const result = await collection.updateOne(
-      { id: university.id },
-      {
-        $set: {
-          summary: university.summary,
-          properties: university.properties,
-          content: university.content,
-        },
-        $addToSet: { semesters: { $each: university.semesters } },
-      },
-      { upsert: true },
+    // Give the last lazy-loaded items a moment to finish mounting.
+    await page
+      .waitForFunction(
+        () => !document.body.innerText.includes("Loading..."),
+        { timeout: 15000 },
+      )
+      .catch(() => {});
+
+    const links = await collectRowLinks(page);
+    console.log(`[${semester}] rows found: ${links.length}`);
+    if (links.length === 0) {
+      const title = await page.title();
+      const bodyLen = await page.evaluate(
+        () => document.body.innerText.length,
+      );
+      throw new Error(
+        `no rows found (page title: "${title}", body length: ${bodyLen})`,
+      );
+    }
+
+    const universities: UniversityRow[] = [];
+    let failedCount = 0;
+    const total = links.length;
+    const crawlStart = Date.now();
+
+    for (let i = 0; i < total; i++) {
+      const link = links[i];
+      let detail: Detail | null = null;
+      for (let attempt = 0; attempt < 3 && !detail; attempt++) {
+        try {
+          detail = await scrapeDetail(page, link.url);
+        } catch (e) {
+          const msg = e instanceof Error ? e.message.split("\n")[0] : String(e);
+          if (attempt === 2) {
+            failedCount++;
+            console.log(`  ✗ failed: ${link.id} (${msg})`);
+          } else await sleep(1000 * (attempt + 1));
+        }
+      }
+      if (!detail) {
+        console.log(`  ⚠ skipped: ${link.id} (no detail after retries)`);
+        continue;
+      }
+      const uniName = detail.id || link.id;
+      const properties = { ...detail.properties };
+      delete properties.url;
+      universities.push({
+        id: uniName.replace(/\s*\(Study Abroad Program\)\s*/g, "").trim(),
+        summary: link.summary,
+        semesters: [semester],
+        properties,
+      });
+
+      // Real-time crawling progress: live count + progress bar + ETA.
+      const done = i + 1;
+      const elapsed = (Date.now() - crawlStart) / 1000;
+      const rate = done / Math.max(elapsed, 1);
+      const remaining = total - done;
+      const eta = remaining / Math.max(rate, 1e-6);
+      renderProgress(done, total, { fileName: uniName, eta, rate });
+      // No blanket per-item sleep: scrapeDetail already waits for render. A tiny
+      // gap avoids hammering Notion without adding hundreds of idle seconds.
+      await sleep(150);
+    }
+
+    console.log(
+      `[${semester}] crawl complete: ${universities.length}/${total} crawled, ` +
+        `${failedCount} failed`,
     );
-    if (result.upsertedId) inserted++;
-    else if (result.modifiedCount > 0) updated++;
-  }
 
-  console.log(`Saved to MongoDB: ${inserted} inserted, ${updated} updated`);
-  console.log(`Collection: ${DB_NAME}.${COLLECTION_NAME}`);
-} finally {
-  await client.close();
-  console.log("Disconnected from MongoDB");
+    // Insert or update universities in MongoDB
+    let inserted = 0;
+    let updated = 0;
+
+    for (const university of universities) {
+      const existing = await collection.findOne({ id: university.id });
+      const now = new Date();
+
+      // When a university already has a more recent semester stored, keep its
+      // existing properties (the latest data wins). Only overwrite properties
+      // when this scrape is itself the most recent semester for the university.
+      const existingSemesters = (existing?.semesters ?? []) as string[];
+      const isMostRecent =
+        existingSemesters.length === 0 ||
+        sortSemesterKeys([...existingSemesters, university.semesters[0]]).pop() ===
+          university.semesters[0];
+
+      const applyProps = isMostRecent && Object.keys(university.properties).length > 0;
+
+      const setDoc: Record<string, unknown> = {
+        id: university.id,
+        summary: university.summary,
+        timestamp: now,
+      };
+      if (applyProps) {
+        setDoc.properties = university.properties;
+      }
+
+      const result = await collection.updateOne(
+        { id: university.id },
+        {
+          $set: setDoc,
+          $addToSet: { semesters: { $each: university.semesters } },
+        },
+        { upsert: true },
+      );
+
+      // For upserts, ensure properties are written (updateOne upsert always
+      // writes the full $set doc, so this already happened above).
+      if (result.upsertedId) inserted++;
+      else if (result.modifiedCount > 0) updated++;
+    }
+
+    return { inserted, updated, rows: universities.length };
+  } finally {
+    await page.close();
+  }
 }
+
+const client = new MongoClient(MONGODB_URI);
+let db: Db | null = null;
+
+(async () => {
+  try {
+    await client.connect();
+    console.log("Connected to MongoDB");
+
+    db = client.db(DB_NAME);
+
+    const allKeys = sortSemesterKeys(await getSemesterKeys(db));
+    const semesters = parseArgs(allKeys);
+
+    console.log(
+      `Semesters to scrape (${semesters.length}): ${semesters.join(", ")}`,
+    );
+
+    const collection = db.collection(COLLECTION_NAME);
+    // Drop the url index if it exists
+    await collection.dropIndex("url_1").catch(() => {});
+    // Create index on id for faster lookups
+    await collection.createIndex({ id: 1 });
+
+    const browser = await chromium.launch({
+      headless: true,
+    });
+    let totalInserted = 0;
+    let totalUpdated = 0;
+    let totalRows = 0;
+
+    try {
+      for (const semester of semesters) {
+        console.log(`\n=== Scraping: ${semester} ===`);
+        const { inserted, updated, rows } = await scrapeSemester(
+          db,
+          semester,
+          browser,
+        );
+        console.log(
+          `[${semester}] Saved: ${inserted} inserted, ${updated} updated (${rows} rows)`,
+        );
+        totalInserted += inserted;
+        totalUpdated += updated;
+        totalRows += rows;
+      }
+    } finally {
+      await browser.close();
+    }
+
+    console.log(
+      `\nDone. Totals: ${totalRows} rows, ${totalInserted} inserted, ${totalUpdated} updated`,
+    );
+    console.log(`Collection: ${DB_NAME}.${COLLECTION_NAME}`);
+  } catch (e) {
+    console.error(e instanceof Error ? e.message : String(e));
+    process.exit(1);
+  } finally {
+    await client.close();
+    console.log("Disconnected from MongoDB");
+  }
+})();
