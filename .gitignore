@@ -1,3 +1,17 @@
+*.log
+*.pot
+**/*.pyc
+**/__pycache__/
+db.sqlite3
+media/
 node_modules/
 .next/
 .env
+*.tsbuildinfo
+.venv/
+venv/
+restaurants/management/commands/downloads/
+*.png
+!staticfiles/*.png
+!**/static/*.png
+!./khukiestructures.png
