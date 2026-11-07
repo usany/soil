@@ -1,28 +1,38 @@
 {
-  "name": "maps",
+  "name": "soil",
   "version": "1.0.0",
-  "description": "",
+  "description": "Next.js frontend for Flight Maps",
   "license": "ISC",
   "author": "",
   "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "next dev",
+    "dev": "concurrently -n server,client -c blue,green \"npm:dev:server\" \"npm:dev:client\"",
+    "dev:server": "cd server && uv run manage.py runserver",
+    "dev:client": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "crawl": "node --env-file=.env scripts/scrapingnotion.ts",
+    "get-notion-links": "node --env-file=.env scripts/get-notion-links.ts",
+    "geocode": "node --env-file=.env scripts/geocoding.ts",
+    "nearest-airport": "node --env-file=.env scripts/nearest-airport.ts",
+    "pipeline": "node --env-file=.env scripts/run-pipeline.ts"
   },
   "dependencies": {
     "axios": "^1.19.0",
     "cheerio": "^1.2.0",
     "leaflet": "^1.9.4",
+    "mongodb": "^7.6.0",
     "next": "^15.1.6",
-    "pg": "^8.22.0",
     "playwright": "^1.62.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "@types/node": "20.17.6",
-    "@types/react": "19.3.0",
-    "typescript": "5.8.2"
+    "@types/leaflet": "^1.9.22",
+    "@types/node": "^26.4.0",
+    "@types/react": "^19.2.18",
+    "concurrently": "^9.1.2",
+    "typescript": "^6.0.3"
   }
 }

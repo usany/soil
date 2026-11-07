@@ -1,3 +1,53 @@
+/* Single source of truth for all styles: theme tokens, components, and
+   Leaflet overrides. Leaflet popup markup is rendered as HTML strings, but it
+   references the CSS variables below, so it themes correctly too. */
+
+:root {
+  --bg: #ffffff;
+  --text: #111827;
+  --text-secondary: #555555;
+  --text-muted: #4b5563;
+  --border: #cccccc;
+  --border-strong: #374151;
+  --surface: #f9fafb;
+  --surface-raised: #ffffff;
+  --input-bg: #ffffff;
+  --placeholder: #6b7280;
+  --accent: #0f766e;
+  --accent-contrast: #ffffff;
+  --accent-soft-bg: rgba(15, 118, 110, 0.12);
+  --accent-soft-border: rgba(15, 118, 110, 0.35);
+  --popup-bg: #ffffff;
+  --popup-tip: #ffffff;
+  --map-bg: #ffffff;
+  --bar-bg: #e5e7eb;
+  --bar-korea: #3b82f6;
+  --bar-selected: #10b981;
+  --percent-up: #ef4444;
+  --percent-down: #059669;
+}
+
+html.dark {
+  --bg: #111827;
+  --text: #e5e7eb;
+  --text-secondary: #d1d5db;
+  --text-muted: #9ca3af;
+  --border: #374151;
+  --border-strong: #374151;
+  --surface: #1f2937;
+  --surface-raised: #1f2937;
+  --input-bg: #1f2937;
+  --placeholder: #9ca3af;
+  --accent: #14b8a6;
+  --accent-contrast: #111827;
+  --popup-bg: #1f2937;
+  --popup-tip: #1f2937;
+  --map-bg: #111827;
+  --bar-bg: #374151;
+}
+
+/* ---- Base ---- */
+
 html,
 body {
   margin: 0;
@@ -5,47 +55,156 @@ body {
   overflow-x: hidden;
 }
 
-html.dark body {
-  background: #111827;
-  color: #e5e7eb;
+body {
+  background: var(--bg);
+  color: var(--text);
 }
 
-html.dark input,
-html.dark select {
-  background: #1f2937;
-  border-color: #374151;
-  color: #e5e7eb;
+/* ---- Layout containers ---- */
+
+.app-container {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-html.dark input::placeholder {
-  color: #9ca3af;
+.map-container {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
 }
 
-html.dark .leaflet-popup-content-wrapper,
-html.dark .leaflet-popup-tip {
-  background: #1f2937;
-  color: #e5e7eb;
+/* ---- Page title ---- */
+
+.page-title {
+  margin: 0;
+  font-size: 14px;
+  text-align: center;
 }
 
-html.dark .leaflet-container {
-  background: #111827;
+/* ---- Search controls ---- */
+
+.search-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
 }
 
-html.dark .lang-toggle {
-  color: #e5e7eb;
-  border-color: #374151;
+.search-controls select,
+.search-controls input {
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  font-size: 14px;
+  background: var(--input-bg);
+  color: var(--text);
+  box-sizing: border-box;
+  z-index: 1000;
 }
 
-.lang-toggle {
-  color: #111827;
+.search-controls input {
+  flex: 1 1 160px;
+  min-width: 0;
 }
+
+.search-controls input::placeholder {
+  color: var(--placeholder);
+}
+
+.search-controls button {
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  font-size: 16px;
+  cursor: pointer;
+  line-height: 1;
+  z-index: 1000;
+  transition: background-color 0.15s, border-color 0.15s;
+}
+
+.search-controls button:hover {
+  background: var(--surface);
+  border-color: var(--border-strong);
+}
+
+.search-controls .lang-toggle {
+  font-size: 13px;
+  font-weight: bold;
+  color: var(--text);
+}
+
+/* ---- Marker dialog ---- */
+
+.marker-dialog {
+  z-index: 2000;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--popup-bg);
+  color: var(--text);
+  max-width: min(420px, calc(100vw - 24px));
+  width: 100%;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+}
+
+.marker-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.marker-dialog-content {
+  padding: 16px 18px;
+  max-height: 60vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+.marker-dialog-close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 2px 6px;
+  z-index: 1;
+}
+
+.marker-dialog-close:hover {
+  color: var(--text);
+}
+
+/* ---- Leaflet overrides ---- */
 
 .leaflet-popup {
   max-width: 90vw;
 }
 
 .leaflet-popup-content-wrapper {
+  background: var(--popup-bg);
+  color: var(--text);
   max-width: min(360px, calc(100vw - 24px));
+}
+
+.leaflet-popup-tip {
+  background: var(--popup-tip);
+}
+
+.leaflet-container {
+  background: var(--map-bg);
 }
 
 .leaflet-popup-content {
@@ -70,99 +229,5 @@ html.dark .lang-toggle {
     max-width: calc(100vw - 16px);
     max-height: 45vh;
     margin: 8px 10px;
-  }
-}
-
-/* Keep small circle markers visually distinct on map */
-.leaflet-marker-icon .popup-trigger {
-  pointer-events: none;
-}
-
-.popup-btn {
-  margin-top: 6px;
-  padding: 6px 12px;
-  border: none;
-  border-radius: 6px;
-  background: #ef4444;
-  color: #fff;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.popup-btn:hover {
-  background: #dc2626;
-}
-
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 40px;
-  height: 22px;
-  margin-top: 6px;
-}
-
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  inset: 0;
-  background: #ccc;
-  border-radius: 22px;
-  transition: 0.3s;
-}
-
-.slider::before {
-  content: "";
-  position: absolute;
-  height: 16px;
-  width: 16px;
-  left: 3px;
-  bottom: 3px;
-  background: #fff;
-  border-radius: 50%;
-  transition: 0.3s;
-}
-
-.switch input:checked + .slider {
-  background: #ef4444;
-}
-
-.switch input:checked + .slider::before {
-  transform: translateX(18px);
-}
-
-.line-check {
-  display: none;
-  margin-top: 4px;
-  color: #22c55e;
-  font-weight: bold;
-  font-size: 14px;
-}
-
-.switch:has(.line-toggle:checked) + .line-check {
-  display: block;
-}
-
-.pop-text {
-  animation: pop-in 0.6s ease-out;
-}
-
-@keyframes pop-in {
-  0% {
-    transform: scale(0);
-    opacity: 0;
-  }
-  60% {
-    transform: scale(1.3);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
   }
 }
