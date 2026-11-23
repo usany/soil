@@ -1,4 +1,4 @@
-import { NEXT_PUBLIC_API_URL } from "@/lib/api";
+import { API_URL } from "@/lib/api";
 
 export async function getFlightPrice(
   origin: string,
@@ -6,7 +6,7 @@ export async function getFlightPrice(
   date: string,
 ) {
   try {
-    const url = `${NEXT_PUBLIC_API_URL}/api/flights/search/`;
+    const url = `${API_URL}/api/flights/search/`;
     const body = {
       destination: destination,
       date: date,
