@@ -14,8 +14,8 @@ An interactive web application that displays universities on a world map and pro
 
 ## Tech Stack
 
-- **Frontend**: Next.js 15, React 19, Leaflet (mapping library)
-- **Backend**: Next.js API routes, Playwright (browser automation)
+- **Frontend**: Vite, React 19, TypeScript, Leaflet (mapping library)
+- **Backend**: Django REST Framework (`server/`), Playwright (browser automation)
 - **Web Scraping**: Playwright with Cheerio
 - **Database**: PostgreSQL
 - **HTTP Client**: Axios
@@ -25,37 +25,42 @@ An interactive web application that displays universities on a world map and pro
 ### Prerequisites
 
 - Node.js 18+
-- npm or yarn
+- pnpm
+- uv (for the Django backend)
 
 ### Installation
 
 ```bash
 # Install dependencies
-npm install
+pnpm install
 
-# Run development server
-npm run dev
+# Run the backend and the Vite dev server together
+pnpm dev
 
-# Build for production
-npm build
+# Build the frontend for production (outputs to dist/)
+pnpm build
 
-# Start production server
-npm start
+# Preview the production build
+pnpm start
 ```
 
-The application will be available at `http://localhost:3000`
+The frontend runs at `http://localhost:5173` and talks to the Django backend at
+`http://localhost:8000`. Override the backend URL with `VITE_API_URL` in `.env`.
 
 ## Project Structure
 
 ```
-├── app/
-│   ├── layout.js              # Root layout component
-│   ├── page.js                # Main map page with interactive features
-│   ├── api/
-│   │   └── flight-price/
-│   │       └── route.js       # Flight price scraping API endpoint
-│   └── universities.json      # University data with coordinates
-├── next.config.js             # Next.js configuration
+├── index.html                 # Vite entry HTML (page title, #root mount point)
+├── vite.config.ts             # Vite configuration
+├── src/
+│   ├── main.tsx               # React entry: mounts <App /> and loads global CSS
+│   ├── App.tsx                # Main map page with interactive features
+│   └── globals.css            # Global styles
+├── components/                # UI components (search controls)
+├── hooks/                     # Search state and map initialization hooks
+├── lib/                       # API client, flight lookup, helpers
+├── server/                    # Django REST API backend
+├── scripts/                   # Node data pipeline scripts
 ├── package.json               # Project dependencies
 └── README.md                  # This file
 ```
