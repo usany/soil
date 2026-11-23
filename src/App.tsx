@@ -1,12 +1,10 @@
-"use client";
-
-import React, { Suspense, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSearch } from "@/hooks/useSearch";
 import { useMapInitialization } from "@/hooks/useMapInitialization";
 import { SearchControls } from "@/components/SearchControls";
-import { NEXT_PUBLIC_API_URL } from "@/lib/api";
+import { API_URL } from "@/lib/api";
 
-function HomeContent() {
+export default function App() {
   const mapRef = useRef<HTMLDivElement>(null);
   const [dark, setDark] = useState(() => {
     if (typeof window === "undefined") return false;
@@ -60,7 +58,7 @@ function HomeContent() {
   useEffect(() => {
     const fetchUniversities = async () => {
       try {
-        const response = await fetch(`${NEXT_PUBLIC_API_URL}/api/universities/`);
+        const response = await fetch(`${API_URL}/api/universities/`);
         const data = await response.json();
         if (data.success) {
           setUniversities(data.rows);
@@ -75,7 +73,7 @@ function HomeContent() {
   useEffect(() => {
     const fetchBigMacData = async () => {
       try {
-        const response = await fetch(`${NEXT_PUBLIC_API_URL}/api/bigmac/index/`);
+        const response = await fetch(`${API_URL}/api/bigmac/index/`);
         const data = await response.json();
         if (data.success) {
           setBigMacData(data);
@@ -136,13 +134,5 @@ function HomeContent() {
         />
       </div>
     </div>
-  );
-}
-
-export default function Home() {
-  return (
-    <Suspense fallback={null}>
-      <HomeContent />
-    </Suspense>
   );
 }
