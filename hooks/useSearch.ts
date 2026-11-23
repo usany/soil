@@ -1,21 +1,31 @@
-import { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+
+const readParams = () => new URLSearchParams(window.location.search);
 
 export function useSearch() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
   const [searchType, setSearchType] = useState(
-    () => searchParams.get("type") || "name",
+    () => readParams().get("type") || "name",
   );
   const [searchText, setSearchText] = useState(
-    () => searchParams.get("search") || "",
+    () => readParams().get("search") || "",
   );
+
+  // Keep state in sync when the user navigates back/forward.
+  useEffect(() => {
+    const onPopState = () => {
+      const params = readParams();
+      setSearchType(params.get("type") || "name");
+      setSearchText(params.get("search") || "");
+    };
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
+  }, []);
 
   const updateUrl = (newText: string, newType: string) => {
     const params = new URLSearchParams();
     if (newText) params.set("search", newText);
     if (newType !== "name") params.set("type", newType);
-    router.push(`?${params.toString()}`);
+    window.history.pushState(null, "", `?${params.toString()}`);
   };
 
   const filterMarkers = (
