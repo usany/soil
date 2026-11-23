@@ -91,7 +91,12 @@ export function useMapInitialization(
   useEffect(() => {
     if (mapInstanceRef.current || !mapRef.current) return;
 
+    // StrictMode runs this effect twice; the first run's async import must not
+    // create a second map on the same container.
+    let cancelled = false;
+
     import("leaflet").then(({ default: L }) => {
+      if (cancelled) return;
       const screenWidth =
         typeof window !== "undefined" ? window.innerWidth : 1024;
       const defaultZoom = Math.max(2, Math.ceil(Math.log2(screenWidth / 256)));
@@ -360,6 +365,7 @@ export function useMapInitialization(
     });
 
     return () => {
+      cancelled = true;
       if (mapInstanceRef.current) {
         mapInstanceRef.current.remove();
         mapInstanceRef.current = null;
