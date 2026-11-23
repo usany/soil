@@ -24,6 +24,15 @@ export function useMapInitialization(
   const dialogRef = useRef<HTMLDialogElement | null>(null);
   const dialogContentRef = useRef<HTMLDivElement | null>(null);
 
+  const clearAirportMarkers = () => {
+    const map = mapInstanceRef.current;
+    shownAirportsRef.current.forEach((value, key) => {
+      if (/-(date|departure)$/.test(key)) return;
+      if (map && value) map.removeLayer(value);
+    });
+    shownAirportsRef.current.clear();
+  };
+
   const openDialog = (html: string) => {
     if (typeof document === "undefined") return;
     if (!dialogRef.current) {
@@ -42,6 +51,7 @@ export function useMapInitialization(
       dialog.addEventListener("click", (e) => {
         if (e.target === dialog) dialog.close();
       });
+      dialog.addEventListener("close", () => clearAirportMarkers());
       document.body.appendChild(dialog);
       dialogRef.current = dialog;
       dialogContentRef.current = content;
@@ -124,9 +134,20 @@ export function useMapInitialization(
         ).addTo(map);
       };
 
-      const toggleAirportMarker = (
+      const removeAirportMarker = (key: string) => {
+        const marker = shownAirportsRef.current.get(key);
+        map.removeLayer(marker);
+        shownAirportsRef.current.delete(key);
+
+        const arc = shownAirportsRef.current.get(`${key}-arc`);
+        if (arc) {
+          map.removeLayer(arc);
+          shownAirportsRef.current.delete(`${key}-arc`);
+        }
+      };
+
+      const showAirportMarker = (
         airport: any,
-        button: HTMLElement,
         dateStr: string | null = null,
         departure: string = DEPARTURE,
       ) => {
@@ -134,19 +155,7 @@ export function useMapInitialization(
         const key = code || `${airport.lat},${airport.lon}`;
 
         if (shownAirportsRef.current.has(key)) {
-          const marker = shownAirportsRef.current.get(key);
-          map.removeLayer(marker);
-          shownAirportsRef.current.delete(key);
-
-          const arc = shownAirportsRef.current.get(`${key}-arc`);
-          if (arc) {
-            map.removeLayer(arc);
-            shownAirportsRef.current.delete(`${key}-arc`);
-          }
-
-          button.textContent = "Search ticket";
-          button.style.background = "#0f766e";
-          return;
+          removeAirportMarker(key);
         }
 
         const marker = L.marker([airport.lat, airport.lon], {
@@ -164,20 +173,24 @@ export function useMapInitialization(
         shownAirportsRef.current.set(`${key}-date`, dateStr);
         shownAirportsRef.current.set(`${key}-departure`, departure);
         shownAirportsRef.current.set(`${key}-arc`, arc);
-        button.textContent = "Hide from map";
-        button.style.background = "#d97706";
 
-        marker.on("click", () => {
-          if (!code) return;
-          const loadPrice = async (origin: string) => {
+        const suffix = `${code || airport.lat}-${airport.lon}`;
+        const resultId = `airport-result-${suffix}`;
+
+        const loadPrice = async (origin: string) => {
             const loadingHtml = `<div style="color:#999">${langRef.current === "ko" ? "가격 불러오는 중..." : "Loading prices..."}</div>`;
-            openDialog(
-              `<b style="font-size:14px">✈ ${esc(airport.name)}</b>` +
-                `<div style="margin-top:2px;color:#555">${esc(airport.city)}${code ? " &middot; " + esc(code) : ""}</div>` +
-                `<div id="flight-price-${code}" style="margin-top:8px;font-size:12px;color:#666">${loadingHtml}</div>`,
-            );
-            const priceDiv = document.getElementById(`flight-price-${code}`);
+            let priceDiv = document.getElementById(resultId);
+            if (!priceDiv) {
+              // Map dot clicked: no search popup open, so show the result in a dialog
+              openDialog(
+                `<b style="font-size:14px">✈ ${esc(airport.name)}</b>` +
+                  `<div style="margin-top:2px;color:#555">${esc(airport.city)}${code ? " &middot; " + esc(code) : ""}</div>` +
+                  `<div id="${resultId}" style="margin-top:8px;font-size:12px;color:#666"></div>`,
+              );
+              priceDiv = document.getElementById(resultId);
+            }
             if (!priceDiv) return;
+            priceDiv.innerHTML = loadingHtml;
 
             let finalDateStr = dateStr;
             if (!finalDateStr) {
@@ -271,9 +284,15 @@ export function useMapInitialization(
             }
 
             priceDiv.innerHTML = html;
-          };
+        };
+
+        const searchPrice = () => {
+          if (!code) return;
           loadPrice(departure);
-        });
+        };
+
+        marker.on("click", searchPrice);
+        return searchPrice;
       };
 
       const addMarkers = (rows: any[], color: string) => {
@@ -322,14 +341,7 @@ export function useMapInitialization(
                     dateId,
                   ) as HTMLInputElement;
                   const selectedDate = dateInput.value.replace(/-/g, "");
-                  const submitBtn = form.querySelector(
-                    "button[type='submit']",
-                  ) as HTMLElement;
-                  toggleAirportMarker(
-                    row.nearestAirport,
-                    submitBtn,
-                    selectedDate,
-                  );
+                  showAirportMarker(row.nearestAirport, selectedDate)();
                 });
               }
             }

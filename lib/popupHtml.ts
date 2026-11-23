@@ -57,13 +57,15 @@ export function popupHtml(
     const today = new Date().toISOString().split("T")[0];
     const suffix = `${code || a.lat}-${a.lon}`;
     let airportHtml =
-      `<div style="margin-top:4px;font-size:12px;color:var(--accent)">✈ ${esc(a.name)}` +
+      `<div style="margin-top:4px;font-size:12px;color:var(--text)">${lang === "ko" ? "가장 가까운 공항" : "Nearest airport"}</div>` +
+      `<div style="margin-top:2px;font-size:12px;color:var(--accent)">✈ ${esc(a.name)}` +
       (code ? ` (${esc(code)})` : "") +
       ` &middot; ${a.distanceKm} km</div>` +
       `<form id="show-airport-form-${suffix}" style="margin-top:6px;display:flex;gap:6px;align-items:center">` +
       `<input type="date" id="airport-date-${suffix}" value="${today}" style="padding:4px 6px;font-size:12px;border:1px solid var(--border);border-radius:3px;background:var(--input-bg);color:var(--text)">` +
       `<button type="submit" style="padding:4px 8px;background:var(--accent);color:var(--accent-contrast);border:none;border-radius:3px;cursor:pointer;font-size:12px">${lang === "ko" ? "티켓 검색" : "Search ticket"}</button>` +
-      `</form>`;
+      `</form>` +
+      `<div id="airport-result-${suffix}" style="margin-top:6px;font-size:12px"></div>`;
 
     if (bigMacData) {
       const bigMacHtml = getBigMacComparison(row, bigMacData, lang);
