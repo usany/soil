@@ -103,7 +103,7 @@ REST_FRAMEWORK = {
 CORS_ALLOWED_ORIGINS = _csv(
     os.getenv(
         "CORS_ALLOWED_ORIGINS",
-        "http://localhost:5173,https://soil-git-charlie-aoneuls-projects.vercel.app,https://soil-cgllfh7sd-aoneuls-projects.vercel.app",
+        "http://localhost:5173,https://soil-f9w1.vercel.app/,https://soil-git-charlie-aoneuls-projects.vercel.app,https://soil-cgllfh7sd-aoneuls-projects.vercel.app",
     )
 )
 
