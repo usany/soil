@@ -1,21 +1,18 @@
 import { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
 
 export function useSearch() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
   const [searchType, setSearchType] = useState(
-    () => searchParams.get("type") || "name",
+    () => new URLSearchParams(window.location.search).get("type") || "name",
   );
   const [searchText, setSearchText] = useState(
-    () => searchParams.get("search") || "",
+    () => new URLSearchParams(window.location.search).get("search") || "",
   );
 
   const updateUrl = (newText: string, newType: string) => {
     const params = new URLSearchParams();
     if (newText) params.set("search", newText);
     if (newType !== "name") params.set("type", newType);
-    router.push(`?${params.toString()}`);
+    window.history.pushState(null, "", `?${params.toString()}`);
   };
 
   const filterMarkers = (
