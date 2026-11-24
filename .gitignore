@@ -6,6 +6,7 @@ db.sqlite3
 media/
 node_modules/
 .next/
+dist/
 .env
 *.tsbuildinfo
 .venv/
