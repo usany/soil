@@ -20,6 +20,7 @@ function HomeContent() {
   const [lang, setLang] = useState(() =>
     typeof window !== "undefined" ? localStorage.getItem("lang") || "en" : "en",
   );
+  const [drawerOpen, setDrawerOpen] = useState(true);
   const [bigMacData, setBigMacData] = useState(null);
   const [universities, setUniversities] = useState<any>(null);
 
@@ -45,6 +46,10 @@ function HomeContent() {
     departments: t("학과 검색...", "Search departments..."),
     country: t("국가 검색...", "Search country..."),
   };
+
+  useEffect(() => {
+    mapInstanceRef.current?.invalidateSize();
+  }, [drawerOpen]);
 
   useEffect(() => {
     if (mapInstanceRef.current && markersRef.current.length > 0) {
@@ -84,37 +89,52 @@ function HomeContent() {
 
   return (
     <div className="app-container">
-      <h1 className="page-title">
-        {t("교환 대학교 지도", "Exchange Universities Map")}
-      </h1>
-      <SearchControls
-        searchType={searchType}
-        searchText={searchText}
-        dark={dark}
-        lang={lang}
-        searchLabels={searchLabels}
-        searchPlaceholders={searchPlaceholders}
-        onSearchTypeChange={(value) => {
-          setSearchType(value);
-          filterMarkers(searchText, value, markersRef, mapInstanceRef, shownAirportsRef);
-          updateUrl(searchText, value);
-        }}
-        onSearchTextChange={(value) => {
-          setSearchText(value);
-          filterMarkers(value, searchType, markersRef, mapInstanceRef, shownAirportsRef);
-          updateUrl(value, searchType);
-        }}
-        onThemeToggle={() => setDark((d) => !d)}
-        onLanguageToggle={() => {
-          const next = lang === "ko" ? "en" : "ko";
-          setLang(next);
-          localStorage.setItem("lang", next);
-        }}
-      />
-      <div
-        ref={mapRef}
-        className="map-container"
-      />
+      <div id="drawer-content" hidden={!drawerOpen}>
+        <h1 className="page-title">
+          {t("교환 대학교 지도", "Exchange Universities Map")}
+        </h1>
+        <SearchControls
+          searchType={searchType}
+          searchText={searchText}
+          dark={dark}
+          lang={lang}
+          searchLabels={searchLabels}
+          searchPlaceholders={searchPlaceholders}
+          onSearchTypeChange={(value) => {
+            setSearchType(value);
+            filterMarkers(searchText, value, markersRef, mapInstanceRef, shownAirportsRef);
+            updateUrl(searchText, value);
+          }}
+          onSearchTextChange={(value) => {
+            setSearchText(value);
+            filterMarkers(value, searchType, markersRef, mapInstanceRef, shownAirportsRef);
+            updateUrl(value, searchType);
+          }}
+          onThemeToggle={() => setDark((d) => !d)}
+          onLanguageToggle={() => {
+            const next = lang === "ko" ? "en" : "ko";
+            setLang(next);
+            localStorage.setItem("lang", next);
+          }}
+        />
+      </div>
+      <div className="map-wrapper">
+        <button
+          type="button"
+          className="drawer-toggle"
+          onClick={() => setDrawerOpen((o) => !o)}
+          aria-expanded={drawerOpen}
+          aria-controls="drawer-content"
+          aria-label={drawerOpen ? t("패널 닫기", "Hide panel") : t("패널 열기", "Show panel")}
+          title={drawerOpen ? t("패널 닫기", "Hide panel") : t("패널 열기", "Show panel")}
+        >
+          {drawerOpen ? "▴" : "▾"}
+        </button>
+        <div
+          ref={mapRef}
+          className="map-container"
+        />
+      </div>
     </div>
   );
 }
