@@ -1,6 +1,4 @@
-"use client";
-
-import React, { Suspense, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSearch } from "@/hooks/useSearch";
 import { useMapInitialization } from "@/hooks/useMapInitialization";
 import { SearchControls } from "@/components/SearchControls";
@@ -139,10 +137,4 @@ function HomeContent() {
   );
 }
 
-export default function Home() {
-  return (
-    <Suspense fallback={null}>
-      <HomeContent />
-    </Suspense>
-  );
-}
+export default HomeContent;
