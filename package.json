@@ -1,7 +1,7 @@
 {
   "name": "soil",
   "version": "1.0.0",
-  "description": "Next.js frontend for Flight Maps",
+  "description": "Vite + React frontend for Flight Maps",
   "license": "ISC",
   "author": "",
   "private": true,
@@ -9,9 +9,10 @@
   "scripts": {
     "dev": "concurrently -n server,client -c blue,green \"npm:dev:server\" \"npm:dev:client\"",
     "dev:server": "cd server && uv run manage.py runserver",
-    "dev:client": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "dev:client": "vite",
+    "build": "tsc --noEmit && vite build",
+    "start": "vite preview",
+    "typecheck": "tsc --noEmit",
     "crawl": "node --env-file=.env scripts/scrapingnotion.ts",
     "get-notion-links": "node --env-file=.env scripts/get-notion-links.ts",
     "geocode": "node --env-file=.env scripts/geocoding.ts",
